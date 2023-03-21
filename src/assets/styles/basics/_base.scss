@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+}
+
+body {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+}
+
+h1 {
+    font-size: rem(60px);
+}
+
+h2 {
+}
+
+h3 {
+}
+
+img {
+    width: 100%;
+}
+
+p {
+}
+
+.btn {
+    @include btn;
+
+    &-dark {
+        @include btn($type: dark);
+    }
+
+    &-light {
+        @include btn($type: light);
+    }
+}
+
+// links
+a {
+    &.active {
+    }
+}
