@@ -1,21 +1,21 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import AppFeed from './../views/AppFeed.vue'
 import AppExplore from './../views/AppExplore.vue'
 import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
+import postDetails from './../views/PostDetails.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'feed',
       component: AppFeed,
       children: [
         {
           path: 'p/:id',
           name: 'details',
-          component: AppDetails
+          component: postDetails
         }
       ]
     },
@@ -30,7 +30,7 @@ const router = createRouter({
       component: AppMessenger
     },
     {
-      path: '/:username',
+      path: '/username',
       name: 'user-area',
       component: UserArea
     },
