@@ -3,7 +3,8 @@ import AppFeed from './../views/AppFeed.vue'
 import AppExplore from './../views/AppExplore.vue'
 import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
-import postDetails from './../views/PostDetails.vue'
+import PostDetails from './../views/PostDetails.vue'
+import TestArea from './../views/TestingArea.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -15,7 +16,7 @@ const router = createRouter({
         {
           path: 'p/:id',
           name: 'details',
-          component: postDetails
+          component: PostDetails
         }
       ]
     },
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/username',
       name: 'user-area',
       component: UserArea
+    },
+    {
+      path: '/test',
+      name: '',
+      component: TestArea
     },
 
   ]

@@ -1,0 +1,33 @@
+.app-header {
+ background-color: $clr1;
+ align-content: center;
+ align-items: center;
+ border-bottom: 1px solid $clr4;
+ .header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+
+  input[name="search"] {
+   width: 60%;
+   height: 100%;
+   border: none;
+   padding: 0 1rem;
+   font-size: 1.2rem;
+   background-color: lighten($clr4, 8%);
+   border-radius: 0.5rem;
+   &:focus {
+    outline: none;
+   }
+   margin-inline-end: 1em;
+  }
+  .logo {
+   margin-inline-end: auto;
+  }
+  .icon {
+   transform: translateY(4px);
+  }
+ }
+}

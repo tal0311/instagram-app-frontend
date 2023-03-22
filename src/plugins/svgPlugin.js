@@ -1,4 +1,4 @@
-import { getSvg } from "./services/svg.service"
+import { getSvg } from "../services/svg.service"
 
 export default {
  install: (app) => {
