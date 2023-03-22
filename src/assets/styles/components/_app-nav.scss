@@ -1,0 +1,7 @@
+nav.app-nav {
+ place-items: center;
+
+ > * {
+  grid-area: 1;
+ }
+}
