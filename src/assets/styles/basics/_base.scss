@@ -3,6 +3,7 @@
 }
 
 html {
+    font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -15,19 +16,21 @@ body {
 }
 .app-header,
 .app-nav {
-    height: 5vh;
-    background: lightcoral;
+    height: 8vh;
+    // background: lightcoral;
 }
 .app-main {
-    background: lightblue;
-    height: 90vh;
+    // background: lightblue;
+    height: 84vh;
     overflow-y: auto;
     &::-webkit-scrollbar {
         width: 1em;
+        display: none;
     }
 
     &::-webkit-scrollbar-track {
         // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        display: none;
     }
 
     &::-webkit-scrollbar-thumb {
