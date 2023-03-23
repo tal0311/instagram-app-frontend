@@ -40,6 +40,11 @@ const router = createRouter({
       name: '',
       component: TestArea
     },
+    {
+      path: '/new-post',
+      name: '',
+      component: UserArea
+    },
 
   ]
 })

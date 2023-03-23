@@ -1,7 +1,7 @@
 <template>
  <article :class="['user-preview grid', is]">
   <img :src="user.imgUrl" alt="">
-  <span>{{ user.username }}</span>
+  <span v-if="!is === 'nav'">{{ user.username }}</span>
  </article>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
  },
  created() {
-  console.log('user', this.user);
+  // console.log('user', this.user);
  }
 }
 </script>

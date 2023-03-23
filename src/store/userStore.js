@@ -6,7 +6,7 @@ export const userStore = {
  },
  getters: {
   getUser(state) {
-   return state.getLoggedinUser
+   return state.loggedInUser
   }
  },
  mutations: {

@@ -1,0 +1,21 @@
+.post-preview {
+ margin: auto;
+ max-width: 470px;
+ border-bottom: 1px solid $clr4;
+ padding-bottom: 20px;
+ margin-bottom: 12px;
+ img {
+  aspect-ratio: 1/1;
+  object-fit: cover;
+ }
+
+ .post-actions {
+  width: 100%;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, 40px) 1fr;
+  i:last-child {
+   justify-self: end;
+   transform: translateX(4px);
+  }
+ }
+}

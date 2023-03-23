@@ -11,23 +11,32 @@
    <RouterLink to="/direct">
     <i v-html="$getSvg('inbox')"></i>
    </RouterLink>
-   <i v-html="$getSvg('new-post')"></i>
+   <RouterLink to="/new-post">
+    <i v-html="$getSvg('new-post')"></i>
+   </RouterLink>
    <RouterLink to="/username">
-    <i v-html="$getSvg('profile')"></i>
+    <UserPreview :user="getUser" is="nav" />
    </RouterLink>
   </div>
+
  </nav>
 </template>
 
 <script>
+
+
+import { mapGetters } from 'vuex';
 import UserPreview from './UserPreview.vue';
 export default {
  name: 'AppNav',
+ created() {
+  console.log('getUser:', this.getUser)
+ },
  components: {
   UserPreview
  },
  computed: {
-
+  ...mapGetters(['getUser'])
  }
 }
 </script>

@@ -8,10 +8,11 @@
   <div class="img-container">
    <img :src="post.imgUrl" alt="">
   </div>
-  <div class="post-actions">
-   <button class="like-btn">like</button>
-   <button class="comment-btn">comment</button>
-   <button class="share-btn">share</button>
+  <div class="post-actions grid">
+   <i v-html="$getSvg('like')"></i>
+   <i v-html="$getSvg('comment')"></i>
+   <i v-html="$getSvg('share')"></i>
+   <i v-html="$getSvg('save')"></i>
   </div>
   <footer class="post-footer">
    <p>{{ post.txt }}</p>

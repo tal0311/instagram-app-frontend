@@ -1,6 +1,6 @@
 
 <template>
-  <section v-if="posts">
+  <section v-if="posts" class="app-feed">
     <section class="post-list">
       <PostPreview v-for="post in posts" :key="post.id" :post="post" />
     </section>

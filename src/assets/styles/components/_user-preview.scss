@@ -10,4 +10,19 @@
   width: 32px;
   border-radius: 50%;
  }
+
+ // when the user-preview is in the app-nav
+ &.nav {
+  img {
+   box-sizing: content-box;
+   border: none;
+   padding: 2px;
+   height: 24px;
+   width: 24px;
+   border-radius: 50%;
+  }
+  &:hover {
+   transform: scale(1.1);
+  }
+ }
 }
