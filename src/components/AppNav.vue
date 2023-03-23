@@ -20,8 +20,15 @@
 </template>
 
 <script>
+import UserPreview from './UserPreview.vue';
 export default {
  name: 'AppNav',
+ components: {
+  UserPreview
+ },
+ computed: {
+
+ }
 }
 </script>
 

@@ -18,6 +18,16 @@ export const postService = {
 window.cs = postService
 
 
+
+// function likedBy() {
+//     return {
+//         _id: "u102",
+//         username: "Ulash",
+//         imgUrl: "https://res.cloudinary.com/mistertoysss/image/upload/v1648414285/funday%20must/photo-1618085222100-93f0eecad0aa_fuisxo.jpg",
+//         fullname: "Ulash Ulashi"
+//     }
+// }
+
 async function query(filterBy = { txt: '', price: 0 }) {
     var posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {

@@ -1,0 +1,13 @@
+.user-preview {
+ grid-auto-flow: column;
+ place-items: start;
+ place-content: start;
+ img {
+  box-sizing: content-box;
+  border: 1px solid red;
+  padding: 2px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+ }
+}

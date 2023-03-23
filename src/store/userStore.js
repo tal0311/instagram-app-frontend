@@ -1,10 +1,23 @@
-
+import { userService } from './../services/user.service'
 
 export const userStore = {
  state: {
-  loggedInUser: { username: 'tal.amit' }
+  loggedInUser: null
+ },
+ getters: {
+  getUser(state) {
+   return state.getLoggedinUser
+  }
  },
  mutations: {
+  setUser(state, { loggedInUser }) {
+   state.loggedInUser = loggedInUser
+  }
  },
- actions: {}
+ actions: {
+  loadUser({ commit }) {
+   const loggedInUser = userService.getLoggedinUser()
+   commit({ type: 'setUser', loggedInUser })
+  }
+ }
 }

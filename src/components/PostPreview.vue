@@ -1,7 +1,8 @@
 <template>
  <section class="post-preview">
   <header class="post-header">
-   <span>user-preview : {{ post.by.username }}</span> <span>{{ post.createdAt }}</span>
+   <UserPreview :user="post.by" is="preview" />
+   <span>{{ post.createdAt }}</span>
    <address>{{ post.loc.name }}</address>
   </header>
   <div class="img-container">
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+import UserPreview from './UserPreview.vue'
 export default {
  name: 'PostPreview',
  props: {
@@ -28,6 +30,9 @@ export default {
    required: true,
   },
  },
+ components: {
+  UserPreview
+ }
 }
 </script>
 
