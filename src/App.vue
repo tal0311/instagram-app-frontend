@@ -17,7 +17,9 @@ export default {
     this.loadUser()
   },
   methods: {
-    ...mapActions(['loadUser'])
+    ...mapActions({
+      loadUser: 'userStore/loadUser'
+    })
   },
   components: {
     AppHeader,

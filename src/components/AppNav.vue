@@ -15,7 +15,7 @@
     <i v-html="$getSvg('new-post')"></i>
    </RouterLink>
    <RouterLink to="/username">
-    <UserPreview :user="getUser" is="nav" />
+    <UserPreview v-if="getUser" :user="getUser" is="nav" />
    </RouterLink>
   </div>
 
@@ -31,12 +31,15 @@ export default {
  name: 'AppNav',
  created() {
   console.log('getUser:', this.getUser)
+  this.$store.dispatch('userStore/loadUser');
  },
  components: {
   UserPreview
  },
  computed: {
-  ...mapGetters(['getUser'])
+  ...mapGetters({
+   getUser: 'userStore/getUser'
+  })
  }
 }
 </script>

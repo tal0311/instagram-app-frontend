@@ -16,7 +16,7 @@ export default {
   components: {
   },
   created() {
-    this.$store.dispatch('loadPosts');
+    this.$store.dispatch('postStore/loadPosts');
   },
   data() {
     return {
@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      posts: 'getPosts',
+      posts: 'postStore/getPosts',
 
     }),
   },

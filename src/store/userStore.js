@@ -1,6 +1,7 @@
 import { userService } from './../services/user.service'
 
 export const userStore = {
+ namespaced: true,
  state: {
   loggedInUser: null
  },

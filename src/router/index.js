@@ -5,6 +5,7 @@ import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
 import PostDetails from './../views/PostDetails.vue'
 import TestArea from './../views/TestingArea.vue'
+import { store } from './../store/index'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -37,16 +38,32 @@ const router = createRouter({
     },
     {
       path: '/test',
-      name: '',
+      name: 'test',
       component: TestArea
     },
     {
       path: '/new-post',
-      name: '',
+      name: 'new-post',
       component: UserArea
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: TestArea
+    }
 
   ]
 })
 
+
+router.beforeEach((to, from, next) => {
+
+  const user = store.getters['userStore/getUser']
+  console.log('user:', user)
+  if (to.name !== 'login' && !user) {
+    next({ name: 'login' })
+    console.log('[redirected from guard]-[no logged user]')
+  }
+  else next()
+})
 export default router

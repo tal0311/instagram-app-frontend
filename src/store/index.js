@@ -4,6 +4,7 @@ import { postStore } from './postStore'
 
 // Create a new store instance.
 export const store = createStore({
+
  state: {
   msg: 'store connected'
  },

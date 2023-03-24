@@ -13,20 +13,9 @@ export const postService = {
     save,
     remove,
     getEmptyPost,
-    addPostMsg
+    addPostComment
 }
 window.cs = postService
-
-
-
-// function likedBy() {
-//     return {
-//         _id: "u102",
-//         username: "Ulash",
-//         imgUrl: "https://res.cloudinary.com/mistertoysss/image/upload/v1648414285/funday%20must/photo-1618085222100-93f0eecad0aa_fuisxo.jpg",
-//         fullname: "Ulash Ulashi"
-//     }
-// }
 
 async function query(filterBy = { txt: '', price: 0 }) {
     var posts = await storageService.query(STORAGE_KEY)
@@ -60,17 +49,17 @@ async function save(post) {
     return savedPost
 }
 
-async function addPostMsg(postId, txt) {
+async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
     const post = await getById(postId)
-    if (!post.msgs) post.msgs = []
+    if (!post.comments) post.comments = []
 
-    const msg = {
+    const comments = {
         id: utilService.makeId(),
         by: userService.getLoggedinUser(),
         txt
     }
-    post.msgs.push(msg)
+    post.comments.push(comments)
     await storageService.put(STORAGE_KEY, post)
 
     return msg

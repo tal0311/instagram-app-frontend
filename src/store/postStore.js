@@ -1,6 +1,7 @@
 import { postService } from "../services/post.service.local"
 
 export const postStore = {
+ namespaced: true,
  state: {
   posts: []
  },
