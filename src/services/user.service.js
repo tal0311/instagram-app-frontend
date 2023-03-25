@@ -22,6 +22,7 @@ export const userService = {
 
 window.userService = userService
 
+// const users = [gUser]
 
 function getUsers() {
     // return storageService.query('user')
@@ -58,7 +59,7 @@ async function update({ _id, score }) {
 }
 
 
-async function login(userCred) {
+async function login(credentials) {
     const users = await storageService.query('user')
     // const user = users.find(user => user.username === userCred.username)
     // const user = await httpService.post('auth/login', userCred)
@@ -101,10 +102,10 @@ function getLoggedinUser() {
 }
 
 
-// ; (async () => {
-//     saveLocalUser(gUser)
+; (async () => {
+    saveLocalUser(gUser)
 
-// })()
+})()
 
 
 
