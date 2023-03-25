@@ -1,9 +1,13 @@
 <template>
  <section class="post-preview">
-  <header class="post-header">
+  <header class="post-header grid">
    <UserPreview :user="post.by" is="preview" />
-   <span>{{ post.createdAt }}</span>
-   <address>{{ post.loc.name }}</address>
+   <div class="info grid">
+    <span class="username">{{ post.by.username }}</span>
+    <span>•</span>
+    <span>{{ formattedTime }}</span>
+    <small>{{ post.loc.name || 'Tel Aviv' }}</small>
+   </div>
   </header>
   <div class="img-container">
    <img :src="post.imgUrl" alt="">
@@ -22,6 +26,8 @@
 </template>
 
 <script>
+
+import { formattedRelativeTime } from '../services/timeService'
 import UserPreview from './UserPreview.vue'
 export default {
  name: 'PostPreview',
@@ -33,7 +39,12 @@ export default {
  },
  components: {
   UserPreview
- }
+ },
+ computed: {
+  formattedTime() {
+   return formattedRelativeTime(this.post.createdAt)
+  }
+ },
 }
 </script>
 
