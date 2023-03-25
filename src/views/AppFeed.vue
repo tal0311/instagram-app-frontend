@@ -1,12 +1,16 @@
 
 <template>
-  <section v-if="posts" class="app-feed">
-    <section class="post-list">
+  <section class="app-feed grid">
+    <section v-if="posts.length" class="post-list">
       <PostPreview v-for="post in posts" :key="post.id" :post="post" />
+    </section>
+    <section class="loading-logo grid" v-else>
+      <img :src="loadingSrc" alt="">
     </section>
     <RouterView />
   </section>
 </template>
+
 
 <script >
 import PostPreview from '../components/PostPreview.vue'
@@ -27,8 +31,10 @@ export default {
   computed: {
     ...mapGetters({
       posts: 'postStore/getPosts',
-
     }),
+    loadingSrc() {
+      return 'https://cdn.usbrandcolors.com/images/logos/instagram-logo.png'
+    },
   },
   components: {
     PostPreview
