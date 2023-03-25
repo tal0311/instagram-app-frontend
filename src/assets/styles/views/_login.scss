@@ -8,9 +8,10 @@
  justify-content: center;
 
  .login-form {
+  max-width: 470px;
   box-shadow: $bs;
   background: $clr1;
-  width: 50vw;
+  width: 75vw;
   padding: 30px 20px 5px 20px;
   gap: 5px;
   & > * {
