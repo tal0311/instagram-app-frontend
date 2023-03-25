@@ -11,7 +11,7 @@
    <RouterLink to="/direct">
     <i v-html="$getSvg('inbox')"></i>
    </RouterLink>
-   <RouterLink to="/new-post">
+   <RouterLink to="/new">
     <i v-html="$getSvg('new-post')"></i>
    </RouterLink>
    <RouterLink to="/username">
