@@ -34,7 +34,7 @@
  }
 
  .post-actions {
-  width: 100%;
+  margin-inline: 1em;
   grid-auto-flow: column;
   grid-template-columns: repeat(3, 40px) 1fr;
   i:last-child {
