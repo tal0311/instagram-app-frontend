@@ -62,10 +62,12 @@ export default {
   computed: {
 
     getClass() {
-      const userId = this.$store.getters['userStore/getUser']._id
-      const isLiked = this.post.likedBy.some(by => by._id === userId)
+      const user = this.$store.getters['userStore/getUser']
+      const isLiked = this.post.likedBy.some(by => by._id === user._id)
+      const isSaved = user.savedPostIds.includes(this.post._id)
       this.actions[0].icon = isLiked ? 'like-full' : 'like'
-      return `post-preview ${this.post._id} ${isLiked ? 'isLiked' : ''}`
+      this.actions[3].icon = isSaved ? 'save-full' : 'save'
+      return `post-preview ${this.post._id} ${isLiked ? 'isLiked' : ''} ${isSaved ? 'isSaved' : ''}`
     },
 
   },

@@ -1,9 +1,10 @@
-// import { storageService } from './async-storage.service'
+import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
 // import { store } from '../store/store'
 // import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 
 import gUser from './../data/user.json' assert {type: 'json'}
+import { utilService } from './util.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -15,58 +16,65 @@ export const userService = {
     saveLocalUser,
     getUsers,
     getById,
-    remove,
     update,
-    changeScore
+    toggleSavedPost
 }
 
 window.userService = userService
 
-// const users = [gUser]
+const users = [gUser]
 
 function getUsers() {
-    // return storageService.query('user')
-    return httpService.get(`user`)
-}
-
-function onUserUpdate(user) {
-
-    store.dispatch({ type: 'setWatchedUser', user })
+    return storageService.query('user')
+    // return httpService.get(`user`)
 }
 
 async function getById(userId) {
-    // const user = await storageService.get('user', userId)
-    const user = await httpService.get(`user/${userId}`)
-
-
+    const user = await storageService.get('user', userId)
+    // const user = await httpService.get(`user/${userId}`)
     return user
 }
-function remove(userId) {
-
-    // return httpService.delete(`user/${userId}`)
+function onUserUpdate(user) {
+    // store.dispatch({ type: 'setWatchedUser', user })
 }
 
-async function update({ _id, score }) {
-    const user = await storageService.get('user', _id)
+
+async function update(user) {
+    // const user = await storageService.get('user', _id)
+    // debugger
     // let user = getById(_id)
     // user.score = score
     await storageService.put('user', user)
-
-    user = await httpService.put(`user/${user._id}`, user)
+    // user = await httpService.put(`user/${user._id}`, user)
     // Handle case in which admin updates other user's details
-
     return user
 }
 
+async function toggleSavedPost(postId) {
+    const userId = getLoggedinUser()._id
+    const user = await getById(userId)
+    if (!user) throw new Error('Not loggedin')
+    if (user.savedPostIds.includes(postId)) {
+        debugger
+        const idx = user.savedPostIds.findIndex(p => p === postId)
+        user.savedPostIds.splice(idx, 1)
+        await update(user)
+        return saveLocalUser(user)
+    }
+    user.savedPostIds.push(postId)
+    await update(user)
+    return saveLocalUser(user)
+
+}
 
 async function login(credentials) {
     const users = await storageService.query('user')
-    // const user = users.find(user => user.username === userCred.username)
+    const user = users.find(user => user.username === userCred.username)
     // const user = await httpService.post('auth/login', userCred)
-    // if (user) {
-    //     socketService.login(user._id)
-    //     return saveLocalUser(user)
-    // }
+    if (user) {
+        // socketService.login(user._id)
+        return saveLocalUser(user)
+    }
 }
 async function signup(userCred) {
 
@@ -82,17 +90,8 @@ async function logout() {
     return await httpService.post('auth/logout')
 }
 
-async function changeScore(by) {
-    const user = getLoggedinUser()
-    if (!user) throw new Error('Not loggedin')
-    user.score = user.score + by || by
-    await update(user)
-    return user.score
-}
-
 
 function saveLocalUser(user) {
-
     localStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
@@ -102,10 +101,11 @@ function getLoggedinUser() {
 }
 
 
-; (() => {
-    saveLocalUser(gUser)
 
-})()
+// ; (() => {
+//     saveLocalUser(users[0])
+//     utilService.saveToStorage('user', users)
+// })()
 
 
 
