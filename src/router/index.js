@@ -5,6 +5,7 @@ import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
 import PostDetails from './../views/PostDetails.vue'
 import TestArea from './../views/TestingArea.vue'
+import AppLogin from './../views/AppLogin.vue'
 import { store } from './../store/index'
 
 const router = createRouter({
@@ -49,7 +50,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: TestArea
+      component: AppLogin
     }
 
   ]
