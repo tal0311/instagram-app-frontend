@@ -5,7 +5,7 @@
    <div class="info grid">
     <span class="username">{{ post.by.username }}</span>
     <span>•</span>
-    <span>{{ formattedTime }}</span>
+    <span>{{ formattedTime(post.createdAt) }}</span>
     <small>{{ post.loc.name || 'Tel Aviv' }}</small>
    </div>
   </header>
@@ -37,13 +37,13 @@ export default {
    required: true,
   },
  },
+ methods: {
+  formattedTime(ts) {
+   return formattedRelativeTime(ts)
+  }
+ },
  components: {
   UserPreview
- },
- computed: {
-  formattedTime() {
-   return formattedRelativeTime(this.post.createdAt)
-  }
  },
 }
 </script>
