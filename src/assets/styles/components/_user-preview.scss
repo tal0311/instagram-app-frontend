@@ -2,9 +2,18 @@
  grid-auto-flow: column;
  place-items: start;
  place-content: start;
+
+ .gradient-wrapper {
+  background: $grad;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  padding: 0.1em;
+ }
  img {
   box-sizing: content-box;
-  border: 1px solid red;
+  // border: 1px solid $grad;
+  box-shadow: inset 0 0 1px 2px #fff;
   padding: 2px;
   height: 32px;
   width: 32px;
@@ -13,13 +22,15 @@
 
  // when the user-preview is in the app-nav
  &.nav {
+  .gradient-wrapper {
+   background: none;
+  }
   img {
    box-sizing: content-box;
    border: none;
    padding: 2px;
    height: 24px;
    width: 24px;
-   border-radius: 50%;
   }
   &:hover {
    transform: scale(1.1);

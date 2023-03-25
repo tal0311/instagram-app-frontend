@@ -1,6 +1,8 @@
 <template>
  <article :class="['user-preview grid', is]">
-  <img :src="user.imgUrl" alt="">
+  <div class="gradient-wrapper">
+   <img :src="user.imgUrl" alt="">
+  </div>
   <span v-if="!is === 'nav'">{{ user.username }}</span>
  </article>
 </template>
