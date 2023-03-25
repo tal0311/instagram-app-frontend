@@ -1,8 +1,8 @@
 
 <template>
   <section class="app-feed grid">
-    <section v-if="posts.length" class="post-list">
-      <PostPreview v-for="post in posts" :key="post.id" :post="post" />
+    <section v-if="posts" class="post-list">
+      <PostPreview @action="onPostAction" v-for="post in posts" :key="post._id" :post="post" />
     </section>
     <section class="loading-logo grid" v-else>
       <img :src="loadingSrc" alt="">
@@ -27,6 +27,11 @@ export default {
     };
   },
   methods: {
+    onPostAction({ action, postId }) {
+      console.log('action:', action)
+      console.log('postId:', postId)
+      this.$store.dispatch('postStore/postActions', { action, postId })
+    },
   },
   computed: {
     ...mapGetters({

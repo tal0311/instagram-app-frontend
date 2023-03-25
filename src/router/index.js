@@ -59,6 +59,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
+  store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
 
   if (to.name !== 'login' && !user) {

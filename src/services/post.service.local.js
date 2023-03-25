@@ -13,7 +13,8 @@ export const postService = {
     save,
     remove,
     getEmptyPost,
-    addPostComment
+    addPostComment,
+    addPostLike
 }
 window.cs = postService
 
@@ -64,6 +65,33 @@ async function addPostComment(postId, txt) {
 
     return msg
 }
+async function addPostLike(postId) {
+    // Later, this is all done by the backend
+    const post = await getById(postId)
+    if (!post.likedBy) post.likedBy = []
+
+
+    const { username: by, _id, imgUrl } = userService.getLoggedinUser()
+    const idx = post.likedBy.findIndex(by => by._id === _id)
+    if (idx === -1) {
+        const like = {
+            _id,
+            by,
+            imgUrl
+        }
+        post.likedBy.push(like)
+        return await storageService.put(STORAGE_KEY, post)
+
+    }
+
+    post.likedBy.splice(idx, 1)
+    return await storageService.put(STORAGE_KEY, post)
+
+
+}
+
+
+
 
 function getEmptyPost() {
     return {
@@ -91,13 +119,21 @@ function getEmptyPost() {
 
 
 // TEST DATA
-// ; (async () => {
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
-//     await storageService.post(STORAGE_KEY, gPost)
+// ; (() => {
+//     let posts = [gPost, gPost, gPost, gPost, gPost]
+
+//     posts = posts.map(post => {
+
+//         const wordLength = utilService.getRandomIntInclusive(0, 8)
+
+//         return {
+//             ...post,
+//             txt: utilService.makeLorem(wordLength),
+//             _id: utilService.makeId()
+//         }
+
+//     })
+//     utilService.saveToStorage(STORAGE_KEY, posts)
+
+
 // })()
