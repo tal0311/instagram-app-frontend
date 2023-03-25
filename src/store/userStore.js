@@ -12,13 +12,27 @@ export const userStore = {
  },
  mutations: {
   setUser(state, { loggedInUser }) {
+   console.log('loggedInUser:', loggedInUser)
    state.loggedInUser = loggedInUser
   }
  },
  actions: {
   loadUser({ commit }) {
    const loggedInUser = userService.getLoggedinUser()
+   console.log('loggedInUser:', loggedInUser)
    commit({ type: 'setUser', loggedInUser })
+  },
+  async savePost({ commit }, { postId }) {
+   console.log('postId user store:', postId)
+   // debugger
+   try {
+    const loggedInUser = await userService.toggleSavedPost(postId)
+    commit({ type: 'setUser', loggedInUser })
+   } catch (error) {
+    console.log(`[userStore/saveStore erroring 
+    trying to save post with id ${postId}]:`, error)
+
+   }
   }
  }
 }

@@ -1,4 +1,5 @@
 import { postService } from "../services/post.service.local"
+import { userService } from "../services/user.service"
 
 export const postStore = {
   namespaced: true,
@@ -23,10 +24,9 @@ export const postStore = {
   actions: {
     async loadPosts({ commit }) {
       const posts = await postService.query()
-
       commit({ type: 'setPosts', posts })
     },
-    async postActions({ commit }, { action, postId, }) {
+    async postActions({ commit, dispatch }, { action, postId, }) {
       // debugger
 
       try {
@@ -35,15 +35,18 @@ export const postStore = {
         switch (action) {
           case 'like':
             post = await postService.addPostLike(postId)
+            commit({ type: 'updatePost', post })
+            break;
+          case 'save':
+            dispatch('userStore/savePost', { postId }, { root: true })
             break;
 
           default:
             break;
 
         }
-        commit({ type: 'updatePost', post })
       } catch (error) {
-        console.log(`[error ${action} on post ${postId}]:`, error)
+        console.log(`[error ${action}ing on post ${postId}]:`, error)
 
       }
     }
