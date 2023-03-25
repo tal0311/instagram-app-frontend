@@ -65,9 +65,7 @@ export default {
       const userId = this.$store.getters['userStore/getUser']._id
       const isLiked = this.post.likedBy.some(by => by._id === userId)
       this.actions[0].icon = isLiked ? 'like-full' : 'like'
-      console.log('this.actions[0].icon:', this.actions[0].icon, isLiked)
       return `post-preview ${this.post._id} ${isLiked ? 'isLiked' : ''}`
-
     },
 
   },
