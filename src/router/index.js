@@ -59,7 +59,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
   const user = store.getters['userStore/getUser']
-  console.log('user:', user)
+
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
     console.log('[redirected from guard]-[no logged user]')

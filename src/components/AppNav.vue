@@ -30,7 +30,6 @@ import UserPreview from './UserPreview.vue';
 export default {
  name: 'AppNav',
  created() {
-  console.log('getUser:', this.getUser)
   this.$store.dispatch('userStore/loadUser');
  },
  components: {
