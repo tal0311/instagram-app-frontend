@@ -69,8 +69,6 @@ async function addPostLike(postId) {
     // Later, this is all done by the backend
     const post = await getById(postId)
     if (!post.likedBy) post.likedBy = []
-
-
     const { username: by, _id, imgUrl } = userService.getLoggedinUser()
     const idx = post.likedBy.findIndex(by => by._id === _id)
     if (idx === -1) {
@@ -81,17 +79,10 @@ async function addPostLike(postId) {
         }
         post.likedBy.push(like)
         return await storageService.put(STORAGE_KEY, post)
-
     }
-
     post.likedBy.splice(idx, 1)
     return await storageService.put(STORAGE_KEY, post)
-
-
 }
-
-
-
 
 function getEmptyPost() {
     return {
