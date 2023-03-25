@@ -102,7 +102,7 @@ function getLoggedinUser() {
 }
 
 
-; (async () => {
+; (() => {
     saveLocalUser(gUser)
 
 })()
