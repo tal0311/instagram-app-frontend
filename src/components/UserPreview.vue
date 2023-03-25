@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// TODO: add user story on user entity
 export default {
  name: 'UserPreview',
  props: {
