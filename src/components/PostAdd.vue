@@ -15,6 +15,7 @@
  </dialog>
 </template>
 
+// TODO: fix font weight
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 export default {

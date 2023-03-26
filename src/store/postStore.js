@@ -25,7 +25,6 @@ export const postStore = {
 
     },
     toggleModal(state) {
-      console.log('modal:',)
       state.isModalOpen = !state.isModalOpen
     }
   },
