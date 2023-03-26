@@ -21,6 +21,7 @@ export default {
   },
   created() {
     this.$store.dispatch('postStore/loadPosts');
+
   },
   data() {
     return {
@@ -28,8 +29,6 @@ export default {
   },
   methods: {
     onPostAction({ action, postId }) {
-      console.log('action:', action)
-      console.log('postId:', postId)
       this.$store.dispatch('postStore/postActions', { action, postId })
     },
   },

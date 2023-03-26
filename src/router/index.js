@@ -38,15 +38,15 @@ const router = createRouter({
       component: UserArea
     },
     {
-      path: '/test',
-      name: 'test',
-      component: TestArea
-    },
-    {
       path: '/login',
       name: 'login',
       component: AppLogin
-    }
+    },
+
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: "/"
+    },
 
   ]
 })
@@ -55,26 +55,17 @@ const router = createRouter({
 
 const routerHistory = []
 router.beforeEach((to, from, next) => {
-  console.log('to:', to)
-  console.log('router:', router)
+  console.log('routerHistory:', routerHistory)
 
-  const avoidHistory = ['/new']
-  if (!avoidHistory.includes(to.path)) {
-    routerHistory.push(to.path)
-    console.log('routerHistory:', routerHistory)
-  }
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
+  console.log('user:', user)
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
     console.log('[redirected from guard]-[no logged user]')
   }
-  if (to.path === '/new') {
-    console.log('dispatch to store ope new post modal:')
-    next(routerHistory.pop())
 
-  }
   else next()
 })
 export default router

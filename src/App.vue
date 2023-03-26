@@ -4,10 +4,12 @@
     <RouterView />
   </main>
   <AppNav />
+  <PostAdd v-if="isModalOpen" />
 </template>
 
 <script >
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import PostAdd from './components/PostAdd.vue'
 import AppNav from './components/AppNav.vue';
 import AppHeader from './components/AppHeader.vue'
 export default {
@@ -21,9 +23,15 @@ export default {
       loadUser: 'userStore/loadUser'
     })
   },
+  computed: {
+    ...mapGetters({
+      isModalOpen: 'postStore/isModalOpen'
+    })
+  },
   components: {
     AppHeader,
-    AppNav
+    AppNav,
+    PostAdd
   }
 }
 </script>

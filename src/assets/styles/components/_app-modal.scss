@@ -1,0 +1,40 @@
+.app-modal {
+ border: none !important;
+ box-shadow: 0 0 #0000, 0 0 #0000, 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+ min-width: 300px;
+ height: 400px;
+ width: 350px;
+ border-radius: 1em;
+ padding: 0;
+
+ .close-btn {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  background: none;
+  border: none;
+  &:focus {
+   outline: none;
+  }
+ }
+
+ h1 {
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5em 0;
+  border-bottom: 1px solid #dbdbdb;
+ }
+
+ form {
+  transform: translateY(50%);
+  place-items: center;
+  button {
+   @include app-btn(7px, 16px);
+   border-radius: 8px;
+  }
+ }
+ &::backdrop {
+  background-color: rgba(0, 0, 0, 0.67);
+ }
+}

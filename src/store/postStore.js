@@ -4,11 +4,15 @@ import { userService } from "../services/user.service"
 export const postStore = {
   namespaced: true,
   state: {
-    posts: null
+    posts: null,
+    isModalOpen: false
   },
   getters: {
     getPosts(state) {
       return state.posts
+    },
+    isModalOpen(state) {
+      return state.isModalOpen
     }
   },
   mutations: {
@@ -19,6 +23,10 @@ export const postStore = {
       const idx = state.posts.findIndex(p => p._id === post._id)
       state.posts.splice(idx, 1, post)
 
+    },
+    toggleModal(state) {
+      console.log('modal:',)
+      state.isModalOpen = !state.isModalOpen
     }
   },
   actions: {

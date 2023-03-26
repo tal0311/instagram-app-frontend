@@ -38,8 +38,7 @@ export default {
     },
   },
   created() {
-    const userId = this.$store.getters['userStore/getUser']._id
-    console.log(' liked:', this.post.likedBy.some(by => by._id === userId))
+
   },
   data() {
     return {
