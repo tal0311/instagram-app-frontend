@@ -1,0 +1,27 @@
+.post-list {
+ // display: grid;
+ // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ // grid-gap: 1em;
+ // padding: 1em;
+ // margin: 0 auto;
+ // max-width: 1200px;
+ // place-items: center;
+ // place-content: center;
+ // .post-preview {
+ //  width: 100%;
+ // }
+ .no-posts {
+  display: grid;
+  place-items: center;
+  place-content: center;
+  height: 300px;
+  width: 100%;
+  .img {
+   background: url("/src/assets/images/insta-sprite.png") no-repeat;
+   background-position-x: -126px;
+   background-position-y: -266px;
+   width: 66px;
+   height: 67px;
+  }
+ }
+}

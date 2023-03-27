@@ -6,8 +6,8 @@ export const postStore = {
   state: {
     posts: null,
     isModalOpen: false,
-    userPosts: null,
-    filter: {}
+
+    filter: null
   },
   getters: {
     getPosts(state) {
@@ -15,7 +15,8 @@ export const postStore = {
     },
     isModalOpen(state) {
       return state.isModalOpen
-    }
+    },
+
   },
   mutations: {
     setPosts(state, { posts }) {
@@ -28,13 +29,30 @@ export const postStore = {
     },
     toggleModal(state) {
       state.isModalOpen = !state.isModalOpen
+    },
+    setFilter(state, { filterBy }) {
+      state.filter = { ...state.filter, ...filterBy }
+      console.log('state.filter:', state.filter)
     }
 
   },
   actions: {
     async loadPosts({ commit, state }) {
-      const posts = await postService.query(state.filter)
-      commit({ type: 'setPosts', posts })
+      try {
+        const posts = await postService.query({ ...state.filter })
+        commit({ type: 'setPosts', posts })
+      } catch (error) {
+        console.log('error trying to load posts:', error)
+      }
+    },
+    async filterPosts({ dispatch, commit }, { filterBy }) {
+      console.log('filterBy:', filterBy)
+      commit({ type: 'setFilter', filterBy })
+      try {
+        await dispatch('loadPosts')
+      } catch (error) {
+        console.log(':',)
+      }
     },
     async postActions({ commit, dispatch }, { action, postId, }) {
       // debugger

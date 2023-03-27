@@ -1,0 +1,25 @@
+.user-area {
+ &.grid {
+  grid-template-rows: min-content 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+   "header "
+   "dashboard"
+   "post-list";
+
+  header {
+   background: lightblue;
+   grid-area: "header";
+  }
+
+  .dashboard-container {
+   background: lightgreen;
+   grid-area: "dashboard";
+   height: 4rem;
+  }
+  .router-container {
+   background: lightcoral;
+   grid-area: "post-list";
+  }
+ }
+}
