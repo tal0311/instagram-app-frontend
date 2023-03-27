@@ -5,8 +5,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
- name: 'UserArea'
+ name: 'UserArea',
+ created() {
+  this.$store.dispatch('postStore/loadPosts');
+ },
+ computed: {
+
+  ...mapGetters({})
+
+
+ }
 }
 </script>
 

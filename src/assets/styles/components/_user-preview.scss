@@ -41,4 +41,15 @@
    transform: scale(1.1);
   }
  }
+
+ // when the user-preview is in the story-list
+ &.story {
+  img {
+   box-sizing: content-box;
+   border: none;
+   padding: 2px;
+   height: 56px;
+   width: 56px;
+  }
+ }
 }
