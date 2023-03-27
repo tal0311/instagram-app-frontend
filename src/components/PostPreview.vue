@@ -1,6 +1,5 @@
 <template>
   <section :class="getClass">
-    <!-- <pre>{{ isLiked }}</pre> -->
     <header class="post-header grid">
       <UserPreview :user="post.by" is="preview" />
       <div class="info grid">

@@ -1,6 +1,7 @@
 
 <template>
   <section class="app-feed grid">
+    <StoryList :userList="getUser" />
     <section v-if="posts" class="post-list">
       <PostPreview @action="onPostAction" v-for="post in posts" :key="post._id" :post="post" />
     </section>
@@ -13,12 +14,12 @@
 
 
 <script >
+import StoryList from '../components/StoryList.vue';
 import PostPreview from '../components/PostPreview.vue'
 import { mapGetters } from 'vuex'
 export default {
   name: 'AppFeed',
-  components: {
-  },
+
   created() {
     this.$store.dispatch('postStore/loadPosts');
 
@@ -35,13 +36,15 @@ export default {
   computed: {
     ...mapGetters({
       posts: 'postStore/getPosts',
+      getUser: 'userStore/getUser',
     }),
     loadingSrc() {
       return 'https://cdn.usbrandcolors.com/images/logos/instagram-logo.png'
     },
   },
   components: {
-    PostPreview
+    PostPreview,
+    StoryList,
   }
 }
 

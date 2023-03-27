@@ -5,7 +5,9 @@ export const postStore = {
   namespaced: true,
   state: {
     posts: null,
-    isModalOpen: false
+    isModalOpen: false,
+    userPosts: null,
+    filter: {}
   },
   getters: {
     getPosts(state) {
@@ -27,10 +29,11 @@ export const postStore = {
     toggleModal(state) {
       state.isModalOpen = !state.isModalOpen
     }
+
   },
   actions: {
-    async loadPosts({ commit }) {
-      const posts = await postService.query()
+    async loadPosts({ commit, state }) {
+      const posts = await postService.query(state.filter)
       commit({ type: 'setPosts', posts })
     },
     async postActions({ commit, dispatch }, { action, postId, }) {
@@ -56,6 +59,9 @@ export const postStore = {
         console.log(`[error ${action}ing on post ${postId}]:`, error)
 
       }
+    },
+    async setFilter({ commit, state }, { filter }) {
+      commit({ type: 'setFilter', filter })
     }
   },
 }

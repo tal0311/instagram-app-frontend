@@ -45,7 +45,7 @@ const router = createRouter({
 
     {
       path: '/:pathMatch(.*)*',
-      redirect: "/"
+      redirect: "/username"
     },
 
   ]
@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
 
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
-  console.log('user:', user)
+  // console.log('user:', user)
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
