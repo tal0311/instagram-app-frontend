@@ -18,16 +18,43 @@ export const postService = {
 }
 window.cs = postService
 
-async function query(filterBy = { txt: '', price: 0 }) {
-    var posts = await storageService.query(STORAGE_KEY)
+async function query(filterBy = { txt: '', userFilter: '' }) {
+
+    let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         posts = posts.filter(post => regex.test(post.vendor) || regex.test(post.description))
     }
-    if (filterBy.price) {
-        posts = posts.filter(post => post.price <= filterBy.price)
+    if (filterBy.userFilter) {
+        posts = userFilter(posts, filterBy.userFilter)
     }
     return posts
+}
+
+function userFilter(posts, type) {
+    const user = userService.getLoggedinUser()
+    console.log('user:', user)
+    switch (type) {
+        // posts user tagged in
+        case 'tagged-posts':
+
+            break;
+        // posts created by the user
+        case 'post':
+            const userPosts = user.posts
+            return posts.filter(post => userPosts.includes(post._id))
+
+            break;
+        // posts saved by the user
+        case 'saved-posts':
+            const savedIds = user.savedPostIds
+            return posts.filter(post => savedIds.includes(post._id))
+
+            break;
+
+        default:
+            break;
+    }
 }
 
 function getById(postId) {

@@ -5,6 +5,8 @@ import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
 import PostDetails from './../views/PostDetails.vue'
 import TestArea from './../views/TestingArea.vue'
+import PostList from './../components/PostList.vue'
+
 import AppLogin from './../views/AppLogin.vue'
 import { store } from './../store/index'
 
@@ -35,7 +37,25 @@ const router = createRouter({
     {
       path: '/username',
       name: 'user-area',
-      component: UserArea
+      component: UserArea,
+
+      children: [
+        {
+          path: '/username',
+          name: 'post',
+          component: PostList
+        },
+        {
+          path: 'saved',
+          name: 'saved-posts',
+          component: PostList
+        },
+        {
+          path: 'tagged',
+          name: 'tagged-post',
+          component: PostList
+        }
+      ]
     },
     {
       path: '/login',
