@@ -47,6 +47,7 @@ export const postStore = {
   },
   actions: {
     async loadPosts({ commit, state }) {
+      console.log('loading posts')
       try {
         const posts = await postService.query({ ...state.filter })
         commit({ type: 'setPosts', posts })
@@ -55,7 +56,6 @@ export const postStore = {
       }
     },
     async filterPosts({ dispatch, commit }, { filterBy }) {
-      console.log('filterBy:', filterBy)
       commit({ type: 'setFilter', filterBy })
       try {
         await dispatch('loadPosts')
@@ -90,9 +90,14 @@ export const postStore = {
     async setFilter({ commit, state }, { filter }) {
       commit({ type: 'setFilter', filter })
     },
-    async getExploreData({ commit }) {
-      const explorePosts = await postService.getExploreDate()
-      commit('setExplorePosts', { explorePosts })
+    async getExploreData({ dispatch, commit }) {
+      try {
+        const explorePosts = await postService.getExploreDate()
+        commit('setExplorePosts', { explorePosts })
+      } catch (error) {
+        await dispatch('loadPosts')
+        console.log('[Error in getExploreData]:', error)
+      }
     }
   },
 }

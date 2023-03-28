@@ -98,6 +98,7 @@ async function logout() {
 
 
 function saveLocalUser(user) {
+    debugger
     localStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
@@ -108,10 +109,10 @@ function getLoggedinUser() {
 
 
 
-; (() => {
-    saveLocalUser(users[0])
-    utilService.saveToStorage('user', users)
-})()
+// ; (() => {
+//     saveLocalUser(users[0])
+//     utilService.saveToStorage('user', users)
+// })()
 
 
 

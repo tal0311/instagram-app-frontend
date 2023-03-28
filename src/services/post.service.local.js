@@ -143,28 +143,33 @@ function getEmptyPost() {
 
 
 async function getExploreDate() {
-
+    debugger
     // TODO: CONVERT TO HTTP SERVICE
     let explorePosts = utilService.loadFromStorage('explore_db') || []
     const user = userService.getLoggedinUser()
 
     console.log('user', user.tags)
+    try {
+        explorePosts = Promise.all(user.tags.map(async tag => {
+            const url = `https://source.unsplash.com/random/400×400/?${tag}`
+            const res = await axios.get(url)
+            console.log('getting from API')
+            return {
+                imgUrl: res.request.responseURL,
+                tag
+            }
 
-    explorePosts = Promise.all(user.tags.map(async tag => {
-        const url = `https://source.unsplash.com/random/400×400/?${tag}`
-        const res = await axios.get(url)
-        console.log('getting from API')
-        return {
-            imgUrl: res.request.responseURL,
-            tag
-        }
+        }))
+        utilService.saveToStorage('explore_db', explorePosts)
 
-    }))
 
-    utilService.saveToStorage('explore_db', explorePosts)
-    console.log('explorePosts:', explorePosts)
+        return explorePosts
 
-    return explorePosts
+    } catch (error) {
+        throw new Error('Error while trying getting explore data' + error)
+
+    }
+
 }
 
 function getTags(posts) {

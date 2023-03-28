@@ -86,6 +86,11 @@ router.beforeEach((to, from, next) => {
     console.log('[redirected from guard]-[no logged user]')
   }
 
+  if (to.name === 'explore' && !user.tags) {
+    store.dispatch('postStore/getExploreData')
+
+  }
+
   else next()
 })
 export default router
