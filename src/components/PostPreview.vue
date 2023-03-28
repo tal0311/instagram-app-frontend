@@ -18,6 +18,7 @@
     </div>
     <footer class="post-footer">
       <p>{{ post.txt }}</p>
+      <p>{{ post.tags }} </p>
       <span>comments</span>
     </footer>
   </section>

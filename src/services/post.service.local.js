@@ -1,9 +1,12 @@
 
+import axios from 'axios'
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 import gPosts from './../data/postsData.json' assert {type: 'json'}
+import { httpService } from './http.service.js'
+
 
 const STORAGE_KEY = 'post_db'
 
@@ -14,7 +17,8 @@ export const postService = {
     remove,
     getEmptyPost,
     addPostComment,
-    addPostLike
+    addPostLike,
+    getExploreDate
 }
 window.cs = postService
 
@@ -28,6 +32,7 @@ async function query(filterBy = { txt: '', userFilter: '' }) {
     if (filterBy.userFilter) {
         posts = userFilter(posts, filterBy.userFilter)
     }
+    getTags(posts)
     return posts
 }
 
@@ -135,6 +140,44 @@ function getEmptyPost() {
     }
 }
 
+
+
+async function getExploreDate() {
+
+    // TODO: CONVERT TO HTTP SERVICE
+    let explorePosts = utilService.loadFromStorage('explore_db') || []
+    const user = userService.getLoggedinUser()
+
+    console.log('user', user.tags)
+
+    explorePosts = Promise.all(user.tags.map(async tag => {
+        const url = `https://source.unsplash.com/random/400×400/?${tag}`
+        const res = await axios.get(url)
+        console.log('getting from API')
+        return {
+            imgUrl: res.request.responseURL,
+            tag
+        }
+
+    }))
+
+    utilService.saveToStorage('explore_db', explorePosts)
+    console.log('explorePosts:', explorePosts)
+
+    return explorePosts
+}
+
+function getTags(posts) {
+    posts = posts.map(post => {
+        if (post.tags) {
+            return post.tags
+        }
+    })
+    const userTags = [...new Set(posts.flatMap(tag => tag))]
+    const user = userService.getLoggedinUser()
+    user.tags = userTags
+    userService.saveLocalUser(user)
+}
 
 
 

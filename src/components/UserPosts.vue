@@ -1,6 +1,6 @@
 <template>
- <section class="post-list">
-  <ul class="posts-grid clean-list grid" v-if="posts && posts.length">
+ <section class="user-posts">
+  <!-- <ul class="posts-grid clean-list grid" v-if="posts && posts.length">
    <li v-for="post in posts" :key="post._id">
     <img :src="post.imgUrl" alt="">
    </li>
@@ -8,15 +8,18 @@
   <section class="no-posts" v-else>
    <div class="img"></div>
    <h2>No Posts Yet</h2>
-  </section>
+  </section> -->
+
+  <PostsList :posts="posts" />
 
  </section>
 </template>
 
 <script>
+import PostsList from './PostsList.vue';
 import { mapGetters, mapActions } from 'vuex'
 export default {
- name: 'PostList',
+ name: 'UserPosts',
  created() {
 
  },
@@ -42,6 +45,9 @@ export default {
    immediate: true,
    deep: true,
   },
+ },
+ components: {
+  PostsList
  }
 }
 </script>
