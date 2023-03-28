@@ -1,5 +1,6 @@
 <template>
  <section class="user-area grid">
+
   <header class="grid">
    <UserPreview :user="user" is="user-area" />
    <article class="user-info-container">
@@ -19,10 +20,8 @@
     <!-- {{ routes[idx].icon }} -->
     <i class="icon" :title="route.title" v-html="$getSvg(route.icon)"></i>
    </RouterLink>
-
   </section>
   <RouterView></RouterView>
-
 
  </section>
 </template>

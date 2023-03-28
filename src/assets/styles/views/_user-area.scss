@@ -71,9 +71,7 @@
 
     &.router-link-exact-active {
      box-shadow: inset 0px 1px 0 darken($color: $clr4, $amount: 50%);
-
      svg {
-      // fill: $clr2;
       color: $clr6;
      }
     }
