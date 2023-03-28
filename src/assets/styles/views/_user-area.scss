@@ -8,9 +8,24 @@
    "post-list";
 
   header {
+   grid-template-columns: min-content 1fr;
    margin-top: 1em;
    background: lightblue;
    grid-area: header;
+
+   align-content: center;
+   p {
+    margin: 0;
+   }
+   .user-info-container {
+    grid-area: 2/1/2/3;
+   }
+   .user-settings-container {
+    margin-inline-start: 1em;
+    grid-template-columns: min-content min-content;
+    place-content: inherit;
+    display: grid;
+   }
   }
 
   .dashboard-container {
