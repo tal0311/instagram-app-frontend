@@ -3,7 +3,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
-import gPost from './../data/post.json' assert {type: 'json'}
+import gPosts from './../data/postsData.json' assert {type: 'json'}
 
 const STORAGE_KEY = 'post_db'
 
@@ -140,20 +140,10 @@ function getEmptyPost() {
 
 // TEST DATA
 // ; (() => {
-//     let posts = [gPost, gPost, gPost, gPost, gPost]
 
-//     posts = posts.map(post => {
 
-//         const wordLength = utilService.getRandomIntInclusive(0, 8)
 
-//         return {
-//             ...post,
-//             txt: utilService.makeLorem(wordLength),
-//             _id: utilService.makeId()
-//         }
-
-//     })
-//     utilService.saveToStorage(STORAGE_KEY, posts)
+//     utilService.saveToStorage(STORAGE_KEY, gPosts)
 
 
 // })()

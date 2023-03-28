@@ -8,18 +8,19 @@
    "post-list";
 
   header {
+   margin-top: 1em;
    background: lightblue;
-   grid-area: "header";
+   grid-area: header;
   }
 
   .dashboard-container {
    background: lightgreen;
-   grid-area: "dashboard";
+   grid-area: dashboard;
    height: 4rem;
   }
   .router-container {
-   background: lightcoral;
-   grid-area: "post-list";
+   // background: lightcoral;
+   grid-area: post-list;
   }
  }
 }
