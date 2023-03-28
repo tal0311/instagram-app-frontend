@@ -1,11 +1,13 @@
 import { postService } from "../services/post.service.local"
 import { userService } from "../services/user.service"
+import { utilService } from "../services/util.service"
 
 export const postStore = {
   namespaced: true,
   state: {
     posts: null,
     isModalOpen: false,
+    explorePosts: null,
 
     filter: null
   },
@@ -16,6 +18,9 @@ export const postStore = {
     isModalOpen(state) {
       return state.isModalOpen
     },
+    getExplorePosts(state) {
+      return state.explorePosts
+    }
 
   },
   mutations: {
@@ -33,6 +38,10 @@ export const postStore = {
     setFilter(state, { filterBy }) {
       state.filter = { ...state.filter, ...filterBy }
       console.log('state.filter:', state.filter)
+    },
+    setExplorePosts(state, { explorePosts }) {
+      state.explorePosts = explorePosts
+      console.log('state.explorePosts:', state.explorePosts)
     }
 
   },
@@ -80,6 +89,10 @@ export const postStore = {
     },
     async setFilter({ commit, state }, { filter }) {
       commit({ type: 'setFilter', filter })
+    },
+    async getExploreData({ commit }) {
+      const explorePosts = await postService.getExploreDate()
+      commit('setExplorePosts', { explorePosts })
     }
   },
 }

@@ -17,7 +17,8 @@ export const userService = {
     getUsers,
     getById,
     update,
-    toggleSavedPost
+    toggleSavedPost,
+    getKeyWords
 }
 
 window.userService = userService
@@ -27,6 +28,11 @@ const users = [gUser]
 function getUsers() {
     return storageService.query('user')
     // return httpService.get(`user`)
+}
+function getKeyWords() {
+    const user = getLoggedinUser()
+    console.log('user:', user)
+    return ['fun', 'kids', 'fruit', 'travel', 'coding', 'food', 'night', 'city']
 }
 
 async function getById(userId) {
@@ -102,10 +108,10 @@ function getLoggedinUser() {
 
 
 
-// ; (() => {
-//     saveLocalUser(users[0])
-//     utilService.saveToStorage('user', users)
-// })()
+; (() => {
+    saveLocalUser(users[0])
+    utilService.saveToStorage('user', users)
+})()
 
 
 
