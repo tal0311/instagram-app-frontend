@@ -37,10 +37,7 @@ export default {
  watch: {
   $route: {
    handler: function (val, oldVal) {
-    console.log('route changed', val.name);
-    // debugger
     this.setFilter({ filterBy: { userFilter: val.name } })
-
    },
    immediate: true,
    deep: true,

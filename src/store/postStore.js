@@ -41,7 +41,7 @@ export const postStore = {
     },
     setExplorePosts(state, { explorePosts }) {
       state.explorePosts = explorePosts
-      console.log('state.explorePosts:', state.explorePosts)
+
     }
 
   },
@@ -64,8 +64,6 @@ export const postStore = {
       }
     },
     async postActions({ commit, dispatch }, { action, postId, }) {
-      // debugger
-
       try {
 
         let post = null

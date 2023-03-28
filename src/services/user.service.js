@@ -47,7 +47,7 @@ function onUserUpdate(user) {
 
 async function update(user) {
     // const user = await storageService.get('user', _id)
-    // debugger
+
     // let user = getById(_id)
     // user.score = score
     await storageService.put('user', user)
@@ -61,7 +61,6 @@ async function toggleSavedPost(postId) {
     const user = await getById(userId)
     if (!user) throw new Error('Not loggedin')
     if (user.savedPostIds.includes(postId)) {
-        debugger
         const idx = user.savedPostIds.findIndex(p => p === postId)
         user.savedPostIds.splice(idx, 1)
         await update(user)
@@ -98,7 +97,6 @@ async function logout() {
 
 
 function saveLocalUser(user) {
-    debugger
     localStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }

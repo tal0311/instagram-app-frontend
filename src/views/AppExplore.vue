@@ -1,5 +1,5 @@
 <template>
- <h1>explore</h1>
+ <h1>Explore...</h1>
  <!-- <pre>{{ posts }}</pre> -->
  <PostList :posts="posts" />
 </template>

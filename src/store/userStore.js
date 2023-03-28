@@ -22,8 +22,6 @@ export const userStore = {
    commit({ type: 'setUser', loggedInUser })
   },
   async savePost({ commit }, { postId }) {
-
-   // debugger
    try {
     const loggedInUser = await userService.toggleSavedPost(postId)
     commit({ type: 'setUser', loggedInUser })

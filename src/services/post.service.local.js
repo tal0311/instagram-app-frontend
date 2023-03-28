@@ -143,12 +143,10 @@ function getEmptyPost() {
 
 
 async function getExploreDate() {
-    debugger
     // TODO: CONVERT TO HTTP SERVICE
     let explorePosts = utilService.loadFromStorage('explore_db') || []
     const user = userService.getLoggedinUser()
 
-    console.log('user', user.tags)
     try {
         explorePosts = Promise.all(user.tags.map(async tag => {
             const url = `https://source.unsplash.com/random/400×400/?${tag}`
