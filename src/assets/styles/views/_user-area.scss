@@ -60,6 +60,22 @@
   }
   .router-container {
    grid-area: post-list;
+   grid-auto-flow: column;
+
+   justify-items: center;
+   border-top: 1px solid $clr4;
+   a {
+    padding: 0.5rem 0 0.3rem 0;
+    width: 100%;
+    text-align: center;
+
+    &.router-link-exact-active {
+     box-shadow: inset 0px 1px 0 darken($color: $clr4, $amount: 50%);
+     svg {
+      color: $clr6;
+     }
+    }
+   }
   }
  }
 }

@@ -1,5 +1,6 @@
 <template>
  <section class="user-area grid">
+
   <header class="grid">
    <UserPreview :user="user" is="user-area" />
    <article class="user-info-container">
@@ -14,18 +15,20 @@
   </header>
 
   <UserDashboard />
-  <section class="router-container">
+  <section class="router-container grid">
    <RouterLink v-for="route, idx in routes" :key="route.name" :to="{ name: routes[idx].name }">
-    {{ routes[idx].title }}
+    <!-- {{ routes[idx].icon }} -->
+    <i class="icon" :title="route.title" v-html="$getSvg(route.icon)"></i>
    </RouterLink>
-
-   <RouterView></RouterView>
-
   </section>
+  <RouterView></RouterView>
+
  </section>
 </template>
 
+
 <script>
+// TODO: add tooltip 
 import UserDashboard from '../components/UserDashboard.vue';
 import UserPreview from '../components/UserPreview.vue';
 import { mapGetters, mapActions } from 'vuex'
@@ -35,9 +38,9 @@ export default {
  data() {
   return {
    routes: [
-    { title: 'Posts', name: 'post' },
-    { title: 'Saved', name: 'saved-posts' },
-    { title: 'Tagged', name: 'tagged-post' },
+    { title: 'Posts', name: 'post', icon: 'posts' },
+    { title: 'Saved', name: 'saved-posts', icon: 'saved' },
+    { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
 
 
    ]
