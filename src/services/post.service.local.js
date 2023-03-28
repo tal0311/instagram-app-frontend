@@ -144,6 +144,7 @@ function getEmptyPost() {
 
 async function getExploreDate() {
 
+    // TODO: CONVERT TO HTTP SERVICE
     let explorePosts = utilService.loadFromStorage('explore_db') || []
     const user = userService.getLoggedinUser()
 
