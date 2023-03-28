@@ -1,7 +1,7 @@
 <template>
  <section class="user-area grid">
   <header class="grid">
-   <UserPreview :user="user" is="user-area"></UserPreview>
+   <UserPreview :user="user" is="user-area" />
    <article class="user-info-container">
     <h5>{{ user.fullname }}</h5>
     <p>בארץ ישראל, מי שלא מאמין בניסים הוא לא מציאותי - דוד בן גוריון</p>
@@ -12,9 +12,8 @@
     <button class="edit-profile ">Edit Profile</button>
    </article>
   </header>
-  <section class="dashboard-container">
-   dashboard
-  </section>
+
+  <UserDashboard />
   <section class="router-container">
    <RouterLink v-for="route, idx in routes" :key="route.name" :to="{ name: routes[idx].name }">
     {{ routes[idx].title }}
@@ -27,8 +26,10 @@
 </template>
 
 <script>
+import UserDashboard from '../components/UserDashboard.vue';
 import UserPreview from '../components/UserPreview.vue';
 import { mapGetters, mapActions } from 'vuex'
+import UserDashboardVue from '../components/UserDashboard.vue';
 export default {
  name: 'UserArea',
  data() {
@@ -55,7 +56,8 @@ export default {
 
  },
  components: {
-  UserPreview
+  UserPreview,
+  UserDashboard
  },
 }
 </script>

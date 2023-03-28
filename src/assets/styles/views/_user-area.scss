@@ -12,7 +12,7 @@
    margin-top: 1em;
    // background: lightblue;
    grid-area: header;
-
+   padding-bottom: 1em;
    align-content: center;
    p {
     margin: 0;
@@ -53,9 +53,10 @@
   }
 
   .dashboard-container {
-   background: lightgreen;
+   // background: lightgreen;
    grid-area: dashboard;
    height: 4rem;
+   //
   }
   .router-container {
    grid-area: post-list;
