@@ -3,13 +3,13 @@
   <header class="grid">
    <UserPreview :user="user" is="user-area"></UserPreview>
    <article class="user-info-container">
-    <p>{{ user.fullname }}</p>
+    <h5>{{ user.fullname }}</h5>
     <p>בארץ ישראל, מי שלא מאמין בניסים הוא לא מציאותי - דוד בן גוריון</p>
    </article>
    <article class="user-settings-container grid">
     <p>{{ user.username }}</p>
     <i class="settings" v-html="$getSvg('settings')"></i>
-    <button class="">editProfile</button>
+    <button class="edit-profile ">Edit Profile</button>
    </article>
   </header>
   <section class="dashboard-container">
