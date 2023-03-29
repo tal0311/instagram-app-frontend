@@ -13,6 +13,9 @@ export const userStore = {
  mutations: {
   setUser(state, { loggedInUser }) {
    state.loggedInUser = loggedInUser
+  },
+  updateUserPosts(state, { postId }) {
+   console.log('postId:', postId)
   }
  },
  actions: {

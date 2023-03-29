@@ -81,3 +81,15 @@ a {
     &.active {
     }
 }
+
+textarea {
+    resize: none;
+    font-family: inherit;
+}
+i {
+    &:active {
+        svg {
+            fill: $clr4;
+        }
+    }
+}
