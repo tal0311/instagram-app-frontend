@@ -1,5 +1,6 @@
 <template>
  <section class="user-posts">
+  <!-- <pre>{{ posts }}</pre> -->
   <PostsList :posts="posts" />
  </section>
 </template>
@@ -10,6 +11,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
  name: 'UserPosts',
  created() {
+
 
  },
  methods: {

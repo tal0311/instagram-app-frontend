@@ -37,15 +37,27 @@ export const postStore = {
     },
     setFilter(state, { filterBy }) {
       state.filter = { ...state.filter, ...filterBy }
-      // console.log('state.filter:', state.filter)
     },
     setExplorePosts(state, { explorePosts }) {
       state.explorePosts = explorePosts
-
+    },
+    publishPost(state, { postToAdd }) {
+      state.posts.unshift(postToAdd)
     }
-
   },
   actions: {
+    async addPost({ commit }, { post }) {
+      debugger
+      console.log('post:', post)
+      try {
+        const postToAdd = await postService.save({ ...post })
+        console.log('postToAdd:', postToAdd)
+        commit({ type: 'publishPost', postToAdd })
+        commit({ type: 'userStore/updateUserPosts', postId: postToAdd._id }, { root: true })
+      } catch (error) {
+
+      }
+    },
     async loadPosts({ commit, state }) {
       console.log('loading posts')
       try {

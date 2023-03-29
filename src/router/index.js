@@ -90,8 +90,9 @@ router.beforeEach((to, from, next) => {
     store.dispatch('postStore/getExploreData')
 
   }
-
-
-  else next()
+  if (to.name === 'post') {
+    store.dispatch('postStore/setFilter', { filterBy: { userFilter: 'post' } })
+  }
+  next()
 })
 export default router

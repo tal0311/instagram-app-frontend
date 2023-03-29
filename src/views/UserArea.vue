@@ -41,14 +41,10 @@ export default {
     { title: 'Posts', name: 'post', icon: 'posts' },
     { title: 'Saved', name: 'saved-posts', icon: 'saved' },
     { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
-
-
    ]
   }
  },
- created() {
 
- },
  computed: {
 
   ...mapGetters({

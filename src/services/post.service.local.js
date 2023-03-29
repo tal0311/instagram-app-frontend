@@ -20,10 +20,10 @@ export const postService = {
     addPostLike,
     getExploreDate
 }
-window.cs = postService
+window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: '' }) {
-
+    debugger
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
@@ -75,18 +75,33 @@ async function save(post) {
     if (post._id) {
         savedPost = await storageService.put(STORAGE_KEY, post)
     } else {
+        post.tags = [...getPostTags(post.txt)]
         // Later, owner is set by the backend
-        post.owner = userService.getLoggedinUser()
+        const user = userService.getLoggedinUser()
+        const { _id, username, imgUrl, fullname } = user
+
+        const by =
+            { _id, username, imgUrl, fullname }
+        post.by = by
+
+        debugger
         savedPost = await storageService.post(STORAGE_KEY, post)
+        user.posts = [...user.post, ...savedPost._id]
+        const updatedUser = userService.update(user)
+        userService.saveLocalUser(updatedUser)
     }
     return savedPost
+}
+
+function getPostTags(txt) {
+    if (!txt) return []
+    return txt.split(' ').filter(word => word.startsWith('#')).map(tag => tag.substring(1))
 }
 
 async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
     const post = await getById(postId)
     if (!post.comments) post.comments = []
-
     const comment = {
         id: utilService.makeId(),
         by: userService.getLoggedinUser(),
