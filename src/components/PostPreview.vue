@@ -18,8 +18,13 @@
     </div>
     <footer class="post-footer">
       <p>{{ post.txt }}</p>
-      <p>{{ post.tags }} </p>
-      <span>comments</span>
+      <p v-if="is !== 'details'">{{ post.tags }} </p>
+      <p @click="navigateTo" class="comments">{{ commentsTitle }}</p>
+      <div class="add-comment">
+        <textarea v-model="comment.txt" @input="setTextLength" name="txt" id="" cols="50" rows="1"
+          placeholder="Add a comment..."></textarea>
+        <button v-if="isTyping" @click="addComment">Post</button>
+      </div>
     </footer>
   </section>
 </template>
@@ -32,7 +37,12 @@ import UserPreview from './UserPreview.vue'
 export default {
   name: 'PostPreview',
   props: {
+    is: {
+      type: String,
+      default: 'preview'
+    },
     post: {
+
       type: Object,
       required: true,
     },
@@ -48,6 +58,10 @@ export default {
         { name: 'share', icon: 'share' },
         { name: 'save', icon: 'save' },
       ],
+      comment: {
+        txt: '',
+      },
+      isTyping: false
 
     }
   },
@@ -55,18 +69,34 @@ export default {
     formattedTime(ts) {
       return formattedRelativeTime(ts)
     },
+    addComment() {
 
+    },
+    setTextLength({ target }) {
+      if (target.value.length > 0) this.isTyping = true
+      else this.isTyping = false
+    },
+    navigateTo() {
+      if (this.is === 'details') return
+      this.$router.push(`/p/${this.post._id}`)
+    }
 
   },
   computed: {
+    commentsTitle() {
+
+      if (!this.post.comments.length) return 'Be the first to comment'
+      if (this.post.comments.length >= 1) return `view all ${this.post.comments.length} comment`
+
+    },
 
     getClass() {
       const user = this.$store.getters['userStore/getUser']
-      const isLiked = this.post.likedBy.some(by => by._id === user._id)
+      const isLiked = this.post?.likedBy?.some(by => by._id === user._id)
       const isSaved = user.savedPostIds.includes(this.post._id)
       this.actions[0].icon = isLiked ? 'like-full' : 'like'
       this.actions[3].icon = isSaved ? 'save-full' : 'save'
-      return `post-preview ${this.post._id} ${isLiked ? 'isLiked' : ''} ${isSaved ? 'isSaved' : ''}`
+      return `post-preview ${this.is} ${this.post._id} ${isLiked ? 'isLiked' : ''} ${isSaved ? 'isSaved' : ''}`
     },
 
   },

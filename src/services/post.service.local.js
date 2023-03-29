@@ -38,7 +38,7 @@ async function query(filterBy = { txt: '', userFilter: '' }) {
 
 function userFilter(posts, type) {
     const user = userService.getLoggedinUser()
-    console.log('user:', user)
+    // console.log('user:', user)
     switch (type) {
         // posts user tagged in
         case 'tagged-posts':
@@ -87,15 +87,15 @@ async function addPostComment(postId, txt) {
     const post = await getById(postId)
     if (!post.comments) post.comments = []
 
-    const comments = {
+    const comment = {
         id: utilService.makeId(),
         by: userService.getLoggedinUser(),
         txt
     }
-    post.comments.push(comments)
+    post.comments.push(comment)
     await storageService.put(STORAGE_KEY, post)
 
-    return msg
+    return comment
 }
 async function addPostLike(postId) {
     // Later, this is all done by the backend
