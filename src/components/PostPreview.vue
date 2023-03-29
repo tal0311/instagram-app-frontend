@@ -4,8 +4,10 @@
       <UserPreview :user="post.by" is="preview" />
       <div class="info grid">
         <span class="username">{{ post?.by?.username }}</span>
-        <span>•</span>
-        <span>{{ formattedTime(post.createdAt) }}</span>
+        <template v-if="is !== 'details'">
+          <span>•</span>
+          <span>{{ formattedTime(post.createdAt) }}</span>
+        </template>
         <small>{{ post?.loc?.name || 'Tel Aviv' }}</small>
       </div>
     </header>
@@ -23,6 +25,11 @@
       <div class="add-comment">
         <textarea v-model="comment.txt" @input="setTextLength" name="txt" id="" cols="50" rows="1"
           placeholder="Add a comment..."></textarea>
+        <section class="comments-container" v-if="is === 'details' && isCommentsOpen">
+          <ul class="clean-list" v-for="(comment, idx) in post.comments" :key="idx">
+            <li>{{ comment.txt }}</li>
+          </ul>
+        </section>
         <button v-if="isTyping" @click="addComment">Post</button>
       </div>
     </footer>
@@ -61,7 +68,8 @@ export default {
       comment: {
         txt: '',
       },
-      isTyping: false
+      isTyping: false,
+      isCommentsOpen: false
 
     }
   },
@@ -77,8 +85,9 @@ export default {
       else this.isTyping = false
     },
     navigateTo() {
-      if (this.is === 'details') return
-      this.$router.push(`/p/${this.post._id}`)
+      if (this.is === 'details') this.isCommentsOpen = !this.isCommentsOpen
+      else
+        this.$router.push(`/p/${this.post._id}`)
     }
 
   },
