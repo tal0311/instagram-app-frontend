@@ -37,7 +37,7 @@ export const postStore = {
     },
     setFilter(state, { filterBy }) {
       state.filter = { ...state.filter, ...filterBy }
-      console.log('state.filter:', state.filter)
+      // console.log('state.filter:', state.filter)
     },
     setExplorePosts(state, { explorePosts }) {
       state.explorePosts = explorePosts

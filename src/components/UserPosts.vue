@@ -1,17 +1,6 @@
 <template>
  <section class="user-posts">
-  <!-- <ul class="posts-grid clean-list grid" v-if="posts && posts.length">
-   <li v-for="post in posts" :key="post._id">
-    <img :src="post.imgUrl" alt="">
-   </li>
-  </ul>
-  <section class="no-posts" v-else>
-   <div class="img"></div>
-   <h2>No Posts Yet</h2>
-  </section> -->
-
   <PostsList :posts="posts" />
-
  </section>
 </template>
 
@@ -45,6 +34,10 @@ export default {
  },
  components: {
   PostsList
+ },
+ unmounted() {
+  // this is to make sure the filter is reset when the component is unmounted 
+  this.setFilter({ filterBy: { userFilter: '' } })
  }
 }
 </script>

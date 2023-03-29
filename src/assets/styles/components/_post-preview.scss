@@ -45,7 +45,37 @@
    transform: translateX(4px);
   }
  }
+ .post-footer {
+  textarea[name="txt"] {
+   width: 100%;
+   resize: none;
+   border: none;
+   font-family: inherit;
+   &:focus {
+    outline: none;
+   }
+  }
+  .add-comment {
+   position: relative;
 
+   button {
+    position: absolute;
+    right: 0;
+    border: none;
+    background: none;
+    color: $clr6;
+    font-weight: bold;
+   }
+  }
+ }
+
+ &.details {
+  border: none;
+  // padding: 1em 0;
+  & > *:not(.img-container) {
+   padding-inline: 0.5em;
+  }
+ }
  .isLiked {
   fill: rgb(255, 48, 64);
  }

@@ -75,7 +75,7 @@ const router = createRouter({
 
 const routerHistory = []
 router.beforeEach((to, from, next) => {
-  console.log('routerHistory:', routerHistory)
+  // console.log('routerHistory:', routerHistory)
 
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
@@ -90,6 +90,7 @@ router.beforeEach((to, from, next) => {
     store.dispatch('postStore/getExploreData')
 
   }
+
 
   else next()
 })
