@@ -53,9 +53,8 @@ export const postStore = {
         const postToAdd = await postService.save({ ...post })
         console.log('postToAdd:', postToAdd)
         commit({ type: 'publishPost', postToAdd })
-        commit({ type: 'userStore/updateUserPosts', postId: postToAdd._id }, { root: true })
       } catch (error) {
-
+        console.log('error trying to Add post:', error)
       }
     },
     async loadPosts({ commit, state }) {

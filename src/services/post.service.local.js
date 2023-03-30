@@ -46,15 +46,13 @@ function userFilter(posts, type) {
             break;
         // posts created by the user
         case 'post':
-            const userPosts = user.posts
-            return posts.filter(post => userPosts.includes(post._id))
+            return posts.filter(post => post.by._id === user._id)
 
             break;
         // posts saved by the user
         case 'saved-posts':
-            const savedIds = user.savedPostIds
-            return posts.filter(post => savedIds.includes(post._id))
-
+            const { savedPostIds } = user
+            return posts.filter(post => savedPostIds.includes(post._id))
             break;
 
         default:
@@ -86,9 +84,9 @@ async function save(post) {
 
         debugger
         savedPost = await storageService.post(STORAGE_KEY, post)
-        user.posts = [...user.post, ...savedPost._id]
-        const updatedUser = userService.update(user)
-        userService.saveLocalUser(updatedUser)
+
+
+
     }
     return savedPost
 }
