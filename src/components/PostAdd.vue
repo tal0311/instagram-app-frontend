@@ -69,7 +69,9 @@ export default {
     ev.dataTransfer.files[0]
 
    console.log('file', file)
-   debugger
+   // debugger
+   // TODO: add loader AND error handling 
+   // TODO: able ro cancel upload
    const { url } = await uploadImg(file)
    console.log('url:', url)
    this.post.imgUrl = url
