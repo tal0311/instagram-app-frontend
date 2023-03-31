@@ -181,8 +181,6 @@ async function getExploreDate() {
     const user = await userService.getById(loggedInUser._id)
     const randomTags = getRandomTags(5)
     const tagsToExplore = [...user.tags, ...randomTags]
-
-    console.log('tagsToExplore:', tagsToExplore)
     try {
         const explorePosts = Promise.all(tagsToExplore.map(async tag => {
             const url = `https://source.unsplash.com/random/400×400/?${tag}`

@@ -7,8 +7,8 @@
    </li>
   </ul>
   <section class="no-posts" v-else>
-   <div class="img"></div>
-   <h2>No Posts Yet</h2>
+   <div :class="getNoDataImg"></div>
+   <h2>{{ getNoDataMsg }}</h2>
   </section>
  </section>
 </template>
@@ -19,6 +19,14 @@ export default {
  props: {
   posts: {
    type: Array,
+  }
+ },
+ computed: {
+  getNoDataImg() {
+   return this.$route.name === 'explore' ? 'explore' : 'img'
+  },
+  getNoDataMsg() {
+   return this.$route.name === 'explore' ? 'Exploring...' : 'No Posts Yet'
   }
  }
 }
