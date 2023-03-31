@@ -29,6 +29,7 @@ export default {
   $route: {
    handler: function (val, oldVal) {
     this.setFilter({ filterBy: { userFilter: val.name } })
+
    },
    immediate: true,
    deep: true,

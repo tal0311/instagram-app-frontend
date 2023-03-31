@@ -3,11 +3,15 @@ import { userService } from './../services/user.service'
 export const userStore = {
  namespaced: true,
  state: {
-  loggedInUser: null
+  loggedInUser: null,
+  postCount: 0
  },
  getters: {
   getUser(state) {
    return state.loggedInUser
+  },
+  postCount(state) {
+   return state.postCount
   }
  },
  mutations: {
@@ -16,6 +20,9 @@ export const userStore = {
   },
   updateUserPosts(state, { postId }) {
    console.log('postId:', postId)
+  },
+  postCount(state, { count }) {
+   state.postCount = count
   }
  },
  actions: {

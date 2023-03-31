@@ -14,7 +14,7 @@
    </article>
   </header>
 
-  <UserDashboard />
+  <UserDashboard :postCount="postCount" :user="user" />
   <section class="router-container grid">
    <RouterLink v-for="route, idx in routes" :key="route.name" :to="{ name: routes[idx].name }">
     <!-- {{ routes[idx].icon }} -->
@@ -33,22 +33,32 @@ import UserDashboard from '../components/UserDashboard.vue';
 import UserPreview from '../components/UserPreview.vue';
 import { mapGetters, mapActions } from 'vuex'
 import UserDashboardVue from '../components/UserDashboard.vue';
+import { eventBus } from './../services/event-bus.service'
 export default {
  name: 'UserArea',
+ created() {
+
+ },
  data() {
   return {
    routes: [
     { title: 'Posts', name: 'post', icon: 'posts' },
     { title: 'Saved', name: 'saved-posts', icon: 'saved' },
     { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
-   ]
+   ],
+
+  }
+ },
+ methods: {
+  setPostCount(val) {
+   this.postCount = val
   }
  },
 
  computed: {
 
   ...mapGetters({
-   //  posts: 'postStore/savedPosts',
+   postCount: 'userStore/postCount',
    user: 'userStore/getUser'
   })
 
