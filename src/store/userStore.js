@@ -21,7 +21,6 @@ export const userStore = {
  actions: {
   loadUser({ commit }) {
    const loggedInUser = userService.getLoggedinUser()
-
    commit({ type: 'setUser', loggedInUser })
   },
   async savePost({ commit }, { postId }) {

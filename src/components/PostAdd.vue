@@ -67,13 +67,9 @@ export default {
    const file = ev.type === 'change' ?
     ev.target.files[0] :
     ev.dataTransfer.files[0]
-
-   console.log('file', file)
-   // debugger
    // TODO: add loader AND error handling 
    // TODO: able ro cancel upload
    const { url } = await uploadImg(file)
-   console.log('url:', url)
    this.post.imgUrl = url
    this.isEditor = true
   },
@@ -84,7 +80,6 @@ export default {
   async getLoc() {
    const loc = await locationService.getPosition()
    this.post.loc = { ...this.post.loc, ...loc }
-   console.log('this.post:', this.post)
   },
   onAddPost() {
    this.addPost({ post: JSON.parse(JSON.stringify(this.post)) })

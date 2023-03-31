@@ -47,11 +47,8 @@ export const postStore = {
   },
   actions: {
     async addPost({ commit }, { post }) {
-      // debugger
-      console.log('post:', post)
       try {
         const postToAdd = await postService.save({ ...post })
-        console.log('postToAdd:', postToAdd)
         commit({ type: 'publishPost', postToAdd })
       } catch (error) {
         console.log('error trying to Add post:', error)
@@ -71,16 +68,18 @@ export const postStore = {
       try {
         await dispatch('loadPosts')
       } catch (error) {
-        console.log(':',)
+        console.log('[failed to filter posts]:', error)
       }
     },
-    async postActions({ commit, dispatch }, { action, postId, }) {
+    async postActions({ rootGetters, commit, dispatch }, { action, postId, }) {
       try {
 
+
         let post = null
+        const loggedInUser = rootGetters['userStore/getUser']
         switch (action) {
           case 'like':
-            post = await postService.addPostLike(postId)
+            post = await postService.addPostLike(postId, loggedInUser._id)
             commit({ type: 'updatePost', post })
             break;
           case 'save':

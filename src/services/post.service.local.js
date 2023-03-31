@@ -5,6 +5,7 @@ import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
 import gPosts from './../data/postsData.json' assert {type: 'json'}
+import gTags from './../data/tags.json' assert {type: 'json'}
 import { httpService } from './http.service.js'
 
 
@@ -110,17 +111,24 @@ async function addPostComment(postId, txt) {
 
     return comment
 }
-async function addPostLike(postId) {
+async function addPostLike(postId, userId) {
     // Later, this is all done by the backend
+    debugger
     const post = await getById(postId)
     if (!post.likedBy) post.likedBy = []
-    const { username: by, _id, imgUrl } = userService.getLoggedinUser()
+    const { username: by, _id, imgUrl } = await userService.getById(userId)
+    const user = await userService.getById(userId)
+
     const idx = post.likedBy.findIndex(by => by._id === _id)
     if (idx === -1) {
         const like = {
-            _id,
-            by,
-            imgUrl
+            _id: user._id,
+            by: user.username,
+            imgUrl: user.imagUrl
+        }
+        if (post.tags.length) {
+            console.log('post.tags:', post.tags)
+            updateTags(post.tags, user)
         }
         post.likedBy.push(like)
         return await storageService.put(STORAGE_KEY, post)
@@ -153,15 +161,30 @@ function getEmptyPost() {
     }
 }
 
+async function updateTags(postTags, user) {
+    if (postTags.length) {
+        postTags.forEach(tag => {
+            if (!user.tags.includes(tag)) {
+                user.tags.push(tag)
+            }
+        });
+    }
+    userService.update(user)
+
+}
 
 
 async function getExploreDate() {
     // TODO: CONVERT TO HTTP SERVICE
-    let explorePosts = utilService.loadFromStorage('explore_db') || []
-    const user = userService.getLoggedinUser()
+    // let explorePosts = utilService.loadFromStorage('explore_db') || []
+    const loggedInUser = userService.getLoggedinUser()
+    const user = await userService.getById(loggedInUser._id)
+    const randomTags = getRandomTags(5)
+    const tagsToExplore = [...user.tags, ...randomTags]
 
+    console.log('tagsToExplore:', tagsToExplore)
     try {
-        explorePosts = Promise.all(user.tags.map(async tag => {
+        const explorePosts = Promise.all(tagsToExplore.map(async tag => {
             const url = `https://source.unsplash.com/random/400×400/?${tag}`
             const res = await axios.get(url)
             console.log('getting from API')
@@ -171,7 +194,7 @@ async function getExploreDate() {
             }
 
         }))
-        utilService.saveToStorage('explore_db', explorePosts)
+        // utilService.saveToStorage('explore_db', explorePosts)
 
 
         return explorePosts
@@ -183,16 +206,26 @@ async function getExploreDate() {
 
 }
 
-function getTags(posts) {
+function getRandomTags(numTags) {
+    const randomTags = [];
+    for (let i = 0; i < numTags; i++) {
+        const randomIndex = Math.floor(Math.random() * gTags.length);
+        randomTags.push(gTags[randomIndex]);
+    }
+    return randomTags;
+}
+
+async function getTags(posts) {
     posts = posts.map(post => {
         if (post.tags) {
             return post.tags
         }
     })
     const userTags = [...new Set(posts.flatMap(tag => tag))]
-    const user = userService.getLoggedinUser()
+    const loggedInUser = userService.getLoggedinUser()
+    const user = await userService.getById(loggedInUser._id)
     user.tags = userTags
-    userService.saveLocalUser(user)
+    userService.update(user)
 }
 
 

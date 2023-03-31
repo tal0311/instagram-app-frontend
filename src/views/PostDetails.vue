@@ -1,7 +1,7 @@
 <template>
  <dialog ref="details-modal" class="post-details">
   <button @click="$router.go(-1)" class="close-btn" v-html="$getSvg('times')"></button>
-  <PostPreview v-if="post" :post="post" is="details" />
+  <PostPreview @action="onPostAction" v-if="post" :post="post" is="details" />
   <!-- <pre>{{ post }}</pre> -->
  </dialog>
 </template>
@@ -19,6 +19,11 @@ export default {
   return {
    post: null
   }
+ },
+ methods: {
+  onPostAction({ action, postId }) {
+   this.$store.dispatch('postStore/postActions', { action, postId })
+  },
  },
 
  mounted() {
