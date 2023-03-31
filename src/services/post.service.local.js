@@ -23,7 +23,7 @@ export const postService = {
 window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: '' }) {
-    debugger
+    // debugger
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
@@ -82,7 +82,7 @@ async function save(post) {
             { _id, username, imgUrl, fullname }
         post.by = by
 
-        debugger
+        // debugger
         savedPost = await storageService.post(STORAGE_KEY, post)
 
 

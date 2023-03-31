@@ -52,7 +52,7 @@ function remove(entityType, entityId) {
 // Private functions
 
 function _save(entityType, entities) {
-    debugger
+    // debugger
     localStorage.setItem(entityType, JSON.stringify(entities))
 }
 

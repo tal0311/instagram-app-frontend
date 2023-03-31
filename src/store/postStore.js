@@ -47,7 +47,7 @@ export const postStore = {
   },
   actions: {
     async addPost({ commit }, { post }) {
-      debugger
+      // debugger
       console.log('post:', post)
       try {
         const postToAdd = await postService.save({ ...post })
