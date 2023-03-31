@@ -13,7 +13,8 @@ import PostPreview from '../components/PostPreview.vue';
 export default {
  name: 'PostDetails',
  async created() {
-  this.post = await postService.getById(this.$route.params.id)
+  await this.getSelectedPost()
+
  },
  data() {
   return {
@@ -21,8 +22,12 @@ export default {
   }
  },
  methods: {
-  onPostAction({ action, postId }) {
-   this.$store.dispatch('postStore/postActions', { action, postId })
+  async onPostAction({ action, postId }) {
+   await this.$store.dispatch('postStore/postActions', { action, postId })
+   this.getSelectedPost()
+  },
+  async getSelectedPost() {
+   this.post = await postService.getById(this.$route.params.id)
   },
  },
 
