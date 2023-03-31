@@ -59,6 +59,7 @@ export const postStore = {
       try {
         const posts = await postService.query({ ...state.filter })
         commit({ type: 'setPosts', posts })
+        if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
       } catch (error) {
         console.log('error trying to load posts:', error)
       }
@@ -97,6 +98,7 @@ export const postStore = {
     },
     async setFilter({ commit, state }, { filter }) {
       commit({ type: 'setFilter', filter })
+
     },
     async getExploreData({ dispatch, commit }) {
       try {
