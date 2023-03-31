@@ -37,15 +37,12 @@ function getKeyWords() {
 
 async function getById(userId) {
     const user = await storageService.get('user', userId)
-    console.log('user:', user)
-
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
 function onUserUpdate(user) {
     // store.dispatch({ type: 'setWatchedUser', user })
 }
-
 
 async function update(user) {
     // const user = await storageService.get('user', _id)
@@ -73,7 +70,6 @@ async function toggleSavedPost(postId) {
     return saveLocalUser(user)
 
 }
-
 
 // auth
 async function login(credentials) {
