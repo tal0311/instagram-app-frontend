@@ -37,6 +37,8 @@ function getKeyWords() {
 
 async function getById(userId) {
     const user = await storageService.get('user', userId)
+    console.log('user:', user)
+
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
@@ -72,6 +74,8 @@ async function toggleSavedPost(postId) {
 
 }
 
+
+// auth
 async function login(credentials) {
     const users = await storageService.query('user')
     const user = users.find(user => user.username === userCred.username)
@@ -89,6 +93,7 @@ async function signup(userCred) {
     // socketService.login(user._id)
     return saveLocalUser(user)
 }
+
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // socketService.logout()

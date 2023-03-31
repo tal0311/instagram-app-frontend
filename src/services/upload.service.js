@@ -1,6 +1,4 @@
 
-console.log('VITE_UPLOAD_PRESET:',)
-console.log('VITE_UPLOAD_PRESET:',)
 const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`
 
 export const uploadImg = async (file) => {
