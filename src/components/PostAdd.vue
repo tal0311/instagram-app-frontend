@@ -43,14 +43,12 @@ export default {
  name: 'PostAdd',
  created() {
   this.post = postService.getEmptyPost();
-  this.post.imgUrl = 'https://res.cloudinary.com/tal-amit-dev/image/upload/v1679991055/Instagram/post-data-01_hsubmy.jpg'
-  console.log('post:', this.post)
+
  },
  data() {
   return {
    post: null,
-   // imgUrl: 'https://res.cloudinary.com/tal-amit-dev/image/upload/v1679991055/Instagram/post-data-01_hsubmy.jpg',
-   isEditor: true,
+   isEditor: false,
 
   };
  },
@@ -64,7 +62,6 @@ export default {
   ...mapMutations({
    toggleModal: 'postStore/toggleModal',
 
-
   }),
   async uploadPostImg(ev) {
    const file = ev.type === 'change' ?
@@ -72,8 +69,11 @@ export default {
     ev.dataTransfer.files[0]
 
    console.log('file', file)
+   debugger
    const { url } = await uploadImg(file)
+   console.log('url:', url)
    this.post.imgUrl = url
+   this.isEditor = true
   },
   closeModal() {
    this.$refs.modal.close();
@@ -86,6 +86,8 @@ export default {
   },
   onAddPost() {
    this.addPost({ post: JSON.parse(JSON.stringify(this.post)) })
+   this.closeModal();
+
 
   }
  }
