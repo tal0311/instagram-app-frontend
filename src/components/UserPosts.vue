@@ -11,13 +11,18 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
  name: 'UserPosts',
  created() {
-
+  console.log('created:', this.$route.name)
+  // this.loadPosts()
 
  },
  methods: {
   ...mapActions({
    setFilter: 'postStore/filterPosts'
-  })
+  }),
+
+  loadPosts() {
+   this.setFilter({ filterBy: { userFilter: this.$route.name }, userId: this.$route.params.userId })
+  }
  },
  computed: {
   ...mapGetters({
@@ -28,7 +33,8 @@ export default {
  watch: {
   $route: {
    handler: function (val, oldVal) {
-    this.setFilter({ filterBy: { userFilter: val.name } })
+    console.log('wathceing:')
+    this.setFilter({ filterBy: { userFilter: val.name }, userId: val.params.userId })
 
    },
    immediate: true,
@@ -40,7 +46,7 @@ export default {
  },
  unmounted() {
   // this is to make sure the filter is reset when the component is unmounted 
-  this.setFilter({ filterBy: { userFilter: '' } })
+  this.setFilter({ filterBy: { userFilter: '' }, userId: '' })
  }
 }
 </script>

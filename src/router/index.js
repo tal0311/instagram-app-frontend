@@ -35,13 +35,12 @@ const router = createRouter({
       component: AppMessenger
     },
     {
-      path: '/username',
+      path: '/user/:userId',
       name: 'user-area',
       component: UserArea,
-
       children: [
         {
-          path: '/username',
+          path: '/user/:userId',
           name: 'post',
           component: UserPosts
         },
@@ -65,7 +64,7 @@ const router = createRouter({
 
     {
       path: '/:pathMatch(.*)*',
-      redirect: "/username"
+      redirect: "/user/:userId"
     },
 
   ]
@@ -90,8 +89,10 @@ router.beforeEach((to, from, next) => {
     store.dispatch('postStore/getExploreData')
 
   }
-  if (to.name === 'post') {
-    store.dispatch('postStore/setFilter', { filterBy: { userFilter: 'post' } })
+  if (to.name === 'post' || to.name === 'user-area') {
+    // const { userId } = to.params
+    // console.log('userId from Guard:', userId)
+    // store.dispatch('postStore/filterPosts', { filterBy: { userFilter: 'post', }, userId })
   }
   next()
 })

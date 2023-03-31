@@ -35,8 +35,8 @@ export const postStore = {
     toggleModal(state) {
       state.isModalOpen = !state.isModalOpen
     },
-    setFilter(state, { filterBy }) {
-      state.filter = { ...state.filter, ...filterBy }
+    setFilter(state, { filterBy, userId }) {
+      state.filter = { ...state.filter, ...filterBy, userId }
     },
     setExplorePosts(state, { explorePosts }) {
       state.explorePosts = explorePosts
@@ -55,27 +55,34 @@ export const postStore = {
       }
     },
     async loadPosts({ commit, state }) {
-      console.log('loading posts')
+      console.log('loading posts', { ...state.filter })
       try {
         const posts = await postService.query({ ...state.filter })
         commit({ type: 'setPosts', posts })
-        if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
+        // if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
       } catch (error) {
         console.log('error trying to load posts:', error)
       }
     },
-    async filterPosts({ dispatch, commit }, { filterBy }) {
-      commit({ type: 'setFilter', filterBy })
+    // filtering  post in user area
+    async filterPosts({ dispatch, commit }, { filterBy, userId }) {
+      console.log('filterPosts filterBy, userId: ', filterBy, userId)
+      commit({ type: 'setFilter', filterBy, userId })
       try {
         await dispatch('loadPosts')
       } catch (error) {
         console.log('[failed to filter posts]:', error)
       }
     },
+    // async setFilter({ commit, dispatch }, { filter, userId }) {
+    //   console.log('userId:', userId)
+    //   commit({ type: 'setFilter', filter, userId })
+    //   dispatch('loadPosts')
+
+
+    // },
     async postActions({ rootGetters, commit, dispatch }, { action, postId, }) {
       try {
-
-
         let post = null
         const loggedInUser = rootGetters['userStore/getUser']
         switch (action) {
@@ -96,10 +103,7 @@ export const postStore = {
 
       }
     },
-    async setFilter({ commit, state }, { filter }) {
-      commit({ type: 'setFilter', filter })
 
-    },
     async getExploreData({ dispatch, commit }) {
       try {
         const explorePosts = await postService.getExploreDate()

@@ -8,7 +8,12 @@
 
    <i @click="openModal" v-html="$getSvg('new-post')"></i>
 
-   <RouterLink to="/username">
+   <RouterLink :to="{
+    name: 'post'
+    , params: {
+     userId: getUser._id
+    }
+   }">
     <UserPreview v-if="getUser" :user="getUser" is="nav" />
    </RouterLink>
   </div>

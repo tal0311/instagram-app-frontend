@@ -1,5 +1,5 @@
 <template>
- <section class="user-area grid">
+ <section v-if="user" class="user-area grid">
 
   <header class="grid">
    <UserPreview :user="user" is="user-area" />
@@ -21,6 +21,7 @@
     <i class="icon" :title="route.title" v-html="$getSvg(route.icon)"></i>
    </RouterLink>
   </section>
+  <!-- <pre>{{ user }}</pre> -->
   <RouterView></RouterView>
 
  </section>
@@ -33,10 +34,13 @@ import UserDashboard from '../components/UserDashboard.vue';
 import UserPreview from '../components/UserPreview.vue';
 import { mapGetters, mapActions } from 'vuex'
 import UserDashboardVue from '../components/UserDashboard.vue';
-import { eventBus } from './../services/event-bus.service'
+// import { eventBus } from './../services/event-bus.service'
+import { userService } from '../services/user.service';
 export default {
  name: 'UserArea',
- created() {
+ async created() {
+  const { userId } = this.$route.params
+  this.user = await userService.getById(userId)
 
  },
  data() {
@@ -46,20 +50,26 @@ export default {
     { title: 'Saved', name: 'saved-posts', icon: 'saved' },
     { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
    ],
+   user: null,
 
   }
  },
  methods: {
   setPostCount(val) {
    this.postCount = val
-  }
+  },
+  async getUser(userId) {
+
+
+   // console.log('this.user:', this.user)
+  },
  },
 
  computed: {
 
   ...mapGetters({
    postCount: 'userStore/postCount',
-   user: 'userStore/getUser'
+   // user: 'userStore/getUser'
   })
 
 

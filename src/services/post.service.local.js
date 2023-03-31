@@ -23,22 +23,38 @@ export const postService = {
 }
 window.ps = postService
 
-async function query(filterBy = { txt: '', userFilter: '' }) {
-    // debugger
+async function query(filterBy = { txt: '', userFilter: 'post', userId: '' }) {
+    console.log('filterBy:', filterBy)
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         posts = posts.filter(post => regex.test(post.vendor) || regex.test(post.description))
     }
-    if (filterBy.userFilter) {
-        posts = userFilter(posts, filterBy.userFilter)
+    if (filterBy.userId) {
+        posts = await userFilter(posts, filterBy.userFilter, filterBy.userId)
     }
-    getTags(posts)
+    setTags(posts)
     return posts
 }
 
-function userFilter(posts, type) {
-    const user = userService.getLoggedinUser()
+async function setTags(posts) {
+    // debugger
+    if (!posts || !posts.length) return
+    posts = posts.map(post => {
+        if (post.tags) {
+            return post.tags
+        }
+    })
+    const userTags = [...new Set(posts.flatMap(tag => tag))]
+    const loggedInUser = userService.getLoggedinUser()
+    const user = await userService.getById(loggedInUser._id)
+    user.tags = userTags
+    userService.update(user)
+}
+
+async function userFilter(posts, type, userId) {
+    const user = await userService.getById(userId)
+    console.log('user:', user)
     // console.log('user:', user)
     switch (type) {
         // posts user tagged in
@@ -213,18 +229,7 @@ function getRandomTags(numTags) {
     return randomTags;
 }
 
-async function getTags(posts) {
-    posts = posts.map(post => {
-        if (post.tags) {
-            return post.tags
-        }
-    })
-    const userTags = [...new Set(posts.flatMap(tag => tag))]
-    const loggedInUser = userService.getLoggedinUser()
-    const user = await userService.getById(loggedInUser._id)
-    user.tags = userTags
-    userService.update(user)
-}
+
 
 
 
