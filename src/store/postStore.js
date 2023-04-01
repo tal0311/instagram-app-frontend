@@ -55,7 +55,7 @@ export const postStore = {
         commit({ type: 'setPosts', posts })
         // if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
       } catch (error) {
-        console.error('error trying to load posts:', error)
+        console.error('[Error trying to load posts]:', error)
       }
     },
     async addPost({ commit }, { post }) {
@@ -63,7 +63,7 @@ export const postStore = {
         const postToAdd = await postService.save({ ...post })
         commit({ type: 'publishPost', postToAdd })
       } catch (error) {
-        console.error('error trying to Add post:', error)
+        console.error('[Error trying to Add post]:', error)
       }
     },
     // filtering  post in user area
@@ -73,7 +73,7 @@ export const postStore = {
       try {
         await dispatch('loadPosts')
       } catch (error) {
-        console.error('[failed to filter posts]:', error)
+        console.error('[Failed to filter posts]:', error)
       }
     },
     // async setFilter({ commit, dispatch }, { filter, userId }) {
@@ -101,7 +101,7 @@ export const postStore = {
 
         }
       } catch (error) {
-        console.error(`[error ${action}ing on post ${postId}]:`, error)
+        console.error(`[Error ${action}ing on post ${postId}]:`, error)
 
       }
     },
