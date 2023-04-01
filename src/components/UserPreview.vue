@@ -1,5 +1,5 @@
 <template>
- <article :class="['user-preview grid', is]">
+ <article @click="navigateTo" :class="['user-preview grid', is]">
   <div class="gradient-wrapper">
    <img :src="user.imgUrl" alt="">
   </div>
@@ -23,8 +23,16 @@ export default {
   },
  },
  created() {
-  // console.log('user', this.user);
- }
+
+
+ },
+ methods: {
+  navigateTo() {
+   const cancelNavigation = ['user-area', 'nav']
+   if (cancelNavigation.includes(this.is)) return
+   this.$router.push(`/user/${this.user._id}`)
+  }
+ },
 }
 </script>
 

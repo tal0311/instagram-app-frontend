@@ -15,7 +15,7 @@ async function getPosition() {
    lng: longitude
   }
  } catch (error) {
-  console.log('error:', error)
+  console.info('[could not get position]:', error)
  }
 
 }

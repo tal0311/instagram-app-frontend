@@ -74,15 +74,15 @@ const router = createRouter({
 
 const routerHistory = []
 router.beforeEach((to, from, next) => {
-  // console.log('routerHistory:', routerHistory)
+
 
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
-  // console.log('user:', user)
+
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
-    console.log('[redirected from guard]-[no logged user]')
+    console.info('[redirected from guard]-[no logged user]')
   }
 
   if (to.name === 'explore' && !user.tags) {
@@ -90,9 +90,7 @@ router.beforeEach((to, from, next) => {
 
   }
   if (to.name === 'post' || to.name === 'user-area') {
-    // const { userId } = to.params
-    // console.log('userId from Guard:', userId)
-    // store.dispatch('postStore/filterPosts', { filterBy: { userFilter: 'post', }, userId })
+
   }
   next()
 })

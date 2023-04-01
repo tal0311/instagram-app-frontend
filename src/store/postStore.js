@@ -46,32 +46,34 @@ export const postStore = {
     }
   },
   actions: {
+
+    async loadPosts({ commit, state }) {
+      console.info('loading posts with filter:', { ...state.filter })
+      try {
+        const posts = await postService.query({ ...state.filter })
+        // console.info('posts:', posts)
+        commit({ type: 'setPosts', posts })
+        // if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
+      } catch (error) {
+        console.error('error trying to load posts:', error)
+      }
+    },
     async addPost({ commit }, { post }) {
       try {
         const postToAdd = await postService.save({ ...post })
         commit({ type: 'publishPost', postToAdd })
       } catch (error) {
-        console.log('error trying to Add post:', error)
-      }
-    },
-    async loadPosts({ commit, state }) {
-      console.log('loading posts', { ...state.filter })
-      try {
-        const posts = await postService.query({ ...state.filter })
-        commit({ type: 'setPosts', posts })
-        // if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
-      } catch (error) {
-        console.log('error trying to load posts:', error)
+        console.error('error trying to Add post:', error)
       }
     },
     // filtering  post in user area
     async filterPosts({ dispatch, commit }, { filterBy, userId }) {
-      console.log('filterPosts filterBy, userId: ', filterBy, userId)
+      console.info('filterPosts filterBy, userId: ', filterBy, userId)
       commit({ type: 'setFilter', filterBy, userId })
       try {
         await dispatch('loadPosts')
       } catch (error) {
-        console.log('[failed to filter posts]:', error)
+        console.error('[failed to filter posts]:', error)
       }
     },
     // async setFilter({ commit, dispatch }, { filter, userId }) {
@@ -99,7 +101,7 @@ export const postStore = {
 
         }
       } catch (error) {
-        console.log(`[error ${action}ing on post ${postId}]:`, error)
+        console.error(`[error ${action}ing on post ${postId}]:`, error)
 
       }
     },
@@ -110,7 +112,7 @@ export const postStore = {
         commit('setExplorePosts', { explorePosts })
       } catch (error) {
         await dispatch('loadPosts')
-        console.log('[Error in getExploreData]:', error)
+        console.error('[Error in getExploreData]:', error)
       }
     }
   },

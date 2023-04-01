@@ -11,7 +11,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
  name: 'UserPosts',
  created() {
-  console.log('created:', this.$route.name)
+
   // this.loadPosts()
 
  },
@@ -44,10 +44,11 @@ export default {
  components: {
   PostsList
  },
- unmounted() {
+ beforeUnmount() {
   // this is to make sure the filter is reset when the component is unmounted 
   this.setFilter({ filterBy: { userFilter: '' }, userId: '' })
- }
+ },
+
 }
 </script>
 

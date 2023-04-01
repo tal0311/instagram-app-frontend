@@ -3,7 +3,7 @@ import { httpService } from './http.service'
 // import { store } from '../store/store'
 // import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 
-import gUser from './../data/user.json' assert {type: 'json'}
+import gUsers from './../data/user.json' assert {type: 'json'}
 import { utilService } from './util.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
@@ -23,15 +23,16 @@ export const userService = {
 
 window.userService = userService
 
-const users = [gUser]
-
-function getUsers() {
-    return storageService.query('user')
+async function getUsers() {
+    const user = getLoggedinUser()
+    const following = user.following.map(f => f._id)
+    const userCollection = await storageService.query('user')
+    return userCollection.filter(u => u._id !== user._id)
+    return userCollection
     // return httpService.get(`user`)
 }
 function getKeyWords() {
     const user = getLoggedinUser()
-    console.log('user:', user)
     return ['fun', 'kids', 'fruit', 'travel', 'coding', 'food', 'night', 'city']
 }
 
@@ -109,8 +110,8 @@ function getLoggedinUser() {
 
 
 // ; (() => {
-//     saveLocalUser(users[0])
-//     utilService.saveToStorage('user', users)
+//     saveLocalUser(gUsers[2])
+//     utilService.saveToStorage('user', gUsers)
 // })()
 
 

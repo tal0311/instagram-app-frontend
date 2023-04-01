@@ -58,11 +58,7 @@ export default {
   setPostCount(val) {
    this.postCount = val
   },
-  async getUser(userId) {
 
-
-   // console.log('this.user:', this.user)
-  },
  },
 
  computed: {

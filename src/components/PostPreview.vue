@@ -53,6 +53,10 @@ export default {
       type: Object,
       required: true,
     },
+    loggedUser: {
+      type: Object,
+      // required: true
+    }
   },
   created() {
 
@@ -100,9 +104,8 @@ export default {
     },
 
     getClass() {
-      const user = this.$store.getters['userStore/getUser']
-      const isLiked = this.post?.likedBy?.some(by => by._id === user._id)
-      const isSaved = user.savedPostIds.includes(this.post._id)
+      const isLiked = this.post?.likedBy?.some(by => by._id === this.loggedUser._id)
+      const isSaved = this.loggedUser.savedPostIds?.includes(this.post._id)
       this.actions[0].icon = isLiked ? 'like-full' : 'like'
       this.actions[3].icon = isSaved ? 'save-full' : 'save'
       return `post-preview ${this.is} ${this.post._id} ${isLiked ? 'isLiked' : ''} ${isSaved ? 'isSaved' : ''}`

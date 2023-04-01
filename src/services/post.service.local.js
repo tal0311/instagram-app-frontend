@@ -24,7 +24,7 @@ export const postService = {
 window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: 'post', userId: '' }) {
-    console.log('filterBy:', filterBy)
+    console.info('filterBy:', filterBy)
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
@@ -54,8 +54,6 @@ async function setTags(posts) {
 
 async function userFilter(posts, type, userId) {
     const user = await userService.getById(userId)
-    console.log('user:', user)
-    // console.log('user:', user)
     switch (type) {
         // posts user tagged in
         case 'tagged-posts':
@@ -129,7 +127,6 @@ async function addPostComment(postId, txt) {
 }
 async function addPostLike(postId, userId) {
     // Later, this is all done by the backend
-    debugger
     const post = await getById(postId)
     if (!post.likedBy) post.likedBy = []
     const { username: by, _id, imgUrl } = await userService.getById(userId)
@@ -143,7 +140,6 @@ async function addPostLike(postId, userId) {
             imgUrl: user.imagUrl
         }
         if (post.tags.length) {
-            console.log('post.tags:', post.tags)
             updateTags(post.tags, user)
         }
         post.likedBy.push(like)
