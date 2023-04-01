@@ -89,8 +89,8 @@ router.beforeEach((to, from, next) => {
     store.dispatch('postStore/getExploreData')
 
   }
-  if (to.name === 'post' || to.name === 'user-area') {
-
+  if (to.path.includes('user') && to.params.userId === ':userId') {
+    next({ name: 'login' })
   }
   next()
 })
