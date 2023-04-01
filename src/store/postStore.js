@@ -8,7 +8,6 @@ export const postStore = {
     posts: null,
     isModalOpen: false,
     explorePosts: null,
-
     filter: null
   },
   getters: {

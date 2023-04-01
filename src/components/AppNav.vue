@@ -39,7 +39,7 @@ export default {
     { name: '/', icon: 'home' },
     { name: '/search', icon: 'search' },
     { name: '/explore', icon: 'explore' },
-    { name: '/inbox', icon: 'inbox' },
+    { name: '/direct', icon: 'inbox' },
 
    ]
   };
