@@ -35,13 +35,12 @@ const router = createRouter({
       component: AppMessenger
     },
     {
-      path: '/username',
+      path: '/user/:userId',
       name: 'user-area',
       component: UserArea,
-
       children: [
         {
-          path: '/username',
+          path: '/user/:userId',
           name: 'post',
           component: UserPosts
         },
@@ -65,7 +64,7 @@ const router = createRouter({
 
     {
       path: '/:pathMatch(.*)*',
-      redirect: "/username"
+      redirect: "/user/:userId"
     },
 
   ]
@@ -75,23 +74,23 @@ const router = createRouter({
 
 const routerHistory = []
 router.beforeEach((to, from, next) => {
-  // console.log('routerHistory:', routerHistory)
+
 
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
-  // console.log('user:', user)
+
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
-    console.log('[redirected from guard]-[no logged user]')
+    console.info('[redirected from guard]-[no logged user]')
   }
 
   if (to.name === 'explore' && !user.tags) {
     store.dispatch('postStore/getExploreData')
 
   }
-  if (to.name === 'post') {
-    store.dispatch('postStore/setFilter', { filterBy: { userFilter: 'post' } })
+  if (to.name === 'post' || to.name === 'user-area') {
+
   }
   next()
 })

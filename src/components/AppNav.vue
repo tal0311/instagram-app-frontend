@@ -1,5 +1,5 @@
 <template>
- <nav class="app-nav full main-layout">
+ <nav v-if="getUser" class="app-nav full main-layout">
   <div class="nav-container grid">
 
    <RouterLink v-for="(route, idx) in routes" :key="idx" :to="route.name">
@@ -8,7 +8,12 @@
 
    <i @click="openModal" v-html="$getSvg('new-post')"></i>
 
-   <RouterLink to="/username">
+   <RouterLink :to="{
+    name: 'post'
+    , params: {
+     userId: getUser._id
+    }
+   }">
     <UserPreview v-if="getUser" :user="getUser" is="nav" />
    </RouterLink>
   </div>

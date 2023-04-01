@@ -1,9 +1,9 @@
 
 <template>
-  <section class="app-feed grid">
-    <StoryList :userList="getUser" />
+  <section v-if="users" class="app-feed grid">
+    <StoryList :user="getUser" :userList="users" />
     <section v-if="posts" class="post-list">
-      <PostPreview @action="onPostAction" v-for="post in posts" :key="post._id" :post="post" />
+      <PostPreview @action="onPostAction" v-for="post in posts" :key="post._id" :post="post" :loggedUser="getUser" />
     </section>
     <section class="loading-logo grid" v-else>
       <img :src="loadingSrc" alt="">
@@ -20,9 +20,9 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'AppFeed',
 
-  created() {
-    this.$store.dispatch('postStore/loadPosts');
-
+  async created() {
+    await this.$store.dispatch('postStore/loadPosts');
+    await this.$store.dispatch('userStore/loadUsers');
   },
   data() {
     return {
@@ -37,7 +37,9 @@ export default {
     ...mapGetters({
       posts: 'postStore/getPosts',
       getUser: 'userStore/getUser',
+      users: 'userStore/getUsers',
     }),
+
     loadingSrc() {
       return 'https://cdn.usbrandcolors.com/images/logos/instagram-logo.png'
     },

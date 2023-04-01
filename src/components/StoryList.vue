@@ -1,12 +1,7 @@
 <template>
  <section class="story-list grid">
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
-  <UserPreview :user="userList" is="story" />
+  <UserPreview :user="user" is="story" />
+  <UserPreview v-for="story in userList" :key="story._id" :user="story" is="story" />
  </section>
 </template>
 
@@ -17,12 +12,19 @@ export default {
   userList: {
    type: Object,
    required: true
+  },
+  user: {
+   type: Object,
+   required: true
   }
  },
  name: 'StoryList',
  components: {
   UserPreview
  },
+ created() {
+
+ }
 }
 </script>
 

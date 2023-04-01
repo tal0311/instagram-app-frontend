@@ -15,7 +15,7 @@ import AppHeader from './components/AppHeader.vue'
 export default {
   name: 'App',
   created() {
-    console.log('App created');
+    console.info('%c App created', 'color: pink');
     this.loadUser()
   },
   methods: {

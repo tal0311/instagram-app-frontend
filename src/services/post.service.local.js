@@ -23,23 +23,37 @@ export const postService = {
 }
 window.ps = postService
 
-async function query(filterBy = { txt: '', userFilter: '' }) {
-    // debugger
+async function query(filterBy = { txt: '', userFilter: 'post', userId: '' }) {
+    console.info('filterBy:', filterBy)
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         posts = posts.filter(post => regex.test(post.vendor) || regex.test(post.description))
     }
-    if (filterBy.userFilter) {
-        posts = userFilter(posts, filterBy.userFilter)
+    if (filterBy.userId) {
+        posts = await userFilter(posts, filterBy.userFilter, filterBy.userId)
     }
-    getTags(posts)
+    setTags(posts)
     return posts
 }
 
-function userFilter(posts, type) {
-    const user = userService.getLoggedinUser()
-    // console.log('user:', user)
+async function setTags(posts) {
+    // debugger
+    if (!posts || !posts.length) return
+    posts = posts.map(post => {
+        if (post.tags) {
+            return post.tags
+        }
+    })
+    const userTags = [...new Set(posts.flatMap(tag => tag))]
+    const loggedInUser = userService.getLoggedinUser()
+    const user = await userService.getById(loggedInUser._id)
+    user.tags = userTags
+    userService.update(user)
+}
+
+async function userFilter(posts, type, userId) {
+    const user = await userService.getById(userId)
     switch (type) {
         // posts user tagged in
         case 'tagged-posts':
@@ -113,7 +127,6 @@ async function addPostComment(postId, txt) {
 }
 async function addPostLike(postId, userId) {
     // Later, this is all done by the backend
-    debugger
     const post = await getById(postId)
     if (!post.likedBy) post.likedBy = []
     const { username: by, _id, imgUrl } = await userService.getById(userId)
@@ -127,7 +140,6 @@ async function addPostLike(postId, userId) {
             imgUrl: user.imagUrl
         }
         if (post.tags.length) {
-            console.log('post.tags:', post.tags)
             updateTags(post.tags, user)
         }
         post.likedBy.push(like)
@@ -213,18 +225,7 @@ function getRandomTags(numTags) {
     return randomTags;
 }
 
-async function getTags(posts) {
-    posts = posts.map(post => {
-        if (post.tags) {
-            return post.tags
-        }
-    })
-    const userTags = [...new Set(posts.flatMap(tag => tag))]
-    const loggedInUser = userService.getLoggedinUser()
-    const user = await userService.getById(loggedInUser._id)
-    user.tags = userTags
-    userService.update(user)
-}
+
 
 
 
