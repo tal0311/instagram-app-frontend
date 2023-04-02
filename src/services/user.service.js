@@ -18,7 +18,8 @@ export const userService = {
     getById,
     update,
     toggleSavedPost,
-    getKeyWords
+
+    getStory
 }
 
 window.userService = userService
@@ -31,10 +32,7 @@ async function getUsers() {
     return userCollection
     // return httpService.get(`user`)
 }
-function getKeyWords() {
-    const user = getLoggedinUser()
-    return ['fun', 'kids', 'fruit', 'travel', 'coding', 'food', 'night', 'city']
-}
+
 
 async function getById(userId) {
     const user = await storageService.get('user', userId)
@@ -68,6 +66,12 @@ async function toggleSavedPost(postId, userId) {
     user.savedPostIds.push(postId)
     await update(user)
     return saveLocalUser(user)
+
+}
+
+async function getStory(userId, storyId) {
+    const user = await getById(userId)
+    return user.stories.find(s => s.id === storyId)
 
 }
 
@@ -105,6 +109,8 @@ function saveLocalUser(user) {
 function getLoggedinUser() {
     return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
+
+
 
 
 

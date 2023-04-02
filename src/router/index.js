@@ -4,7 +4,9 @@ import AppExplore from './../views/AppExplore.vue'
 import AppMessenger from '../views/AppMessenger.vue'
 import UserArea from './../views/UserArea.vue'
 import PostDetails from './../views/PostDetails.vue'
+import UserStory from './../views/UserStory.vue'
 import TestArea from './../views/TestingArea.vue'
+
 import UserPosts from './../components/UserPosts.vue'
 
 import AppLogin from './../views/AppLogin.vue'
@@ -56,6 +58,11 @@ const router = createRouter({
           component: UserPosts
         }
       ]
+    },
+    {
+      path: '/stories/:userId/:storyId',
+      name: 'stories',
+      component: UserStory
     },
     {
       path: '/login',

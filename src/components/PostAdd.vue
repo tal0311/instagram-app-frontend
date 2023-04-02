@@ -68,7 +68,7 @@ export default {
     ev.target.files[0] :
     ev.dataTransfer.files[0]
    // TODO: add loader AND error handling 
-   // TODO: able ro cancel upload
+   // TODO: able to cancel upload
    const { url } = await uploadImg(file)
    this.post.imgUrl = url
    this.isEditor = true

@@ -69,7 +69,7 @@ export const postStore = {
         console.error('[Error trying to Add post]:', error)
       }
     },
-    // filtering  post in user area
+    // filtering  post in user area by userId
     async filterPosts({ dispatch, commit }, { filterBy, userId }) {
       console.info('filterPosts filterBy, userId: ', filterBy, userId)
       commit({ type: 'setFilter', filterBy, userId })

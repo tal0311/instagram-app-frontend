@@ -25,6 +25,14 @@
   "savedPostIds": [
    "p101"
   ],
+  "stories": [
+   {
+    "imgUrl": "https://res.cloudinary.com/tal-amit-dev/image/upload/v1679991040/Instagram/post-data-05_ancyvs.jpg",
+    "createdAt": 1651504622095,
+    "views": 0,
+    "id": "s101"
+   }
+  ],
   "highlights": []
  },
  {
@@ -53,6 +61,14 @@
   "savedPostIds": [
    "p101"
   ],
+  "stories": [
+   {
+    "imgUrl": "https://res.cloudinary.com/tal-amit-dev/image/upload/v1679991045/Instagram/post-data-04_j5755g.jpg",
+    "createdAt": 1651504622095,
+    "views": 0,
+    "id": "s101"
+   }
+  ],
   "highlights": []
  },
  {
@@ -80,6 +96,14 @@
   ],
   "savedPostIds": [
    "p101"
+  ],
+  "stories": [
+   {
+    "imgUrl": "https://res.cloudinary.com/tal-amit-dev/image/upload/v1679991037/Instagram/post-data-06_oygejj.jpg",
+    "createdAt": 1651504622095,
+    "views": 0,
+    "id": "s101"
+   }
   ],
   "highlights": []
  }

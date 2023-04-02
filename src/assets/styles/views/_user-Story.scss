@@ -1,0 +1,40 @@
+.user-story {
+ border: none;
+ padding: 0;
+ max-height: 80dvh;
+ position: relative;
+
+ overflow-y: hidden;
+ &::backdrop {
+  background-color: rgba(0, 0, 0, 0.67);
+ }
+
+ img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+ }
+
+ .close-btn {
+  @include close-modal-btn;
+ }
+ .after,
+ .before {
+  position: absolute;
+  top: 50%;
+  font-size: 3em;
+  svg {
+   fill: $clr4;
+  }
+ }
+
+ .after {
+  right: 0;
+  transform: translateY(-50%);
+ }
+
+ .before {
+  left: 0;
+  transform: translateY(-50%);
+ }
+}
