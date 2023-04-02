@@ -12,7 +12,8 @@ export default {
  name: 'UserPosts',
  created() {
 
-  // this.loadPosts()
+  this.loadPosts()
+  this.getPosts()
 
  },
  methods: {
@@ -22,6 +23,9 @@ export default {
 
   loadPosts() {
    this.setFilter({ filterBy: { userFilter: this.$route.name }, userId: this.$route.params.userId })
+  },
+  getPosts() {
+   console.log('this.posts:', this.posts)
   }
  },
  computed: {
@@ -29,6 +33,7 @@ export default {
    posts: 'postStore/getPosts',
 
   })
+
  },
  watch: {
   $route: {

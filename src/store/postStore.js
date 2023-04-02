@@ -8,7 +8,8 @@ export const postStore = {
     posts: null,
     isModalOpen: false,
     explorePosts: null,
-    filter: null
+    filter: null,
+
   },
   getters: {
     getPosts(state) {
@@ -19,6 +20,9 @@ export const postStore = {
     },
     getExplorePosts(state) {
       return state.explorePosts
+    },
+    postCount(state) {
+      return state.posts.length
     }
 
   },
@@ -75,13 +79,10 @@ export const postStore = {
         console.error('[Failed to filter posts]:', error)
       }
     },
-    // async setFilter({ commit, dispatch }, { filter, userId }) {
-    //   console.log('userId:', userId)
-    //   commit({ type: 'setFilter', filter, userId })
-    //   dispatch('loadPosts')
-
-
-    // },
+    async getPostCount({ state, commit }, { userId }) {
+      console.log('userId from store:', userId)
+      // postService.query()
+    },
     async postActions({ rootGetters, commit, dispatch }, { action, postId, }) {
       try {
         let post = null

@@ -4,7 +4,6 @@ export const userStore = {
  namespaced: true,
  state: {
   loggedInUser: null,
-  postCount: 0,
   users: null
  },
  getters: {
@@ -29,9 +28,6 @@ export const userStore = {
   setUsers(state, { users }) {
    state.users = users
   },
-  // updateSavedPosts(state, { savedPostsId }) {
-  //  state.loggedInUser = { ...state.loggedInUser, savedPostsId }
-  // }
  },
  actions: {
   loadUser({ commit }) {

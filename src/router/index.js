@@ -91,10 +91,12 @@ router.beforeEach((to, from, next) => {
 
   }
 
-  if (to.name === 'details') {
-
-
+  if (to.name === 'post') {
+    console.log('post:',)
+    const { userId } = to.params
+    store.dispatch('postStore/getPostCount', { userId })
   }
+
   if (to.path.includes('user') && to.params.userId === ':userId') {
     next({ name: 'login' })
   }

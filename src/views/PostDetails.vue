@@ -14,9 +14,7 @@ import PostPreview from '../components/PostPreview.vue';
 export default {
  name: 'PostDetails',
  async created() {
-  console.log('this.$route:', this.$route)
   await this.getSelectedPost()
-
  },
  data() {
   return {
@@ -24,7 +22,6 @@ export default {
   }
  },
  methods: {
-
   async onPostAction({ action, postId }) {
    await this.$store.dispatch('postStore/postActions', { action, postId })
    this.getSelectedPost()

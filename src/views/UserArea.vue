@@ -42,6 +42,7 @@ export default {
   const { userId } = this.$route.params
   this.user = await userService.getById(userId)
 
+
  },
  data() {
   return {
@@ -55,16 +56,12 @@ export default {
   }
  },
  methods: {
-  setPostCount(val) {
-   this.postCount = val
-  },
-
  },
 
  computed: {
 
   ...mapGetters({
-   postCount: 'userStore/postCount',
+   postCount: 'postStore/postCount',
    // user: 'userStore/getUser'
   })
 
