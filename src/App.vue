@@ -12,6 +12,8 @@ import { mapActions, mapGetters } from 'vuex'
 import PostAdd from './components/PostAdd.vue'
 import AppNav from './components/AppNav.vue';
 import AppHeader from './components/AppHeader.vue'
+
+// TODO: CREATE LOGGER SERVICE
 export default {
   name: 'App',
   created() {

@@ -10,6 +10,9 @@ nav.app-nav {
  }
 
  .nav-container {
+  i {
+   cursor: pointer;
+  }
   .router-link-active.router-link-exact-active {
    svg.home {
     path {
