@@ -20,6 +20,7 @@ const router = createRouter({
         {
           path: 'p/:id',
           name: 'details',
+          props: true,
           component: PostDetails
         }
       ]
@@ -87,6 +88,11 @@ router.beforeEach((to, from, next) => {
 
   if (to.name === 'explore' && !user.tags) {
     store.dispatch('postStore/getExploreData')
+
+  }
+
+  if (to.name === 'details') {
+
 
   }
   if (to.path.includes('user') && to.params.userId === ':userId') {

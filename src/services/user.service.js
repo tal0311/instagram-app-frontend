@@ -56,8 +56,7 @@ async function update(user) {
     return user
 }
 
-async function toggleSavedPost(postId) {
-    const userId = getLoggedinUser()._id
+async function toggleSavedPost(postId, userId) {
     const user = await getById(userId)
     if (!user) throw new Error('Not loggedin')
     if (user.savedPostIds.includes(postId)) {

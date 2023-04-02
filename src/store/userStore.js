@@ -28,7 +28,10 @@ export const userStore = {
   },
   setUsers(state, { users }) {
    state.users = users
-  }
+  },
+  // updateSavedPosts(state, { savedPostsId }) {
+  //  state.loggedInUser = { ...state.loggedInUser, savedPostsId }
+  // }
  },
  actions: {
   loadUser({ commit }) {
@@ -39,9 +42,13 @@ export const userStore = {
    const users = await userService.getUsers()
    commit({ type: 'setUsers', users })
   },
-  async savePost({ commit }, { postId }) {
+  async savePost({ commit, state }, { postId }) {
+   console.log('postId:', postId,)
+   const userId = state.loggedInUser._id
    try {
-    const loggedInUser = await userService.toggleSavedPost(postId)
+    // debugger
+    const loggedInUser = await userService.toggleSavedPost(postId, userId)
+    // console.log('savedposts:', savedPostsId)
     commit({ type: 'setUser', loggedInUser })
    } catch (error) {
     console.error(`[userStore/saveStore erroring 

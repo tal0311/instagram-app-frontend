@@ -24,12 +24,15 @@ export default {
     await this.$store.dispatch('postStore/loadPosts');
     await this.$store.dispatch('userStore/loadUsers');
   },
+  updated() {
+  },
   data() {
     return {
     };
   },
   methods: {
     onPostAction({ action, postId }) {
+      console.log('action:', action)
       this.$store.dispatch('postStore/postActions', { action, postId })
     },
   },

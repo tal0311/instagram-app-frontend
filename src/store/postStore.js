@@ -92,7 +92,8 @@ export const postStore = {
             commit({ type: 'updatePost', post })
             break;
           case 'save':
-            dispatch('userStore/savePost', { postId }, { root: true })
+            await dispatch('userStore/savePost', { postId }, { root: true })
+
             break;
 
           default:

@@ -49,16 +49,22 @@ export default {
       default: 'preview'
     },
     post: {
-
       type: Object,
       required: true,
     },
     loggedUser: {
       type: Object,
       // required: true
+
     }
   },
   created() {
+    // if (this.$route.name === 'details') this.loggedUser = this.$store.getters['userStore/getUser']
+    // console.log('loggedUser:', this.loggedUser);
+
+  },
+  updated() {
+    // console.log('loggedUser:', this.loggedUser);
 
   },
   data() {
@@ -73,8 +79,8 @@ export default {
         txt: '',
       },
       isTyping: false,
-      isCommentsOpen: false
-
+      isCommentsOpen: false,
+      // loggedUser: null
     }
   },
   methods: {
