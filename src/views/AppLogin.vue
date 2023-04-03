@@ -50,18 +50,24 @@ export default {
     ev.dataTransfer.files[0]
    // TODO: add loader AND error handling 
    // TODO: able to cancel upload
-   // TODO: LOGGED USER ON LOGIN
+
    const { url } = await uploadImg(file)
    this.userImgPreview = url
   },
-  handleUserData() {
-   if (this.isSignUp) {
-    this.formData.imgUrl = this.userImgPreview
-    this.signUp({ user: { ...this.formData } })
-   } else {
-    this.login({ user: { ...this.formData } })
+  async handleUserData() {
+   try {
+    if (this.isSignUp) {
+     this.formData.imgUrl = this.userImgPreview
+     await this.signUp({ user: { ...this.formData } })
+    } else {
+     await this.login({ user: { ...this.formData } })
+    }
+    this.formData = {}
+    this.$router.push('/')
+   } catch (error) {
+    console.error('[Error while sign or log in]', error);
    }
-   this.formData = {}
+
   }
  }
 }
