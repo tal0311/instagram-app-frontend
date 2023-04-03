@@ -78,20 +78,23 @@ async function getStory(userId, storyId) {
 // auth
 async function login(credentials) {
     const users = await storageService.query('user')
-    const user = users.find(user => user.username === userCred.username)
+    const user = users.find(user => user.username === credentials.username)
+    console.log('user login:', user)
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
         // socketService.login(user._id)
-        return saveLocalUser(user)
+        // return saveLocalUser(user)
     }
 }
-async function signup(userCred) {
+async function signup(userCard) {
 
-    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    const user = await storageService.post('user', userCred)
+    const user = createUser(userCard)
+    console.log('user:', user)
+    const addUser = await storageService.post('user', user)
+    console.log('addUser:', addUser)
     // const user = await httpService.post('auth/signup', userCred)
     // socketService.login(user._id)
-    return saveLocalUser(user)
+    // return saveLocalUser(user)
 }
 
 async function logout() {
@@ -108,6 +111,24 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+// later will be handle by BE
+function createUser({ fullname, password, username, imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }) {
+
+    return {
+        _id: '',
+        username,
+        imgUrl,
+        fullname,
+        password,
+        createdAt: Date.now(),
+        following: [],
+        followers: [],
+        savedPostIds: [],
+        stories: [],
+        highlights: []
+    }
 }
 
 

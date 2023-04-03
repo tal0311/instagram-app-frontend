@@ -53,4 +53,25 @@
    cursor: pointer;
   }
  }
+
+ .signup-section {
+  gap: 5px;
+  text-align: center;
+  label {
+   @include app-btn(3px);
+   border-radius: 3px;
+   width: max-content;
+   justify-self: center;
+   font-size: small;
+  }
+  img {
+   display: block;
+   margin: 0 auto;
+   height: 82px;
+   width: 82px;
+   border-radius: 50%;
+   object-fit: cover;
+   aspect-ratio: 1/1;
+  }
+ }
 }

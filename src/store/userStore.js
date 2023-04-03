@@ -28,6 +28,9 @@ export const userStore = {
   setUsers(state, { users }) {
    state.users = users
   },
+  addSignedUser(state, { user }) {
+   state.users.push(user)
+  }
  },
  actions: {
   loadUser({ commit }) {
@@ -49,6 +52,24 @@ export const userStore = {
    } catch (error) {
     console.error(`[userStore/saveStore erroring 
     trying to save post with id ${postId}]:`, error)
+
+   }
+  },
+  async userSignUp({ commit, state }, { user }) {
+   try {
+    console.log('user from store:', user)
+    const signedUser = await userService.signup(user)
+    commit({ type: 'addSignedUser', signedUser })
+   } catch (error) {
+    console.error('[Error while user sign in]:', error)
+   }
+  },
+  async userLogin({ dispatch, commit }, { user }) {
+   try {
+    // console.log('login user:', user)
+    await userService.login(user)
+    dispatch('loadUser')
+   } catch (error) {
 
    }
   }
