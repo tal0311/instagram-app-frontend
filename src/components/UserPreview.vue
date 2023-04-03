@@ -32,7 +32,6 @@ export default {
    if (this.is === 'story' && this.user.stories.length) {
     console.log('stories:', this.user.stories)
     this.$router.push(`/stories/${this.user._id}/${this.user.stories[0].id}`)
-
     return
    }
    if (cancelNavigation.includes(this.is)) return

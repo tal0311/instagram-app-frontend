@@ -1,5 +1,10 @@
 <template>
  <dialog v-if="story" ref="story" class="user-story">
+  <header class="story-heder grid">
+   <UserPreview :user="user" is="story-on" />
+   <p>{{ user.fullname }}</p>
+   <!-- <p>{{ story.createdAt }}</p> -->
+  </header>
   <span class="before" @click="storyChange(-1)" v-html="$getSvg('arrow-left')"> </span>
   <img :src="story.imgUrl" alt="story">
   <span class="after" @click="storyChange(1)" v-html="$getSvg('arrow-right')"></span>
@@ -12,9 +17,11 @@
 </template>
 
 <script>
+// TODO: ADD SWIPE TO STORY
+// TODO: ADD STORY TIME
 import { userService } from '../services/user.service.js'
 import { mapActions } from 'vuex'
-import { watch } from 'vue'
+import UserPreview from '../components/UserPreview.vue'
 export default {
  name: 'UserStory',
  created() {
@@ -24,20 +31,23 @@ export default {
  updated() {
   this.$refs.story.showModal()
  },
+ beforeUnmount() {
+  this.$refs.story.close()
+ },
  data() {
   return {
-   story: null
+   story: null,
+   user: null
   }
  },
  methods: {
   async getStory(userId, storyId) {
    try {
-    this.story = await userService.getStory(userId, storyId)
-
+    this.user = await userService.getById(userId)
+    this.story = this.user.stories.find(story => story.id === storyId)
    } catch (error) {
     console.error('[Could not Get Story]:', error)
    }
-
   },
   storyChange(diff) {
    console.log('diff:', diff)
@@ -53,8 +63,8 @@ export default {
    this.$router.push('/')
   },
  },
- watch: {
-
+ components: {
+  UserPreview
  }
 }
 </script>
