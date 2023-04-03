@@ -60,6 +60,7 @@ export const userStore = {
     console.log('user from store:', user)
     const signedUser = await userService.signup(user)
     commit({ type: 'addSignedUser', signedUser })
+    return
    } catch (error) {
     console.error('[Error while user sign in]:', error)
    }
@@ -69,6 +70,7 @@ export const userStore = {
     // console.log('login user:', user)
     await userService.login(user)
     dispatch('loadUser')
+    return
    } catch (error) {
 
    }

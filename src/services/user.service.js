@@ -83,7 +83,7 @@ async function login(credentials) {
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
         // socketService.login(user._id)
-        // return saveLocalUser(user)
+        return saveLocalUser(user)
     }
 }
 async function signup(userCard) {
@@ -135,9 +135,9 @@ function createUser({ fullname, password, username, imgUrl = 'https://cdn.pixaba
 
 
 
-// // ; (() => {
-// //     saveLocalUser(gUsers[2])
-// //     utilService.saveToStorage('user', gUsers)
+// ; (() => {
+//     // saveLocalUser(gUsers[2])
+//     utilService.saveToStorage('user', gUsers)
 // })()
 
 

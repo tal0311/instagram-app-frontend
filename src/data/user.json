@@ -79,10 +79,10 @@
  },
  {
   "_id": "u101",
-  "username": "tal",
+  "username": "tal.amit",
   "imgUrl": "https://res.cloudinary.com/dozcmuoqw/image/upload/v1679772213/WhatsApp_Image_2023-03-25_at_22.22.58_bo2hlv.jpg",
-  "fullname": "Tal Mit",
-  "password": "Tal.amit",
+  "fullname": "Tal Amit",
+  "password": "111",
   "createdAt": 1651504622095,
   "following": [
    {
