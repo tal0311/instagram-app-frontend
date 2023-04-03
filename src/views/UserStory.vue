@@ -9,7 +9,6 @@
   <img :src="story.imgUrl" alt="story">
   <span class="after" @click="storyChange(1)" v-html="$getSvg('arrow-right')"></span>
 
-
   <form>
    <i @click="navigateTo" class="icon close-btn" v-html="$getSvg('times')"></i>
   </form>
@@ -19,6 +18,7 @@
 <script>
 // TODO: ADD SWIPE TO STORY
 // TODO: ADD STORY TIME
+// FIXME: FIX STORY CHANGE
 import { userService } from '../services/user.service.js'
 import { mapActions } from 'vuex'
 import UserPreview from '../components/UserPreview.vue'
@@ -29,6 +29,7 @@ export default {
   this.getStory(userId, storyId)
  },
  updated() {
+  if (this.$refs.story && this.$refs.story.open) return
   this.$refs.story.showModal()
  },
  beforeUnmount() {
@@ -50,17 +51,25 @@ export default {
    }
   },
   storyChange(diff) {
-   console.log('diff:', diff)
-   // const { userId, storyId } = this.$route.params
-   // const storyIdx = this.story.user.stories.findIndex(story => story.id === storyId)
-   // const nextStoryIdx = storyIdx + diff
-   // const nextStory = this.story.user.stories[nextStoryIdx]
-   // if (!nextStory) return
-   // this.$router.push(`/stories/${userId}/${nextStory.id}`)
+   const { userId, storyId } = this.$route.params
+   let storyIdx = this.user.stories.findIndex(story => story.id === storyId)
+   const nextStoryIdx = storyIdx += diff
+   const nextStory = this.user.stories[nextStoryIdx]
+   if (!nextStory) this.navigateTo()
+   this.$router.push(`/stories/${userId}/${nextStory.id}`)
   },
   navigateTo() {
    this.$refs.story.close()
    this.$router.push('/')
+  },
+ },
+ watch: {
+  $route: {
+   deep: true,
+   handler(val, oldVal) {
+    const { userId, storyId } = val.params
+    this.getStory(userId, storyId)
+   }
   },
  },
  components: {
