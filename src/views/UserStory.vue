@@ -18,7 +18,7 @@
 <script>
 // TODO: ADD SWIPE TO STORY
 // TODO: ADD STORY TIME
-// FIXME: FIX STORY CHANGE
+
 import { userService } from '../services/user.service.js'
 import { mapActions } from 'vuex'
 import UserPreview from '../components/UserPreview.vue'
@@ -27,6 +27,9 @@ export default {
  created() {
   const { userId, storyId } = this.$route.params
   this.getStory(userId, storyId)
+  this.storyInt = setInterval(() => {
+   this.storyChange(1)
+  }, 5000)
  },
  updated() {
   if (this.$refs.story && this.$refs.story.open) return
@@ -55,7 +58,11 @@ export default {
    let storyIdx = this.user.stories.findIndex(story => story.id === storyId)
    const nextStoryIdx = storyIdx += diff
    const nextStory = this.user.stories[nextStoryIdx]
-   if (!nextStory) this.navigateTo()
+   console.log('nextStory:', nextStory)
+   if (!nextStory) {
+    this.navigateTo()
+    return
+   }
    this.$router.push(`/stories/${userId}/${nextStory.id}`)
   },
   navigateTo() {
@@ -71,6 +78,9 @@ export default {
     this.getStory(userId, storyId)
    }
   },
+ },
+ unmounted() {
+  clearInterval(this.storyInt)
  },
  components: {
   UserPreview
