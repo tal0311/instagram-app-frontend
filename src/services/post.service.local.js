@@ -198,7 +198,7 @@ async function getExploreDate() {
     const tagsToExplore = [...user.tags, ...randomTags]
     try {
         const explorePosts = Promise.all(tagsToExplore.map(async tag => {
-            const url = `https://source.unsplash.com/random/400×400/?${tag}`
+            const url = `https://source.unsplash.com/random/120x120/?${tag}`
             const res = await axios.get(url)
             console.log('getting from API')
             return {
