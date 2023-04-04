@@ -83,7 +83,7 @@ export const postStore = {
       console.log('userId from store:', userId)
       // postService.query()
     },
-    async postActions({ rootGetters, commit, dispatch }, { action, postId, }) {
+    async postActions({ rootGetters, commit, dispatch }, { action, postId, comment = null }) {
       try {
         let post = null
         const loggedInUser = rootGetters['userStore/getUser']
@@ -95,6 +95,11 @@ export const postStore = {
           case 'save':
             await dispatch('userStore/savePost', { postId }, { root: true })
 
+            break;
+          case 'comment':
+            post = await postService.addPostComment(postId, comment.txt)
+            console.log('adding comment after update:', post)
+            commit({ type: 'updatePost', post })
             break;
 
           default:

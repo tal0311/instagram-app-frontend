@@ -68,6 +68,24 @@
     font-weight: bold;
    }
   }
+
+  li {
+   &.comment {
+    grid-auto-flow: column;
+    grid-auto-columns: min-content;
+    align-items: center;
+    margin-block-end: 1em;
+
+    .comment-by {
+     margin-inline: 0.5rem;
+     font-weight: 600;
+     font-size: 0.8rem;
+    }
+    .comment-txt {
+     font-size: 0.8rem;
+    }
+   }
+  }
  }
 
  &.details {

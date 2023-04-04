@@ -113,17 +113,20 @@ function getPostTags(txt) {
 
 async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
+
     const post = await getById(postId)
+    debugger
+    const { _id, fullname, username, imgUrl } = userService.getLoggedinUser()
     if (!post.comments) post.comments = []
     const comment = {
         id: utilService.makeId(),
-        by: userService.getLoggedinUser(),
+        by: { _id, fullname, username, imgUrl },
         txt
     }
     post.comments.push(comment)
     await storageService.put(STORAGE_KEY, post)
 
-    return comment
+    return post
 }
 async function addPostLike(postId, userId) {
     // Later, this is all done by the backend
