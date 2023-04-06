@@ -30,6 +30,8 @@
 
 <script>
 // TODO: add tooltip 
+// TODO: add user settings
+// TODO: add user Follow functionality
 import UserDashboard from '../components/UserDashboard.vue';
 import UserPreview from '../components/UserPreview.vue';
 import { mapGetters, mapActions } from 'vuex'

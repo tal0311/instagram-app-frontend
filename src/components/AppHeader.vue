@@ -1,7 +1,7 @@
 <template>
  <header class="app-header full main-layout">
   <section class="header-container">
-   <i class="icon logo" v-html="$getSvg('logo')"></i>
+   <i class="icon logo" @click="$router.push('/')" v-html="$getSvg('logo')"></i>
 
    <form @submit.prevent="">
     <input @input="onSearch" type="search" name="search" placeholder="Search">
