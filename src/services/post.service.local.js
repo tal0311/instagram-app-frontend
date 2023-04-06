@@ -234,10 +234,5 @@ function getRandomTags(numTags) {
 
 // TEST DATA
 // ; (() => {
-
-
-
 //     utilService.saveToStorage(STORAGE_KEY, gPosts)
-
-
 // })()
