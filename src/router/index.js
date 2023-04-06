@@ -6,6 +6,7 @@ import UserArea from './../views/UserArea.vue'
 import PostDetails from './../views/PostDetails.vue'
 import UserStory from './../views/UserStory.vue'
 import TestArea from './../views/TestingArea.vue'
+import UserNotification from './../views/UserNotification.vue'
 
 import UserPosts from './../components/UserPosts.vue'
 
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/stories/:userId/:storyId',
       name: 'stories',
       component: UserStory
+    },
+    {
+      path: '/notification',
+      name: 'notification',
+      component: UserNotification
     },
     {
       path: '/login',

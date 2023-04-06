@@ -19,7 +19,7 @@ export const userService = {
     update,
     toggleSavedPost,
     getUsersBySearch,
-    getStory
+    getStory,
 }
 
 window.userService = userService
@@ -85,8 +85,9 @@ async function toggleSavedPost(postId, userId) {
 async function getStory(userId, storyId) {
     const user = await getById(userId)
     return user.stories.find(s => s.id === storyId)
-
 }
+
+
 
 // auth
 async function login(credentials) {

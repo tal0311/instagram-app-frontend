@@ -1,0 +1,15 @@
+.user-notification {
+ // display: grid;
+
+ gap: 1rem;
+ .notification-list {
+  align-items: center;
+  gap: 1em;
+  .notification-preview {
+   grid-auto-flow: column;
+   justify-content: start;
+   gap: 5px;
+   align-items: center;
+  }
+ }
+}
