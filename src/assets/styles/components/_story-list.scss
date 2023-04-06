@@ -7,4 +7,34 @@
  justify-content: start;
  gap: 0.5em;
  margin: 1em 0;
+
+ &::-webkit-scrollbar {
+  display: none;
+ }
+
+ &::-webkit-scrollbar-track {
+  // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  display: none;
+ }
+
+ &::-webkit-scrollbar-thumb {
+  background: none;
+ }
+}
+
+// scroll stories with arrow keys
+.list-wrapper {
+ grid-auto-flow: column;
+ .left-arrow {
+  // writing-mode: tb-rl;
+  transform: rotate(-180deg);
+  text-align: center;
+  transform: translateX(20px) rotate(89deg);
+ }
+ .right-arrow {
+  // writing-mode: tb-rl;
+  transform: rotate(-180deg);
+  text-align: center;
+  transform: translateX(20px) rotate(89deg);
+ }
 }
