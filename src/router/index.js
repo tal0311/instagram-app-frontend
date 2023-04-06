@@ -99,7 +99,6 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.name === 'post') {
-    console.log('post:',)
     const { userId } = to.params
     store.dispatch('postStore/getPostCount', { userId })
   }

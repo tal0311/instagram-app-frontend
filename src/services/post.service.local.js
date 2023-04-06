@@ -24,7 +24,6 @@ export const postService = {
 window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: 'post', userId: '' }) {
-    console.info('filterBy:', filterBy)
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')

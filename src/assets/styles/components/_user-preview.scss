@@ -53,7 +53,9 @@
    width: 56px;
   }
  }
+ // when the user-preview is in the user-area
  &.user-area {
+  align-items: center;
   img {
    box-sizing: content-box;
    border: none;
@@ -65,6 +67,7 @@
    padding: 0.2em;
   }
  }
+ // when the user-preview is in the story-list
  &.story-on {
   background: none;
   img {
@@ -76,6 +79,22 @@
   }
   .gradient-wrapper {
    background: none;
+  }
+ }
+ // when the user-preview is in the search-results
+ &.results {
+  .user-info {
+   margin-inline-start: 0.5em;
+
+   p {
+    padding: 0;
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 600;
+   }
+  }
+  &:not(:last-child) {
+   margin-bottom: 0.5em;
   }
  }
 }

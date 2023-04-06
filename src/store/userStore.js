@@ -4,7 +4,9 @@ export const userStore = {
  namespaced: true,
  state: {
   loggedInUser: null,
-  users: null
+  users: null,
+  filterBy: {},
+  searchResultsUsers: {},
  },
  getters: {
   getUser(state) {
@@ -16,6 +18,9 @@ export const userStore = {
   },
   postCount(state) {
    return state.postCount
+  },
+  getSearchResults(state) {
+   return state.searchResultsUsers
   }
  },
  mutations: {
@@ -30,6 +35,9 @@ export const userStore = {
   },
   addSignedUser(state, { user }) {
    state.users.push(user)
+  },
+  setUserFilterResults(state, { searchResultsUsers }) {
+   state.searchResultsUsers = [...searchResultsUsers]
   }
  },
  actions: {
@@ -41,39 +49,43 @@ export const userStore = {
    const users = await userService.getUsers()
    commit({ type: 'setUsers', users })
   },
-  async savePost({ commit, state }, { postId }) {
-   console.log('postId:', postId,)
-   const userId = state.loggedInUser._id
+  async usersFilter({ dispatch, commit }, { searchTerm }) {
    try {
-    // debugger
-    const loggedInUser = await userService.toggleSavedPost(postId, userId)
-    // console.log('savedposts:', savedPostsId)
-    commit({ type: 'setUser', loggedInUser })
+    const searchResultsUsers = await userService.getUsersBySearch({ searchTerm })
+    commit({ type: 'setUserFilterResults', searchResultsUsers })
    } catch (error) {
-    console.error(`[userStore/saveStore erroring 
+    console.error('[Error while filtering users]:', error)
+   }
+
+  }
+ },
+ async savePost({ commit, state }, { postId }) {
+  const userId = state.loggedInUser._id
+  try {
+   const loggedInUser = await userService.toggleSavedPost(postId, userId)
+   commit({ type: 'setUser', loggedInUser })
+  } catch (error) {
+   console.error(`[userStore/saveStore erroring 
     trying to save post with id ${postId}]:`, error)
 
-   }
-  },
-  async userSignUp({ commit, state }, { user }) {
-   try {
-    console.log('user from store:', user)
-    const signedUser = await userService.signup(user)
-    commit({ type: 'addSignedUser', signedUser })
-    return
-   } catch (error) {
-    console.error('[Error while user sign in]:', error)
-   }
-  },
-  async userLogin({ dispatch, commit }, { user }) {
-   try {
-    // console.log('login user:', user)
-    await userService.login(user)
-    dispatch('loadUser')
-    return
-   } catch (error) {
-
-   }
+  }
+ },
+ async userSignUp({ commit, state }, { user }) {
+  try {
+   const signedUser = await userService.signup(user)
+   commit({ type: 'addSignedUser', signedUser })
+   return
+  } catch (error) {
+   console.error('[Error while user sign in]:', error)
+  }
+ },
+ async userLogin({ dispatch, commit }, { user }) {
+  try {
+   await userService.login(user)
+   dispatch('loadUser')
+   return
+  } catch (error) {
+   console.error('[Error while user login]:', error)
   }
  }
 }

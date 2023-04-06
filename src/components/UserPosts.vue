@@ -38,7 +38,6 @@ export default {
  watch: {
   $route: {
    handler: function (val, oldVal) {
-    console.log('wathceing:')
     this.setFilter({ filterBy: { userFilter: val.name }, userId: val.params.userId })
 
    },
