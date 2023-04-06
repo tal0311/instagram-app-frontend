@@ -8,8 +8,19 @@
   .notification-preview {
    grid-auto-flow: column;
    justify-content: start;
+   grid-template-columns: min-content 1fr auto;
    gap: 5px;
    align-items: center;
+   // background: lightcoral;
+   width: 100%;
+   :last-child {
+    // background: lightgreen;
+    justify-content: end;
+   }
+   .action {
+    @include app-btn(0.5rem, 1rem);
+    border-radius: $br;
+   }
   }
  }
 }

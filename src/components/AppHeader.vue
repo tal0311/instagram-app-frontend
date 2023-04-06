@@ -10,7 +10,7 @@
     </div>
    </form>
 
-   <i class="icon" v-html="$getSvg('like')"></i>
+   <i class="icon" @click="$router.push(`/notification`)" v-html="$getSvg('like')"></i>
   </section>
  </header>
 </template>
@@ -47,6 +47,7 @@ export default {
  computed: {
   ...mapGetters({
    users: 'userStore/getSearchResults',
+   user: 'userStore/getUser'
   }),
  },
  components: {

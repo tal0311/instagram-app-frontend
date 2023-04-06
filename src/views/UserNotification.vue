@@ -5,10 +5,13 @@
   <section class="notification-list grid">
    <article class="notification-preview grid" v-for="note, idx in notifications" :key="idx">
     <UserPreview :user="note.by" />
-    <span class="username">{{ note.by.username }}</span>
-    <span>{{ note.dsc }}</span>
-    <span>{{ getDesc(note.type) }}</span>
-    <span>{{ note.createdAt }}</span>
+    <div>
+     <span class="username">{{ note.by.username }}</span>
+     <span>{{ note.dsc }}</span>
+     <span>{{ getDesc(note.type) }}</span>
+     <span>{{ getTime(note.createdAt) }}</span>
+    </div>
+    <button class="action" @click="$router.push(`/user/${note.by._id}`)">Visit User</button>
    </article>
   </section>
 
@@ -19,6 +22,7 @@
 import UserPreview from '../components/UserPreview.vue';
 import { notificationService } from '../services/notification.service.js'
 import { mapGetters } from 'vuex'
+import { formattedRelativeTime } from '../services/timeService';
 export default {
  name: 'userNotification',
  created() {
@@ -33,7 +37,10 @@ export default {
  methods: {
   getDesc(type) {
    return notificationService.getDescription(type)
-  }
+  },
+  getTime(time) {
+   return formattedRelativeTime(time)
+  },
  },
  components: {
   UserPreview
