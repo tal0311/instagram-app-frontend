@@ -18,16 +18,29 @@ export const userService = {
     getById,
     update,
     toggleSavedPost,
-
+    getUsersBySearch,
     getStory
 }
 
 window.userService = userService
 
+async function getUsersBySearch(filterBy = { searchTerm: '' }) {
+    const userCollection = await storageService.query('user')
+    if (filterBy.searchTerm) {
+        const regex = new RegExp(filterBy.searchTerm, 'i')
+        return userCollection.filter(user => regex.test(user.username))
+    }
+    return userCollection
+
+}
+
+
 async function getUsers() {
     const user = getLoggedinUser()
     const following = user.following.map(f => f._id)
     const userCollection = await storageService.query('user')
+
+    // for removing loggedIn user from user list
     return userCollection.filter(u => u._id !== user._id)
     return userCollection
     // return httpService.get(`user`)

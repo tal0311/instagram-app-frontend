@@ -10,10 +10,47 @@
 
   height: 100%;
 
-  input[name="search"] {
-   @include app-input;
+  form {
+   height: 100%;
+   // background: lightblue;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+   width: 100%;
+   max-width: 400px;
    margin-inline-end: 1em;
+   input[name="search"] {
+    @include app-input;
+    // margin-inline-end: 1em;
+    width: 100%;
+   }
+
+   .search-preview {
+    top: 2.5em;
+    left: 1em;
+    background-color: $clr1;
+    position: absolute;
+    width: calc(100% - 2em);
+    padding: 0.5em;
+    border-radius: $br;
+    box-shadow: $bs;
+
+    &::after {
+     content: "";
+     height: 1em;
+     width: 1em;
+     background-color: $clr1;
+     position: absolute;
+     top: -0.6em;
+     left: 60%;
+     border-top: 1px solid $clr4;
+     transform: rotate(45deg);
+     border-left: 1px solid $clr4;
+    }
+   }
   }
+
   .logo {
    margin-inline-end: auto;
   }

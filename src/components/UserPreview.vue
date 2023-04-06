@@ -3,6 +3,14 @@
   <div class="gradient-wrapper">
    <img :src="user.imgUrl" alt="">
   </div>
+  <template v-if="is === 'results'">
+   <div class="user-info grid">
+
+    <p>{{ user.username }}</p>
+    <small>{{ user.fullname }}</small>
+
+   </div>
+  </template>
 
  </article>
 </template>

@@ -51,7 +51,6 @@ export const postStore = {
   actions: {
 
     async loadPosts({ commit, state }) {
-      console.info('loading posts with filter:', { ...state.filter })
       try {
         const posts = await postService.query({ ...state.filter })
         // console.info('posts:', posts)
@@ -71,7 +70,6 @@ export const postStore = {
     },
     // filtering  post in user area by userId
     async filterPosts({ dispatch, commit }, { filterBy, userId }) {
-      console.info('filterPosts filterBy, userId: ', filterBy, userId)
       commit({ type: 'setFilter', filterBy, userId })
       try {
         await dispatch('loadPosts')
@@ -80,7 +78,7 @@ export const postStore = {
       }
     },
     async getPostCount({ state, commit }, { userId }) {
-      console.log('userId from store:', userId)
+
       // postService.query()
     },
     async postActions({ rootGetters, commit, dispatch }, { action, postId, comment = null }) {
@@ -98,7 +96,6 @@ export const postStore = {
             break;
           case 'comment':
             post = await postService.addPostComment(postId, comment.txt)
-            console.log('adding comment after update:', post)
             commit({ type: 'updatePost', post })
             break;
 
