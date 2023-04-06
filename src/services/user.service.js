@@ -136,7 +136,7 @@ function createUser({ fullname, password, username, imgUrl = 'https://cdn.pixaba
 
 
 // ; (() => {
-//     // saveLocalUser(gUsers[2])
+//     saveLocalUser(gUsers[2])
 //     utilService.saveToStorage('user', gUsers)
 // })()
 

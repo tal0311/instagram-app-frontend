@@ -11,8 +11,50 @@ body {
     height: 100dvh;
     overflow: hidden;
 }
-#app {
-    height: 100%;
+#app.break-normal {
+    @media screen and (min-width: 800px) {
+        display: grid;
+        grid-template-columns: 4rem 2fr;
+        // grid-template-rows: 0.6fr 0.7fr 1.7fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+            "nav main"
+            "nav main"
+            "nav main";
+
+        .app-nav {
+            &.main-layout {
+                display: block;
+            }
+            grid-area: nav;
+
+            .nav-container {
+                align-items: baseline;
+                grid-auto-flow: row;
+                justify-content: center;
+                height: 100vh;
+                align-content: space-evenly;
+                border-inline-end: 1px solid $clr4;
+            }
+            // grid-auto-flow: row;
+            // height: 100vh;
+        }
+
+        .main {
+            grid-area: main;
+        }
+
+        .app-main {
+            // grid-area: main;
+        }
+        .app-nav {
+            // grid-area: nav;
+        }
+        .app-header {
+            display: none;
+        }
+    }
 }
 .app-header,
 .app-nav {
