@@ -6,7 +6,8 @@ import { userService } from "./user.service";
 
 export const notificationService = {
  query,
- getDescription
+ getDescription,
+ add
 }
 
 async function query(userId) {
@@ -38,6 +39,18 @@ function getDescription(type) {
  }
 
  return descOpts[type] || type
+}
+
+async function add(data) {
+ // later by backend
+ const notifications = await storageService.query('note_db')
+ const notification = {
+  id: utilService.makeId(),
+  ...data
+ }
+ notifications.push(notification)
+ storageService.saveToStorage('note_db', notifications)
+ return notification
 }
 
 // ; (() => {
