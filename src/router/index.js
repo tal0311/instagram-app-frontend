@@ -7,6 +7,7 @@ import PostDetails from './../views/PostDetails.vue'
 import UserStory from './../views/UserStory.vue'
 import TestArea from './../views/TestingArea.vue'
 import UserNotification from './../views/UserNotification.vue'
+import MsgDetails from './../views/MsgDetails.vue'
 
 import UserPosts from './../components/UserPosts.vue'
 
@@ -35,8 +36,15 @@ const router = createRouter({
     },
     {
       path: '/direct',
-      name: 'feed',
-      component: AppMessenger
+      name: 'inbox',
+      component: AppMessenger,
+      children: [
+        {
+          path: '/direct/:byId',
+          name: 'inbox',
+          component: MsgDetails,
+        }
+      ]
     },
     {
       path: '/user/:userId',
