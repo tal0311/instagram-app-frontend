@@ -10,7 +10,9 @@
     <small>{{ user.fullname }}</small>
 
    </div>
+
   </template>
+  <slot></slot>
 
  </article>
 </template>
@@ -48,7 +50,7 @@ export default {
  },
  computed: {
   fullPreview() {
-   const fullPreviewOpt = ['result', 'msg-preview']
+   const fullPreviewOpt = ['result', 'msg-preview',]
    return (fullPreviewOpt.includes(this.is))
   }
  }

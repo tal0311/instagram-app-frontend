@@ -6,8 +6,13 @@
    <header>
     <h1>Inbox</h1>
    </header>
-   <pre>{{ msgs }}</pre>
-   <UserPreview v-for="msg in msgs" :key="msg" :user="msg" is="msg-preview" />
+   <!-- <pre>{{ msgs }}</pre> -->
+   <section class="msg-preview" v-for="msg in msgs" :key="msg">
+
+    <UserPreview :user="msg" is="msg-preview">
+     <small>{{ msg.msgs[0].content }}</small>
+    </UserPreview>
+   </section>
   </section>
 
   <section class="side-container grid">
