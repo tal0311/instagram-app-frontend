@@ -41,7 +41,7 @@ const router = createRouter({
       children: [
         {
           path: '/direct/:byId',
-          name: 'inbox',
+          name: 'msg-details',
           component: MsgDetails,
         }
       ]
@@ -115,6 +115,10 @@ router.beforeEach((to, from, next) => {
   if (to.name === 'post') {
     const { userId } = to.params
     store.dispatch('postStore/getPostCount', { userId })
+  }
+  if (to.name === 'inbox') {
+
+    store.dispatch('msgStore/loadMsgs', { userId: user._id })
   }
 
   if (to.path.includes('user') && to.params.userId === ':userId') {

@@ -1,0 +1,46 @@
+.inbox-view {
+ grid-auto-flow: column;
+ max-width: 800px;
+ margin: 0 auto;
+ grid-template-columns: 80px 2fr;
+ :is(.by-container, .side-container) {
+  height: 84vh;
+  overflow-y: auto;
+ }
+ header {
+  background: lightcoral;
+  height: 3rem;
+  width: 100%;
+  align-self: start;
+ }
+ .by-container {
+  background: lightgreen;
+ }
+ .side-container {
+  // background: lightblue;
+
+  place-items: center;
+  .no-msg-container {
+   place-items: center;
+   h2 {
+    font-weight: 300;
+   }
+   p {
+    font-weight: 300;
+    color: lighten($clr2, 30%);
+   }
+   button {
+    @include app-btn(7px, 16px);
+    max-width: max-content;
+    border-radius: $br;
+   }
+  }
+ }
+ @media (width> 800px) {
+  margin: 1rem auto;
+  grid-template-columns: minmax(80px, 200px) 2fr;
+  :is(.by-container, .side-container) {
+   height: calc(100vh - 2rem);
+  }
+ }
+}

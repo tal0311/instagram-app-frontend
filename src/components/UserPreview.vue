@@ -3,14 +3,16 @@
   <div class="gradient-wrapper">
    <img :src="user.imgUrl" alt="">
   </div>
-  <template v-if="is === 'results'">
+  <template v-if="fullPreview">
    <div class="user-info grid">
 
     <p>{{ user.username }}</p>
     <small>{{ user.fullname }}</small>
 
    </div>
+
   </template>
+  <slot></slot>
 
  </article>
 </template>
@@ -46,6 +48,12 @@ export default {
    this.$router.push(`/user/${this.user._id}`)
   }
  },
+ computed: {
+  fullPreview() {
+   const fullPreviewOpt = ['result', 'msg-preview',]
+   return (fullPreviewOpt.includes(this.is))
+  }
+ }
 }
 </script>
 
