@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { userStore } from './userStore'
 import { postStore } from './postStore'
+import { msgStore } from './msgStore'
 
 // Create a new store instance.
 export const store = createStore({
@@ -18,5 +19,6 @@ export const store = createStore({
  modules: {
   postStore,
   userStore,
+  msgStore
  }
 })

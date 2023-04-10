@@ -1,12 +1,11 @@
 import { storageService } from "./async-storage.service";
-import notifications from '../data/notification.json' assert {type: 'json'}
+import msgs from '../data/msg.json' assert {type: 'json'}
 import { utilService } from "./util.service";
 import { userService } from "./user.service";
 
 
 export const msgService = {
  query,
- getDescription,
  add,
  remove
 }
@@ -14,10 +13,11 @@ export const msgService = {
 async function query(userId) {
  // debugger
  const msgs = await storageService.query('msg_db')
- return msgs.ownerId[userId] || {}
+ // debugger
+ return msgs.find(item => item.ownerId === userId).history
  //project msgs by ownerId
  // only return te msgs Preview without the history
- // return notifications
+
 }
 
 async function getByOwnerId(ownerId) {
@@ -44,11 +44,11 @@ async function add(ownerId, data, to) {
  userMsgs.history[to].push(msg)
 
  // socket to user
- storageService.saveToStorage('note_db', notifications)
+ storageService.saveToStorage('msg_db', notifications)
  return userMsgs
 }
 
 // ; (() => {
 
-//  utilService.saveToStorage('note_db', notifications)
+//  utilService.saveToStorage('msg_db', msgs)
 // })()
