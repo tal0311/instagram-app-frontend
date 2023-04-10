@@ -5,14 +5,12 @@
   </div>
   <template v-if="fullPreview">
    <div class="user-info grid">
-
-    <p>{{ user.username }}</p>
+    <p v-if="is !== 'msg-preview'">{{ user.username }}</p>
     <small>{{ user.fullname }}</small>
-
+    <slot></slot>
    </div>
 
   </template>
-  <slot></slot>
 
  </article>
 </template>
