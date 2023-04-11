@@ -5,10 +5,8 @@
    <header>
     <h1>Inbox</h1>
    </header>
-   <!-- <pre>{{ msgs }}</pre> -->
-   <section class="msg-preview" v-for="msg in msgs" :key="msg">
-
-    <UserPreview :user="msg" is="msg-preview">
+   <section class="msg-preview" v-for="msg, idx in msgs" :key="msg">
+    <UserPreview :user="{ _id: idx, ...msg }" is="msg-preview">
      <small>{{ msg.msgs[0].content }}</small>
     </UserPreview>
    </section>
@@ -38,7 +36,9 @@ import UserPreview from '../components/UserPreview.vue'
 import { mapGetters } from 'vuex'
 export default {
  name: 'AppMessenger',
-
+ created() {
+  console.log(this.msgs)
+ },
  data() {
   return {
    isPrivate: false
