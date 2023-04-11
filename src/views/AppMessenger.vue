@@ -1,7 +1,6 @@
 <template>
  <section v-if="msgs" class="inbox-view grid">
 
-
   <section class="by-container">
    <header>
     <h1>Inbox</h1>
