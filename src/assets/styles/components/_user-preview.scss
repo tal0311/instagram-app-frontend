@@ -98,8 +98,29 @@
   }
  }
  &.msg-preview {
+  align-items: center;
   p {
    margin: 0;
+   &.user-name {
+    display: none;
+   }
+  }
+  img {
+   box-sizing: content-box;
+   border: none;
+   padding: 2px;
+   height: 56px;
+   width: 56px;
+  }
+  & > * {
+   margin: 0.5rem;
+  }
+  @media (width< 800px) {
+   justify-content: center;
+
+   .user-info {
+    display: none;
+   }
   }
  }
 }

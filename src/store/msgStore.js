@@ -29,7 +29,13 @@ export const msgStore = {
       state.msgs.splice(idx, 1, msg)
 
     },
-
+    setCurrentContact(state, { contact }) {
+      state.currentContact = contact
+    },
+    updateDirectMsgs(state, { msg }) {
+      console.log('state.currentContact:', state.currentContact)
+      state.currentContact.msgs.push(msg)
+    },
   },
   actions: {
 
@@ -53,53 +59,16 @@ export const msgStore = {
       }
     },
     // filtering  msg in user area by userId
-    async filterMsgs({ dispatch, commit }, { filterBy, userId }) {
-      commit({ type: 'setFilter', filterBy, userId })
+
+    async loadCurrentContact({ commit }, { contactId }) {
       try {
-        await dispatch('loadMsgs')
+
+        console.log('contactId:', contactId)
+        const contact = await msgService.getByContactId(contactId)
+        console.log('contact:', contact)
+        commit({ type: 'setCurrentContact', contact })
       } catch (error) {
-        console.error('[Failed to filter Msgs]:', error)
-      }
-    },
-    async getMsgCount({ state, commit }, { userId }) {
-
-      // MsgService.query()
-    },
-    async MsgActions({ rootGetters, commit, dispatch }, { action, MsgId, comment = null }) {
-      try {
-        let msg = null
-        const loggedInUser = rootGetters['userStore/getUser']
-        switch (action) {
-          case 'like':
-            msg = await MsgService.addMsgLike(MsgId, loggedInUser._id)
-            commit({ type: 'updateMsg', msg })
-            break;
-          case 'save':
-            await dispatch('userStore/saveMsg', { MsgId }, { root: true })
-
-            break;
-          case 'comment':
-            msg = await MsgService.addMsgComment(MsgId, comment.txt)
-            commit({ type: 'updateMsg', msg })
-            break;
-
-          default:
-            break;
-
-        }
-      } catch (error) {
-        console.error(`[Error ${action}ing on msg ${MsgId}]:`, error)
-
-      }
-    },
-
-    async getExploreData({ dispatch, commit }) {
-      try {
-        const exploreMsgs = await MsgService.getExploreDate()
-        commit('setExploreMsgs', { exploreMsgs })
-      } catch (error) {
-        await dispatch('loadMsgs')
-        console.error('[Error in getExploreData]:', error)
+        console.error('[Error trying to load current contact]:', error)
       }
     }
   },

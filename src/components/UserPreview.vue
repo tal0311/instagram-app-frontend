@@ -5,8 +5,8 @@
   </div>
   <template v-if="fullPreview">
    <div class="user-info grid">
-    <p v-if="is !== 'msg-preview'">{{ user.username }}</p>
-    <small>{{ user.fullname }}</small>
+    <p class="user-name">{{ user.username }}</p>
+    <small class="fill-name">{{ user.fullname }}</small>
     <slot></slot>
    </div>
 
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+// TODO: refactor user preview to accept slot
 // TODO: add user story on user entity
 export default {
  name: 'UserPreview',
@@ -32,7 +33,7 @@ export default {
  },
  created() {
 
-
+  console.log('this.user:', this.user)
  },
  methods: {
   navigateTo() {
@@ -40,6 +41,10 @@ export default {
    if (this.is === 'story' && this.user.stories.length) {
     console.log('stories:', this.user.stories)
     this.$router.push(`/stories/${this.user._id}/${this.user.stories[0].id}`)
+    return
+   }
+   if (this.is === 'msg-preview') {
+    this.$router.push(`/direct/${this.user._id}`)
     return
    }
    if (cancelNavigation.includes(this.is)) return
