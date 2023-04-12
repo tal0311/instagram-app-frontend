@@ -33,7 +33,7 @@ export default {
  },
  created() {
 
-  console.log('this.user:', this.user)
+  // console.log('this.user:', this.user)
  },
  methods: {
   navigateTo() {
