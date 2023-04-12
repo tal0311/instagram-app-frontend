@@ -15,6 +15,7 @@
     "sass": "^1.59.3",
     "socket.io-client": "^4.6.1",
     "vue": "^3.2.47",
+    "vue-content-loader": "^2.0.1",
     "vue-router": "^4.1.6",
     "vuex": "^4.0.2"
   },
