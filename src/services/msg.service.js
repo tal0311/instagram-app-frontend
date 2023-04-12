@@ -1,6 +1,7 @@
 import { storageService } from "./async-storage.service";
 import msgs from '../data/msg.json' assert {type: 'json'}
 import { store } from './../store'
+// import { socketService, SOCKET_EVENT_REVIEW_ADDED, SOCKET_EVENT_REVIEW_ABOUT_YOU } from './socket.service'
 import { utilService } from "./util.service";
 import { userService } from "./user.service";
 
@@ -12,6 +13,20 @@ export const msgService = {
  getByContactId
 }
 
+// ; (() => {
+//  setTimeout(() => {
+//   socketService.on(SOCKET_EVENT_REVIEW_ADDED, (review) => {
+//    console.log('GOT from socket', review)
+//    store.commit({ type: 'msgStore/updateDirectMsgs', review })
+//   })
+//   socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
+//    showSuccessMsg(`New review about me ${review.txt}`)
+//   })
+//  }, 0)
+
+// })()
+
+
 async function query(userId) {
  // debugger
  const msgs = await storageService.query('msg_db')
@@ -22,9 +37,9 @@ async function query(userId) {
  // only return te msgs Preview without the history
 
 }
+
 async function getByContactId(contactId) {
  const user = userService.getLoggedinUser()
- // console.log('user:', user)
  const msgCollection = await storageService.query('msg_db')
  const userMsgs = msgCollection.find(item => item.ownerId === user._id)
 
@@ -32,21 +47,7 @@ async function getByContactId(contactId) {
   _id: contactId,
   ...userMsgs.history[contactId]
  }
- // console.log('msgCollection:', msgCollection.ownerId === ownerId)
- // return msgCollection.filter(item => item.ownerId === ownerId)
-
 }
-
-// later by sockets 
-// setInterval(() => {
-//  store.commit({
-//   type: 'msgStore/updateDirectMsgs', msg:
-//   {
-//    "cratedAt": 1651504622095,
-//    "content": "Hi, I'm Ulash"
-//   }
-//  })
-// }, 5000);
 
 async function remove(ownerId, toId) {
  const UserMsgs = await getByOwnerId(ownerId)

@@ -6,7 +6,7 @@
   <template v-if="fullPreview">
    <div class="user-info grid">
     <p class="user-name">{{ user.username }}</p>
-    <small class="fill-name">{{ user.fullname }}</small>
+    <small class="full-name">{{ user.fullname }}</small>
     <slot></slot>
    </div>
 
@@ -31,15 +31,11 @@ export default {
 
   },
  },
- created() {
-
-  // console.log('this.user:', this.user)
- },
  methods: {
   navigateTo() {
-   const cancelNavigation = ['user-area', 'nav']
+   const cancelNavigation = ['user-area', 'nav', 'msg-details']
+   if (cancelNavigation.includes(this.is)) return
    if (this.is === 'story' && this.user.stories.length) {
-    console.log('stories:', this.user.stories)
     this.$router.push(`/stories/${this.user._id}/${this.user.stories[0].id}`)
     return
    }
@@ -47,13 +43,12 @@ export default {
     this.$router.push(`/direct/${this.user._id}`)
     return
    }
-   if (cancelNavigation.includes(this.is)) return
    this.$router.push(`/user/${this.user._id}`)
   }
  },
  computed: {
   fullPreview() {
-   const fullPreviewOpt = ['result', 'msg-preview',]
+   const fullPreviewOpt = ['results', 'msg-preview', 'msg-details']
    return (fullPreviewOpt.includes(this.is))
   }
  }

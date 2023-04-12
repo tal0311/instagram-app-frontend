@@ -60,7 +60,7 @@ export default {
  computed: {
   ...mapGetters({
    getUser: 'userStore/getUser'
-  })
+  }),
  }
 }
 </script>
