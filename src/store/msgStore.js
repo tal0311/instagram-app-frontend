@@ -10,7 +10,6 @@ export const msgStore = {
   },
   getters: {
     getMsgs(state) {
-      console.log('state.Msgs:', state.msgs)
       return state.msgs
     },
     getCurrentContact(state) {
@@ -21,8 +20,6 @@ export const msgStore = {
   mutations: {
     setMsgs(state, { msgs }) {
       state.msgs = msgs
-      console.log('state.msgs:', state.msgs)
-
     },
     updateMsg(state, { msg }) {
       const idx = state.msgs.findIndex(p => p._id === msg._id)
@@ -33,7 +30,6 @@ export const msgStore = {
       state.currentContact = contact
     },
     updateDirectMsgs(state, { msg }) {
-      console.log('state.currentContact:', state.currentContact)
       state.currentContact.msgs.push(msg)
     },
   },
@@ -41,9 +37,7 @@ export const msgStore = {
 
     async loadMsgs({ commit, state }, { userId }) {
       try {
-        console.log('loading msgs:', userId)
         const msgs = await msgService.query(userId)
-        console.info('Msgs:', msgs)
         commit({ type: 'setMsgs', msgs })
         // if (state.filter.userFilter === 'msg') commit('userStore/MsgCount', { count: Msgs.length }, { root: true })
       } catch (error) {
@@ -62,10 +56,7 @@ export const msgStore = {
 
     async loadCurrentContact({ commit }, { contactId }) {
       try {
-
-        console.log('contactId:', contactId)
         const contact = await msgService.getByContactId(contactId)
-        console.log('contact:', contact)
         commit({ type: 'setCurrentContact', contact })
       } catch (error) {
         console.error('[Error trying to load current contact]:', error)

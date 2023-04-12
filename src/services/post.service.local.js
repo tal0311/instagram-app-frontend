@@ -190,7 +190,6 @@ async function updateTags(postTags, user) {
 
 async function getExploreDate() {
     // TODO: CONVERT TO HTTP SERVICE
-    // let explorePosts = utilService.loadFromStorage('explore_db') || []
     const loggedInUser = userService.getLoggedinUser()
     const user = await userService.getById(loggedInUser._id)
     const randomTags = getRandomTags(5)
@@ -199,7 +198,6 @@ async function getExploreDate() {
         const explorePosts = Promise.all(tagsToExplore.map(async tag => {
             const url = `https://source.unsplash.com/random/400x400/?${tag}`
             const res = await axios.get(url)
-            console.log('getting from API')
             return {
                 imgUrl: res.request.responseURL,
                 tag

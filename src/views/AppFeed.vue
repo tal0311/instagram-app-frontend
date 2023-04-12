@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     onPostAction({ action, postId, comment = null }) {
-      console.log('action:', action)
       this.$store.dispatch('postStore/postActions', { action, postId, comment })
     },
   },

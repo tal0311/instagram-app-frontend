@@ -99,8 +99,10 @@
  }
  &.msg-preview {
   align-items: center;
+  .full-name {
+   font-weight: 600;
+  }
   p {
-   margin: 0;
    &.user-name {
     display: none;
    }
@@ -119,6 +121,25 @@
    justify-content: center;
 
    .user-info {
+    display: none;
+   }
+  }
+ }
+
+ &.msg-details {
+  gap: 1rem;
+  img {
+   box-sizing: content-box;
+   border: none;
+   padding: 2px;
+   height: 24px;
+   width: 24px;
+  }
+  .gradient-wrapper {
+   background: none;
+  }
+  .user-info {
+   :is(.user-name, .full-name) {
     display: none;
    }
   }

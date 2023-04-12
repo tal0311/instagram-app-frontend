@@ -93,7 +93,6 @@ async function getStory(userId, storyId) {
 async function login(credentials) {
     const users = await storageService.query('user')
     const user = users.find(user => user.username === credentials.username)
-    console.log('user login:', user)
     // const user = await httpService.post('auth/login', userCred)
     if (user) {
         // socketService.login(user._id)
@@ -101,11 +100,8 @@ async function login(credentials) {
     }
 }
 async function signup(userCard) {
-
     const user = createUser(userCard)
-    console.log('user:', user)
     const addUser = await storageService.post('user', user)
-    console.log('addUser:', addUser)
     // const user = await httpService.post('auth/signup', userCred)
     // socketService.login(user._id)
     // return saveLocalUser(user)

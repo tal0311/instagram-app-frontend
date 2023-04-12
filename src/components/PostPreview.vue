@@ -63,15 +63,6 @@ export default {
 
     }
   },
-  created() {
-    // if (this.$route.name === 'details') this.loggedUser = this.$store.getters['userStore/getUser']
-    // console.log('loggedUser:', this.loggedUser);
-
-  },
-  updated() {
-    // console.log('loggedUser:', this.loggedUser);
-
-  },
   data() {
     return {
       actions: [
@@ -105,7 +96,6 @@ export default {
     },
     addComment() {
       this.$emit('action', { action: 'comment', postId: this.post._id, comment: { ...this.comment } })
-      console.log('this.comment:', this.comment)
     },
     setTextLength({ target }) {
       if (target.value.length > 0) this.isTyping = true

@@ -46,7 +46,6 @@ export const userStore = {
     },
     setNotifications(state, { notifications }) {
       state.notifications = notifications
-      console.log('state.notifications:', state.notifications)
     }
   },
   actions: {
@@ -100,7 +99,6 @@ export const userStore = {
       const userId = state.loggedInUser._id
       try {
         const notifications = await notificationService.query(userId)
-        console.log('notifications:', notifications)
         commit({ type: 'setNotifications', notifications })
       } catch (error) {
         console.error('[Error while getting user notifications]:', error)

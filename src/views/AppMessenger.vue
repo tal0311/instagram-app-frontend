@@ -1,30 +1,48 @@
 <template>
  <section v-if="msgs" class="inbox-view grid">
-
+  <!-- side container showing users -->
   <section class="by-container">
    <header>
-    <h1>Inbox</h1>
+    <p>{{ loggedInUser.username }}</p>
    </header>
    <section class="msg-preview" v-for="msg, idx in msgs" :key="msg">
     <UserPreview :user="{ _id: idx, ...msg }" is="msg-preview">
-     <small>{{ msg.msgs[0].content }}</small>
+     <small class="last-msg-preview">{{ msg.msgs[0].content }}</small>
     </UserPreview>
    </section>
   </section>
 
-  <section class="side-container grid">
-   <section v-if="!isPrivate" class="grid no-msg-container ">
-    <i class="icon" v-html="$getSvg('direct')"></i>
-    <h2>Your Messages</h2>
-    <p>Send private photos and messages to a friend or group.</p>
-    <button>Send Message</button>
-   </section>
-   <template v-else>
-    <header>
-     <h1>Chat</h1>
-    </header>
-    <RouterView></RouterView>
+  <section class="main-container grid">
+
+   <template v-if="!isPrivate">
+    <section class="grid no-msg-container">
+     <i class="icon" v-html="$getSvg('direct')"></i>
+     <h2>Your Messages</h2>
+     <p>Send private photos and messages to a friend or group.</p>
+     <button>Send Message</button>
+    </section>
    </template>
+
+
+
+   <template v-else>
+    <section class="msg-container grid">
+     <header>
+      <h1>Chat</h1>
+     </header>
+     <div class="router-container">
+      <RouterView></RouterView>
+     </div>
+     <section class="new-msg">
+      <form class="grid" @submit.prevent="sendMsg">
+       <textarea ref="comment-txt" v-model="msg.content" @input="setTextLength" name="txt" id="" cols="10" rows="1"
+        placeholder="Message"></textarea>
+       <button v-if="isTyping" @click="sendMsg">Send</button>
+      </form>
+     </section>
+    </section>
+   </template>
+
   </section>
 
 
@@ -32,27 +50,41 @@
 </template>
 
 <script>
+// TODO: add msg cmp( add comment add msg are the same) and hook
+// TODO: CONVERT TO DYNAMIC COMPONENT
 import UserPreview from '../components/UserPreview.vue'
 import { mapGetters } from 'vuex'
 export default {
  name: 'AppMessenger',
- created() {
-  console.log(this.msgs)
- },
  data() {
   return {
-   isPrivate: false
+   msg: {},
+   isPrivate: false,
+   isTyping: false,
   }
+ },
+ methods: {
+  sendMsg() {
+   this.msg.createdAt = Date.now()
+   this.msg.from = this.loggedInUser._id
+   console.log('sendMsg')
+   // send msg and add to store
+   this.msg = {}
+  },
+  setTextLength({ target }) {
+   if (target.value.length > 0) this.isTyping = true
+   else this.isTyping = false
+  },
  },
  computed: {
   ...mapGetters({
-   msgs: 'msgStore/getMsgs'
+   msgs: 'msgStore/getMsgs',
+   loggedInUser: 'userStore/getUser'
   })
  },
  watch: {
   $route(to, from) {
    if (to.params.byId) {
-    console.log('to.params.id', to.params.byId)
     this.isPrivate = true
    } else {
     this.isPrivate = false

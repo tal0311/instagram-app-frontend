@@ -22,7 +22,6 @@ import { utilService } from '../services/util.service';
 export default {
  name: 'AppHeader',
  created() {
-  console.log('AppHeader created');
   this.onSearch = utilService.debounce(this.onSearch, 500)
  },
  data() {

@@ -39,6 +39,7 @@
 
  .post-actions {
   margin-inline: 1em;
+  padding: 0.5rem;
   grid-auto-flow: column;
   grid-template-columns: repeat(3, 40px) 1fr;
   i:last-child {
@@ -53,7 +54,7 @@
    border: none;
    font-family: inherit;
    &:focus {
-    outline: none;
+    outline: transparent;
    }
   }
   .add-comment {

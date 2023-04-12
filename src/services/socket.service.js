@@ -34,7 +34,6 @@ function createSocketService() {
       }, 500)
     },
     on(eventName, cb) {
-      console.log(socket);
       socket.on(eventName, cb)
     },
     off(eventName, cb = null) {
@@ -108,11 +107,3 @@ function createDummySocketService() {
 }
 
 
-// Basic Tests
-// function cb(x) {console.log('Socket Test - Expected Puk, Actual:', x)}
-// socketService.on('baba', cb)
-// socketService.on('baba', cb)
-// socketService.on('baba', cb)
-// socketService.on('mama', cb)
-// socketService.emit('baba', 'Puk')
-// socketService.off('baba', cb)

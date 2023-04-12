@@ -1,34 +1,13 @@
 import { httpService } from './http.service'
 // import { storageService } from './async-storage.service'
-import {userService} from './user.service'
-import {showErrorMsg, showSuccessMsg} from '../services/event-bus.service'
-
-import { store } from '../store/store'
-import { socketService, SOCKET_EVENT_REVIEW_ADDED, SOCKET_EVENT_REVIEW_ABOUT_YOU } from './socket.service'
-
-
-;(() => {
-  setTimeout(()=>{
-    socketService.on(SOCKET_EVENT_REVIEW_ADDED, (review) => {
-      console.log('GOT from socket', review)
-      store.commit({type: 'addReview', review})
-    })
-    socketService.on(SOCKET_EVENT_REVIEW_ABOUT_YOU, (review) => {
-      showSuccessMsg(`New review about me ${review.txt}`)
-    })
-  }, 0)
-
-})()
-
-
+import { userService } from './user.service'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export const reviewService = {
   add,
   query,
   remove
 }
-
-
 
 function query(filterBy) {
   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
@@ -42,9 +21,9 @@ async function remove(reviewId) {
 
 }
 
-async function add({txt, aboutUserId}) {
-  const addedReview = await httpService.post(`review`, {txt, aboutUserId})
-  
+async function add({ txt, aboutUserId }) {
+  const addedReview = await httpService.post(`review`, { txt, aboutUserId })
+
   const aboutUser = await userService.getById(aboutUserId)
 
   const reviewToAdd = {

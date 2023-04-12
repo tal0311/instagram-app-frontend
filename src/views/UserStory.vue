@@ -58,7 +58,6 @@ export default {
    let storyIdx = this.user.stories.findIndex(story => story.id === storyId)
    const nextStoryIdx = storyIdx += diff
    const nextStory = this.user.stories[nextStoryIdx]
-   console.log('nextStory:', nextStory)
    if (!nextStory) {
     this.navigateTo()
     return

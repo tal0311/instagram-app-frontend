@@ -1,16 +1,11 @@
 <template>
- <div v-if="contact" class="msg-details">
-  <!-- <h1>Message Details</h1>
-  <p>Message ID: {{ $route.params.id }}</p>
-  <p>Message Content: {{ $route.params.content }}</p> -->
-  <!-- <pre>{{ contact.msgs }}</pre> -->
-  <section class="msg-content grid" v-for="msg, idx in contact.msgs" :key="idx">
+ <div v-if="contact" class="msg-details grid">
+
+  <section class="msg-content" v-for="msg, idx in contact.msgs" :key="idx">
    <UserPreview :user="contact" is="msg-details">
+    <p class="msg">{{ msg.content }}</p>
    </UserPreview>
-   <p class="msg">{{ msg.content }}</p>
   </section>
-  <!-- <header class="msg-header">
-  </header> -->
 
  </div>
 </template>
