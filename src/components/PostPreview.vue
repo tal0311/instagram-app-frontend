@@ -79,7 +79,9 @@ export default {
       // loggedUser: null
     }
   },
+
   methods: {
+
 
     postAction(action, postId) {
       if (action === 'comment') {

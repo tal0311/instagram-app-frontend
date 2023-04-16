@@ -21,11 +21,11 @@ export default {
   name: 'AppFeed',
 
   async created() {
+
     await this.$store.dispatch('postStore/loadPosts');
     await this.$store.dispatch('userStore/loadUsers');
   },
-  updated() {
-  },
+
   data() {
     return {
     };
@@ -34,6 +34,7 @@ export default {
     onPostAction({ action, postId, comment = null }) {
       this.$store.dispatch('postStore/postActions', { action, postId, comment })
     },
+
   },
   computed: {
     ...mapGetters({
@@ -46,6 +47,9 @@ export default {
       return 'https://cdn.usbrandcolors.com/images/logos/instagram-logo.png'
     },
   },
+  // errorCaptured(err) {
+  //   console.log('errorCaptured', err)
+  // },
   components: {
     PostPreview,
     StoryList,
