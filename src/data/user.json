@@ -112,5 +112,53 @@
    }
   ],
   "highlights": []
+ },
+ {
+  "username": "men.75",
+  "imgUrl": "https://randomuser.me/api/portraits/men/75.jpg",
+  "fullname": "men 75",
+  "password": "1234",
+  "createdAt": 1651504622095,
+  "following": [],
+  "followers": [],
+  "savedPostIds": [],
+  "stories": [],
+  "highlights": []
+ },
+ {
+  "username": "women.75",
+  "imgUrl": "https://randomuser.me/api/portraits/women/75.jpg",
+  "fullname": "woman 75",
+  "password": "1234",
+  "createdAt": 1651504622095,
+  "following": [],
+  "followers": [],
+  "savedPostIds": [],
+  "stories": [],
+  "highlights": []
+ },
+ {
+  "username": "men.5",
+  "imgUrl": "https://randomuser.me/api/portraits/men/5.jpg",
+  "fullname": "men 555",
+  "password": "1234",
+  "createdAt": 1651504622095,
+  "following": [],
+  "followers": [],
+  "savedPostIds": [],
+  "stories": [],
+  "highlights": []
+ },
+ {
+  "username": "women.5",
+  "imgUrl": "https://randomuser.me/api/portraits/women/5.jpg",
+  "fullname": "women 555",
+  "password": "1234",
+  "createdAt": 1651504622095,
+  "following": [],
+  "followers": [],
+  "savedPostIds": [],
+  "stories": [],
+  "highlights": []
  }
 ]

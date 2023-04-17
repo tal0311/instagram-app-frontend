@@ -10,6 +10,7 @@
 </template>
 
 <script>
+// todo: filter non active story users
 import UserPreview from './UserPreview.vue';
 export default {
  props: {
