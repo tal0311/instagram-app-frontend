@@ -1,6 +1,9 @@
 import { store } from '../store'
 import { errorService } from '../services/error.service'
 
+window.addEventListener('error', (err) => {
+  console.log('window.error:', err)
+})
 export default {
   install: (app) => {
     app.config.errorHandler = (err, instance, info) => {
