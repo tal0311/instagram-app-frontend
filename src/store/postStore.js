@@ -49,15 +49,12 @@ export const postStore = {
     }
   },
   actions: {
-
     async loadPosts({ commit, state }) {
       try {
         const posts = await postService.query({ ...state.filter })
-        // console.info('posts:', posts)
         commit({ type: 'setPosts', posts })
-        // if (state.filter.userFilter === 'post') commit('userStore/postCount', { count: posts.length }, { root: true })
       } catch (error) {
-        console.error('[Error trying to load posts]:', error)
+        throw 'Can not load posts'
       }
     },
     async addPost({ commit }, { post }) {
