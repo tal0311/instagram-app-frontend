@@ -93,7 +93,6 @@ async function toggleFollow(userToUpdate, userToToggle) {
     }
 
     const idx = userToUpdate.following.findIndex(f => f._id === userToToggle._id)
-    // debugger
     if (idx !== -1) {
         userToUpdate.following.splice(idx, 1)
         await update(userToUpdate)
