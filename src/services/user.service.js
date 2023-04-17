@@ -20,6 +20,7 @@ export const userService = {
     toggleSavedPost,
     getUsersBySearch,
     getStory,
+    toggleFollow
 }
 
 window.userService = userService
@@ -79,6 +80,28 @@ async function toggleSavedPost(postId, userId) {
     user.savedPostIds.push(postId)
     await update(user)
     return saveLocalUser(user)
+
+}
+
+// TODO: COMBINE TOGGLE FOLLOW AND TOGGLE SAVED POST
+async function toggleFollow(userToUpdate, userToToggle) {
+    userToToggle = {
+        fullname: userToToggle.fullname,
+        username: userToToggle.username,
+        _id: userToToggle._id,
+        imgUrl: userToToggle.imgUrl
+    }
+
+    const idx = userToUpdate.following.findIndex(f => f._id === userToToggle._id)
+    // debugger
+    if (idx !== -1) {
+        userToUpdate.following.splice(idx, 1)
+        await update(userToUpdate)
+        return saveLocalUser(userToUpdate)
+    }
+    userToUpdate.following.push(userToToggle)
+    await update(userToUpdate)
+    return saveLocalUser(userToUpdate)
 
 }
 

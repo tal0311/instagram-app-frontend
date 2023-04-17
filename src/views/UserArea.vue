@@ -10,18 +10,18 @@
    <article class="user-settings-container grid">
     <p>{{ user.username }}</p>
     <i class="settings" v-html="$getSvg('settings')"></i>
-    <button class="edit-profile ">Edit Profile</button>
+    <button @click="userAction" :class="['edit-profile', setButtonState]">{{ setButtonState }}</button>
    </article>
   </header>
 
   <UserDashboard :postCount="postCount" :user="user" />
   <section class="router-container grid">
    <RouterLink v-for="route, idx in routes" :key="route.name" :to="{ name: routes[idx].name }">
-    <!-- {{ routes[idx].icon }} -->
+
     <i class="icon" :title="route.title" v-html="$getSvg(route.icon)"></i>
    </RouterLink>
   </section>
-  <!-- <pre>{{ user }}</pre> -->
+
   <RouterView></RouterView>
 
  </section>
@@ -38,13 +38,11 @@ import { mapGetters, mapActions } from 'vuex'
 import UserDashboardVue from '../components/UserDashboard.vue';
 // import { eventBus } from './../services/event-bus.service'
 import { userService } from '../services/user.service';
+
 export default {
  name: 'UserArea',
  created() {
-  // const { userId } = this.$route.params
-  // this.user = await userService.getById(userId)
   this.loadUser()
-
  },
  data() {
   return {
@@ -61,17 +59,44 @@ export default {
   async loadUser() {
    const { userId } = this.$route.params
    this.user = await userService.getById(userId)
-  },
 
+  },
+  userAction() {
+   console.log('thi.btnState:', this.setButtonState)
+
+   if (this.setButtonState === 'Edit Profile') {
+    this.$router.push({ name: 'edit-profile', params: { userId: this.user._id } })
+    return
+   } else {
+
+    this.$store.dispatch({
+     type: 'userStore/toggleFollow',
+     userToToggle: JSON.parse(JSON.stringify(this.user))
+    })
+
+   }
+  }
  },
  computed: {
-
   ...mapGetters({
    postCount: 'postStore/postCount',
-   // user: 'userStore/getUser'
-  })
+   loggedUser: 'userStore/getUser'
+  }),
+  setButtonState() {
+   const { userId } = this.$route.params
+   if (this.loggedUser._id === userId) {
+    return 'edit profile'
 
+   }
+   if (this.loggedUser.following.some(f => f._id === userId)) {
+    return 'following'
 
+   }
+   if (!this.loggedUser.following.some(f => f._id === userId)) {
+    return 'follow'
+
+   }
+  }
  },
  components: {
   UserPreview,
@@ -83,8 +108,6 @@ export default {
    filterBy: { userFilter: '' },
    userId: ''
   })
-  // this is to make sure the filter is reset when the component is unmounted 
-  // this.setFilter({ filterBy: { userFilter: '' }, userId: '' })
  },
 }
 </script>

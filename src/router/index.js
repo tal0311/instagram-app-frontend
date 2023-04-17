@@ -8,6 +8,7 @@ import UserStory from './../views/UserStory.vue'
 import TestArea from './../views/TestingArea.vue'
 import UserNotification from './../views/UserNotification.vue'
 import MsgDetails from './../views/MsgDetails.vue'
+import UserEdit from './../views/UserEdit.vue'
 
 import UserPosts from './../components/UserPosts.vue'
 
@@ -67,6 +68,12 @@ const router = createRouter({
           component: UserPosts
         }
       ]
+    },
+    {
+      path: '/user/edit/:userId',
+      name: 'edit-profile',
+      component: UserEdit,
+
     },
     {
       path: '/stories/:userId/:storyId',
