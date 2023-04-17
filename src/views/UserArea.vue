@@ -59,11 +59,8 @@ export default {
   async loadUser() {
    const { userId } = this.$route.params
    this.user = await userService.getById(userId)
-
   },
   userAction() {
-   console.log('thi.btnState:', this.setButtonState)
-
    if (this.setButtonState === 'Edit Profile') {
     this.$router.push({ name: 'edit-profile', params: { userId: this.user._id } })
     return
