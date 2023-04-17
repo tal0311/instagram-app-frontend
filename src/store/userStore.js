@@ -62,7 +62,7 @@ export const userStore = {
         const searchResultsUsers = await userService.getUsersBySearch({ searchTerm })
         commit({ type: 'setUserFilterResults', searchResultsUsers })
       } catch (error) {
-        console.error('[Error while filtering users]:', error)
+        throw 'Error while filtering users:', error
       }
 
     },
@@ -102,6 +102,17 @@ export const userStore = {
         commit({ type: 'setNotifications', notifications })
       } catch (error) {
         console.error('[Error while getting user notifications]:', error)
+      }
+    },
+    async toggleFollow({ commit, state }, { userToToggle }) {
+
+      let userToUpdate = state.loggedInUser
+      userToUpdate = JSON.parse(JSON.stringify(userToUpdate))
+      try {
+        const updatedUser = await userService.toggleFollow(userToUpdate, userToToggle)
+        commit({ type: 'setUser', loggedInUser: updatedUser })
+      } catch (error) {
+        throw 'Error while updating user:', error
       }
     }
   }

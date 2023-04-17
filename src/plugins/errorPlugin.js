@@ -7,8 +7,8 @@ window.addEventListener('error', (err) => {
 export default {
   install: (app) => {
     app.config.errorHandler = (err, instance, info) => {
-      const user = store.getters['user/getUser']
-      // handle error, e.g. report to a service
+      let user = store.getters['userStore/getUser']
+      user = JSON.parse(JSON.stringify(user))
       errorService.logError(user, err, instance, info)
       console.error(`[global error handler ${err}]:`,
         'In cmp', instance.$.type.name, 'At', info)

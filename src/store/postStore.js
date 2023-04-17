@@ -22,6 +22,8 @@ export const postStore = {
       return state.explorePosts
     },
     postCount(state) {
+      // this is to over com the problem of the refresh userArea refresh
+      if (!state.posts) return 0
       return state.posts.length
     }
 
@@ -101,7 +103,7 @@ export const postStore = {
 
         }
       } catch (error) {
-        console.error(`[Error ${action}ing on post ${postId}]:`, error)
+        throw `Error ${action}ing on post ${postId}`
 
       }
     },
@@ -112,7 +114,7 @@ export const postStore = {
         commit('setExplorePosts', { explorePosts })
       } catch (error) {
         await dispatch('loadPosts')
-        console.error('[Error in getExploreData]:', error)
+        throw 'Error in getExploreData:'
       }
     }
   },

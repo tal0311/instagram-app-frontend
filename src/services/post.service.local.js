@@ -23,7 +23,8 @@ export const postService = {
 }
 window.ps = postService
 
-async function query(filterBy = { txt: '', userFilter: 'post', userId: '' }) {
+async function query(filterBy = { txt: '', userFilter: '', userId: '' }) {
+    // debugger
     let posts = await storageService.query(STORAGE_KEY)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
@@ -53,10 +54,11 @@ async function setTags(posts) {
 
 async function userFilter(posts, type, userId) {
     const user = await userService.getById(userId)
+    // debugger
     switch (type) {
         // posts user tagged in
         case 'tagged-posts':
-
+            return []
             break;
         // posts created by the user
         case 'post':

@@ -1,6 +1,5 @@
 <template>
  <section class="user-posts">
-  <!-- <pre>{{ posts }}</pre> -->
   <PostsList :posts="posts" />
  </section>
 </template>
@@ -11,10 +10,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
  name: 'UserPosts',
  created() {
-
   this.loadPosts()
-  this.getPosts()
-
  },
  methods: {
   ...mapActions({
@@ -24,9 +20,6 @@ export default {
   loadPosts() {
    this.setFilter({ filterBy: { userFilter: this.$route.name }, userId: this.$route.params.userId })
   },
-  getPosts() {
-   console.log('this.posts:', this.posts)
-  }
  },
  computed: {
   ...mapGetters({
@@ -38,8 +31,7 @@ export default {
  watch: {
   $route: {
    handler: function (val, oldVal) {
-    this.setFilter({ filterBy: { userFilter: val.name }, userId: val.params.userId })
-
+    this.loadPosts()
    },
    immediate: true,
    deep: true,
@@ -48,10 +40,7 @@ export default {
  components: {
   PostsList
  },
- beforeUnmount() {
-  // this is to make sure the filter is reset when the component is unmounted 
-  this.setFilter({ filterBy: { userFilter: '' }, userId: '' })
- },
+
 
 }
 </script>

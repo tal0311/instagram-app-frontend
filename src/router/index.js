@@ -8,6 +8,7 @@ import UserStory from './../views/UserStory.vue'
 import TestArea from './../views/TestingArea.vue'
 import UserNotification from './../views/UserNotification.vue'
 import MsgDetails from './../views/MsgDetails.vue'
+import UserEdit from './../views/UserEdit.vue'
 
 import UserPosts from './../components/UserPosts.vue'
 
@@ -63,10 +64,16 @@ const router = createRouter({
         },
         {
           path: 'tagged',
-          name: 'tagged-post',
+          name: 'tagged-posts',
           component: UserPosts
         }
       ]
+    },
+    {
+      path: '/user/edit/:userId',
+      name: 'edit-profile',
+      component: UserEdit,
+
     },
     {
       path: '/stories/:userId/:storyId',
@@ -104,7 +111,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
-    console.info('[redirected from guard]-[no logged user]')
+    throw 'redirected from guard-no logged user'
   }
 
   if (to.name === 'explore' && !user.tags) {

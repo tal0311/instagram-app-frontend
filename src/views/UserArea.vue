@@ -1,27 +1,27 @@
 <template>
- <section v-if="user" class="user-area grid">
+ <section v-if="user" class=" user-area grid">
 
   <header class="grid">
    <UserPreview :user="user" is="user-area" />
    <article class="user-info-container">
     <h5>{{ user.fullname }}</h5>
-    <p>בארץ ישראל, מי שלא מאמין בניסים הוא לא מציאותי - דוד בן גוריון</p>
+    <p>{{ user.bio }}</p>
    </article>
    <article class="user-settings-container grid">
     <p>{{ user.username }}</p>
     <i class="settings" v-html="$getSvg('settings')"></i>
-    <button class="edit-profile ">Edit Profile</button>
+    <button @click="userAction" :class="['edit-profile', setButtonState]">{{ setButtonState }}</button>
    </article>
   </header>
 
   <UserDashboard :postCount="postCount" :user="user" />
   <section class="router-container grid">
    <RouterLink v-for="route, idx in routes" :key="route.name" :to="{ name: routes[idx].name }">
-    <!-- {{ routes[idx].icon }} -->
+
     <i class="icon" :title="route.title" v-html="$getSvg(route.icon)"></i>
    </RouterLink>
   </section>
-  <!-- <pre>{{ user }}</pre> -->
+
   <RouterView></RouterView>
 
  </section>
@@ -38,40 +38,76 @@ import { mapGetters, mapActions } from 'vuex'
 import UserDashboardVue from '../components/UserDashboard.vue';
 // import { eventBus } from './../services/event-bus.service'
 import { userService } from '../services/user.service';
+
 export default {
  name: 'UserArea',
- async created() {
-  const { userId } = this.$route.params
-  this.user = await userService.getById(userId)
-
-
+ created() {
+  this.loadUser()
  },
  data() {
   return {
    routes: [
     { title: 'Posts', name: 'post', icon: 'posts' },
     { title: 'Saved', name: 'saved-posts', icon: 'saved' },
-    { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
+    { title: 'Tagged', name: 'tagged-posts', icon: 'tagged' },
    ],
    user: null,
 
   }
  },
  methods: {
+  async loadUser() {
+   const { userId } = this.$route.params
+   this.user = await userService.getById(userId)
+
+  },
+  userAction() {
+   console.log('thi.btnState:', this.setButtonState)
+
+   if (this.setButtonState === 'Edit Profile') {
+    this.$router.push({ name: 'edit-profile', params: { userId: this.user._id } })
+    return
+   } else {
+
+    this.$store.dispatch({
+     type: 'userStore/toggleFollow',
+     userToToggle: JSON.parse(JSON.stringify(this.user))
+    })
+
+   }
+  }
  },
-
  computed: {
-
   ...mapGetters({
    postCount: 'postStore/postCount',
-   // user: 'userStore/getUser'
-  })
+   loggedUser: 'userStore/getUser'
+  }),
+  setButtonState() {
+   const { userId } = this.$route.params
+   if (this.loggedUser._id === userId) {
+    return 'edit profile'
 
+   }
+   if (this.loggedUser.following.some(f => f._id === userId)) {
+    return 'following'
 
+   }
+   if (!this.loggedUser.following.some(f => f._id === userId)) {
+    return 'follow'
+
+   }
+  }
  },
  components: {
   UserPreview,
   UserDashboard
+ },
+ beforeUnmount() {
+  this.$store.dispatch({
+   type: 'postStore/filterPosts',
+   filterBy: { userFilter: '' },
+   userId: ''
+  })
  },
 }
 </script>

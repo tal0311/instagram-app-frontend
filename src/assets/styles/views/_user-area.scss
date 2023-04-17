@@ -35,6 +35,7 @@
     }
     .edit-profile {
      grid-area: 2/1/2/3;
+     text-transform: capitalize;
      padding: 0.5em 1rem;
      border-radius: 0.6em;
      background: $clr4;
@@ -42,6 +43,12 @@
      font-weight: bolder;
      &:hover {
       background: darken($color: $clr4, $amount: 10);
+     }
+     &.follow {
+      @include app-btn(7px, 0.5rem);
+      &:hover {
+       background: darken($color: $clr6, $amount: 10);
+      }
      }
     }
    }
