@@ -3,6 +3,7 @@
   "_id": "u103",
   "username": "Muko",
   "imgUrl": "https://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg",
+  "bio": "Sometimes i think i am a eagle",
   "fullname": "Muki Muka",
   "password": "1234",
   "createdAt": 1651504622095,
@@ -39,6 +40,7 @@
   "_id": "u102",
   "username": "Ulash",
   "imgUrl": "https://res.cloudinary.com/mistertoysss/image/upload/v1648414285/funday%20must/photo-1618085222100-93f0eecad0aa_fuisxo.jpg",
+  "bio": "Sometimes i think i am a fairy",
   "fullname": "Ulash Ulashi",
   "password": "1234",
   "createdAt": 1651504622095,
@@ -81,6 +83,7 @@
   "_id": "u101",
   "username": "tal.amit",
   "imgUrl": "https://res.cloudinary.com/tal-amit-dev/image/upload/v1679772900/Instagram/WhatsApp_Image_2023-03-25_at_22.22.51_1_va5b7q.jpg",
+  "bio": "בארץ ישראל, מי שלא מאמין בניסים הוא לא מציאותי - דוד בן גוריון",
   "fullname": "Tal Amit",
   "password": "111",
   "createdAt": 1651504622095,
@@ -116,6 +119,7 @@
  {
   "username": "men.75",
   "imgUrl": "https://randomuser.me/api/portraits/men/75.jpg",
+  "bio": "Sometimes i think i am a dog",
   "fullname": "men 75",
   "password": "1234",
   "createdAt": 1651504622095,
@@ -128,6 +132,7 @@
  {
   "username": "women.75",
   "imgUrl": "https://randomuser.me/api/portraits/women/75.jpg",
+  "bio": "Sometimes i think i am a cat",
   "fullname": "woman 75",
   "password": "1234",
   "createdAt": 1651504622095,
@@ -140,6 +145,7 @@
  {
   "username": "men.5",
   "imgUrl": "https://randomuser.me/api/portraits/men/5.jpg",
+  "bio": "Sometimes i think i am a bat",
   "fullname": "men 555",
   "password": "1234",
   "createdAt": 1651504622095,
@@ -152,6 +158,7 @@
  {
   "username": "women.5",
   "imgUrl": "https://randomuser.me/api/portraits/women/5.jpg",
+  "bio": "Sometimes i think i am a cow",
   "fullname": "women 555",
   "password": "1234",
   "createdAt": 1651504622095,

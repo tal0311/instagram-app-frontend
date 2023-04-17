@@ -63,7 +63,7 @@ const router = createRouter({
         },
         {
           path: 'tagged',
-          name: 'tagged-post',
+          name: 'tagged-posts',
           component: UserPosts
         }
       ]
@@ -104,7 +104,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
-    console.info('[redirected from guard]-[no logged user]')
+    throw 'redirected from guard-no logged user'
   }
 
   if (to.name === 'explore' && !user.tags) {

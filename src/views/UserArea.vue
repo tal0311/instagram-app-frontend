@@ -1,11 +1,11 @@
 <template>
- <section v-if="user" class="user-area grid">
+ <section v-if="user" class=" user-area grid">
 
   <header class="grid">
    <UserPreview :user="user" is="user-area" />
    <article class="user-info-container">
     <h5>{{ user.fullname }}</h5>
-    <p>בארץ ישראל, מי שלא מאמין בניסים הוא לא מציאותי - דוד בן גוריון</p>
+    <p>{{ user.bio }}</p>
    </article>
    <article class="user-settings-container grid">
     <p>{{ user.username }}</p>
@@ -40,10 +40,10 @@ import UserDashboardVue from '../components/UserDashboard.vue';
 import { userService } from '../services/user.service';
 export default {
  name: 'UserArea',
- async created() {
-  const { userId } = this.$route.params
-  this.user = await userService.getById(userId)
-
+ created() {
+  // const { userId } = this.$route.params
+  // this.user = await userService.getById(userId)
+  this.loadUser()
 
  },
  data() {
@@ -51,15 +51,19 @@ export default {
    routes: [
     { title: 'Posts', name: 'post', icon: 'posts' },
     { title: 'Saved', name: 'saved-posts', icon: 'saved' },
-    { title: 'Tagged', name: 'tagged-post', icon: 'tagged' },
+    { title: 'Tagged', name: 'tagged-posts', icon: 'tagged' },
    ],
    user: null,
 
   }
  },
  methods: {
- },
+  async loadUser() {
+   const { userId } = this.$route.params
+   this.user = await userService.getById(userId)
+  },
 
+ },
  computed: {
 
   ...mapGetters({
@@ -72,6 +76,15 @@ export default {
  components: {
   UserPreview,
   UserDashboard
+ },
+ beforeUnmount() {
+  this.$store.dispatch({
+   type: 'postStore/filterPosts',
+   filterBy: { userFilter: '' },
+   userId: ''
+  })
+  // this is to make sure the filter is reset when the component is unmounted 
+  // this.setFilter({ filterBy: { userFilter: '' }, userId: '' })
  },
 }
 </script>

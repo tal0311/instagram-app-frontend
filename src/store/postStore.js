@@ -22,6 +22,8 @@ export const postStore = {
       return state.explorePosts
     },
     postCount(state) {
+      // this is to over com the problem of the refresh userArea refresh
+      if (!state.posts) return 0
       return state.posts.length
     }
 
