@@ -53,7 +53,7 @@ async function add(data) {
  return notification
 }
 
-// ; (() => {
+; (() => {
 
-//  utilService.saveToStorage('note_db', notifications)
-// })()
+ utilService.saveToStorage('note_db', notifications)
+})()

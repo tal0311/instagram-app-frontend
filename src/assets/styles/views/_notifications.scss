@@ -6,6 +6,7 @@
   align-items: center;
   gap: 1em;
   .notification-preview {
+   font-size: 0.8rem;
    grid-auto-flow: column;
    justify-content: start;
    grid-template-columns: min-content 1fr auto;
@@ -17,8 +18,10 @@
     // background: lightgreen;
     justify-content: end;
    }
+
    .action {
     @include app-btn(0.5rem, 1rem);
+    font-size: 0.8rem;
     border-radius: $br;
    }
   }

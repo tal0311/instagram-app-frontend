@@ -25,6 +25,7 @@ export const userStore = {
       return state.searchResultsUsers
     },
     getNotifications(state) {
+      console.log(state.notifications);
       return state.notifications
     }
   },

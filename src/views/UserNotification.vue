@@ -7,7 +7,7 @@
     <UserPreview :user="note.by" />
     <div>
      <span class="username">{{ note.by.username }}</span>
-     <span>{{ note.dsc }}</span>
+     <span>{{ note.dsc }}, </span>
      <span>{{ getDesc(note.type) }}</span>
      <span>{{ getTime(note.createdAt) }}</span>
     </div>
