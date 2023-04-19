@@ -37,4 +37,10 @@ nav.app-nav {
    }
   }
  }
+
+ @media (width<800px) {
+  .search {
+   display: none;
+  }
+ }
 }

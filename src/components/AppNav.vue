@@ -2,7 +2,7 @@
  <nav v-if="getUser" class="app-nav full main-layout">
   <div class="nav-container grid">
 
-   <RouterLink v-for="(route, idx) in routes" :key="idx" :to="route.name">
+   <RouterLink v-for="(route, idx) in routes" :class="route.icon" :key="idx" :to="route.name">
     <i v-html="$getSvg(route.icon)"></i>
    </RouterLink>
 
