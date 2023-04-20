@@ -9,7 +9,14 @@ function logError(user, err, instance, info) {
  console.log('%cError', _getStyles(), errorToLog)
 }
 
-
+/**
+ * 
+ * @param {object} user 
+ * @param {string} err 
+ * @param {string} instance 
+ * @param {string} info 
+ * @returns {{_id: string, desc: string, user: object, info: string, instance: string}} error object
+ */
 function _createNewError(user, err, instance, info) {
  return {
   _id: utilService.makeId(),
@@ -21,7 +28,23 @@ function _createNewError(user, err, instance, info) {
  }
 }
 
-
+/**
+ * 
+ * @returns {string} css styles
+ */
 function _getStyles() {
  return 'color:#fff; background:red; padding:5px; border-radius:5px; font-weight:bold'
-} 
+}
+
+
+// function getBuId(userId) {
+//  db.getCollection("user").find({ _id: ObjectId(userId) })
+// }
+
+// function getNotesByUserId(userId) {
+//  db.getCollection("notificatioens").aggregate([
+//   { $project: { userId: 1 } }
+//  ])
+// }
+
+

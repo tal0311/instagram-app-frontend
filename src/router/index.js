@@ -130,6 +130,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.path.includes('user') && to.params.userId === ':userId') {
     next({ name: 'login' })
+
   }
   if (to.name === 'msg-details') {
     store.dispatch('msgStore/loadCurrentContact', { contactId: to.params.byId })
