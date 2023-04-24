@@ -101,14 +101,14 @@ const router = createRouter({
 
 
 
-const routerHistory = []
+export const routerHistory = []
 router.beforeEach((to, from, next) => {
 
 
   store.dispatch('userStore/loadUser')
   const user = store.getters['userStore/getUser']
 
-
+  routerHistory.push(to)
   if (to.name !== 'login' && !user) {
     next({ name: 'login' })
     throw 'redirected from guard-no logged user'
