@@ -4,8 +4,12 @@ export const errorService = {
  logError
 }
 
-function logError(user, err, instance, info) {
- const errorToLog = _createNewError(user, err, instance, info)
+function logError(user, err, instance, info, routeHistory) {
+ const errorToLog = _createNewError(user, err, instance, info, routeHistory)
+ if (import.meta.env.MODE === 'production') {
+  httpService.get('err')
+  return
+ }
  console.log('%cError', _getStyles(), errorToLog)
 }
 
@@ -17,13 +21,14 @@ function logError(user, err, instance, info) {
  * @param {string} info 
  * @returns {{_id: string, desc: string, user: object, info: string, instance: string}} error object
  */
-function _createNewError(user, err, instance, info) {
+function _createNewError(user, err, instance, info, routeHistory) {
  return {
   _id: utilService.makeId(),
   desc: `[global error handler ${err}]`,
   user,
   info,
-  instance: instance.$.type.name
+  instance: instance.$.type.name,
+  routeHistory
 
  }
 }

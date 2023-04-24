@@ -9,11 +9,11 @@
    <i @click="openModal" v-html="$getSvg('new-post')"></i>
 
    <RouterLink :to="{
-    name: 'post'
-    , params: {
-     userId: getUser._id
-    }
-   }">
+     name: 'post'
+     , params: {
+      userId: getUser._id
+     }
+    }">
     <UserPreview v-if="getUser" :user="getUser" is="nav" />
    </RouterLink>
   </div>
@@ -29,7 +29,6 @@ import UserPreview from './UserPreview.vue';
 export default {
  name: 'AppNav',
  created() {
-  // this.$store.dispatch('userStore/loadUser');
 
  },
 
