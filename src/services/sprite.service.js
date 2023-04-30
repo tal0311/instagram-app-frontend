@@ -1,14 +1,20 @@
 
-
+export const spriteService = {
+ getSprite
+}
 
 function getSprite(type) {
 
  const spriteOpts = {
-  'like': 'liked your post',
-  'comment': 'commented on your post',
-  'follow': 'started following you',
-  'unfollow': 'unfollowed you',
-  'mention': 'mentioned you in a comment',
+  'logo-shadow': `background-position: -307px 0px;
+    width: 62px;
+    height: 63px;`,
+  'big-hart': 'background-position: -5px -22px; width: 113px; height: 95px;',
+  'lock': 'background-position: -128px 3px; width: 100px;  height: 100px; ',
+  'lock-blue': 'background-position: -227px 1px; width: 78px;   height: 78px; ',
+  'logo-withe': `background-position: -371px 0px;
+    width: 60px;
+    height: 60px;`,
   'tag': 'tagged you in a post',
   'save': 'saved your post',
   'unsave': 'unsaved your post',
