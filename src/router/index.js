@@ -90,6 +90,11 @@ const router = createRouter({
       name: 'login',
       component: AppLogin
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: TestArea
+    },
 
     {
       path: '/:pathMatch(.*)*',
