@@ -10,7 +10,7 @@ export default {
  name: 'TestingArea',
  computed: {
   getStyles() {
-   return spriteService.getSprite('logo-shadow')
+   return spriteService.getSprite('circle-play-btn')
 
 
   },
