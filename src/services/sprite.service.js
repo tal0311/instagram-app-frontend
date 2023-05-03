@@ -30,7 +30,8 @@ function getSprite(type) {
   'microsoft-logo': 'background-position: 2px -223px; width: 124px; height: 45px;',
   'logo-white-small': 'background-position: -226px -224px; width: 32px; height: 34px;',
   'retry-black': 'background-position: -259px -224px; width: 28px; height: 31px;',
-  'check-mark-circle': 'background-position: -303px -193px; width: 68px; height: 67px; '
+  'check-mark-circle': 'background-position: -303px -193px; width: 68px; height: 67px;',
+
 
  }
 
