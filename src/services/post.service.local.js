@@ -89,20 +89,7 @@ async function save(post) {
     if (post._id) {
         savedPost = await storageService.put(STORAGE_KEY, post)
     } else {
-        post.tags = [...getPostTags(post.txt)]
-        // Later, owner is set by the backend
-        const user = userService.getLoggedinUser()
-        const { _id, username, imgUrl, fullname } = user
-
-        const by =
-            { _id, username, imgUrl, fullname }
-        post.by = by
-
-        // debugger
-        savedPost = await storageService.post(STORAGE_KEY, post)
-
-
-
+        savedPost = await httpService.post(STORAGE_KEY, post)
     }
     return savedPost
 }
@@ -159,12 +146,6 @@ function getEmptyPost() {
         txt: '',
         imgUrl: '',
         createdAt: Date.now(),
-        by: {
-            _id: '',
-            username: '',
-            imgUrl: '',
-            fullname: ''
-        },
         loc: {
             lat: 11.11,
             lng: 22.22,
