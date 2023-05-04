@@ -94,10 +94,7 @@ async function save(post) {
     return savedPost
 }
 
-function getPostTags(txt) {
-    if (!txt) return []
-    return txt.split(' ').filter(word => word.startsWith('#')).map(tag => tag.substring(1))
-}
+
 
 async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
