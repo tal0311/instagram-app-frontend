@@ -3,23 +3,20 @@
 </template>
 
 <script>
-
 import { spriteService } from '../services/sprite.service';
 export default {
-
- name: 'TestingArea',
+ name: 'TestArea',
  computed: {
   getStyles() {
-   return spriteService.getSprite('circle-play-btn')
-
-
+   return spriteService.getSprite('logo-small-fill')
   },
-
-
  }
 }
 </script>
 
 <style>
-.logo {}
+.sprite {
+ display: inline-block;
+ background: url(./src/assets/images/insta-sprite.png) no-repeat;
+}
 </style>

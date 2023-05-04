@@ -30,10 +30,13 @@ function getSprite(type) {
   'microsoft-logo': 'background-position: 2px -223px; width: 124px; height: 45px;',
   'logo-white-small': 'background-position: -226px -224px; width: 32px; height: 34px;',
   'retry-black': 'background-position: -259px -224px; width: 28px; height: 31px;',
-  'check-mark-circle': 'background-position: -303px -193px; width: 68px; height: 67px;',
-
+  'check-mark-circle': 'background-position: -303px -194px; width: 68px; height: 67px;',
+  'logo-small-no-fill': 'background-position: -370px -278px; width: 44px; height: 43px;',
+  'logo-small-fill': 'background-position: -369px -235px; width: 45px; height: 43px;',
+  'verified-small': 'background-position: -243px -368px; width: 14px; height: 14px;'
 
  }
 
  return spriteOpts[type] || ''
 }
+

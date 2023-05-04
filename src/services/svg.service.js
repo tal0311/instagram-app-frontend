@@ -52,3 +52,5 @@ const svgIcons = {
 }
 export const getSvg = (iconName) => svgIcons[iconName]
 
+// post added gif
+// https://static.cdninstagram.com/rsrc.php/v3/yQ/r/alF2W5MavPX.gif
