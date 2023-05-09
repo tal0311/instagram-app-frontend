@@ -1,38 +1,38 @@
-# frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+# Instagram App
 
-## Recommended IDE Setup
+Introducing our brand new social media platform, the Instagram clone!
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+This app brings all the beloved features of Instagram to your fingertips, allowing you to connect with friends, family, and followers like never before. With our sleek and user-friendly interface, you'll be able to share photos, videos, and stories with ease.
 
-## Customize configuration
+Our app also includes all the classic Instagram features you know and love, such as filters, hashtags, and the explore page. Plus, we've added some exciting new features, including the ability to schedule posts and the option to create private groups for more intimate sharing.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Whether you're a photographer looking to showcase your work, a social media influencer building your brand, or just someone who loves to share their life with others, our Instagram clone has something for everyone. Join our community today and start sharing your world!
 
-## Project Setup
 
-```sh
-npm install
-```
+## 🚀 About Me
+I'm a full stack developer...
 
-### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+## Screenshots
 
-### Compile and Minify for Production
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-```sh
-npm run build
-```
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-### Lint with [ESLint](https://eslint.org/)
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
-```sh
-npm run lint
-```
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+## Tech Stack
+
+**Client:** Vue.js, vuex, Web RTC-peerjs, scss.
+
+**Server:** Node, Express, MongoDB, Socket.io, Becrypt.
+
+
 
 ## instagram sprite
 
