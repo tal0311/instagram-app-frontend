@@ -87,30 +87,14 @@ async function remove(postId) {
 async function save(post) {
     var savedPost
     if (post._id) {
-        savedPost = await storageService.put(STORAGE_KEY, post)
+        savedPost = await httpService.put(`post/${post._id}`, post)
     } else {
-        post.tags = [...getPostTags(post.txt)]
-        // Later, owner is set by the backend
-        const user = userService.getLoggedinUser()
-        const { _id, username, imgUrl, fullname } = user
-
-        const by =
-            { _id, username, imgUrl, fullname }
-        post.by = by
-
-        // debugger
-        savedPost = await storageService.post(STORAGE_KEY, post)
-
-
-
+        savedPost = await httpService.post('post', post)
     }
     return savedPost
 }
 
-function getPostTags(txt) {
-    if (!txt) return []
-    return txt.split(' ').filter(word => word.startsWith('#')).map(tag => tag.substring(1))
-}
+
 
 async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
@@ -159,12 +143,6 @@ function getEmptyPost() {
         txt: '',
         imgUrl: '',
         createdAt: Date.now(),
-        by: {
-            _id: '',
-            username: '',
-            imgUrl: '',
-            fullname: ''
-        },
         loc: {
             lat: 11.11,
             lng: 22.22,
