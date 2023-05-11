@@ -87,9 +87,9 @@ async function remove(postId) {
 async function save(post) {
     var savedPost
     if (post._id) {
-        savedPost = await storageService.put(STORAGE_KEY, post)
+        savedPost = await httpService.put(post)
     } else {
-        savedPost = await httpService.post(STORAGE_KEY, post)
+        savedPost = await httpService.post(post)
     }
     return savedPost
 }
