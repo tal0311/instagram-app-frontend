@@ -77,11 +77,11 @@ async function userFilter(posts, type, userId) {
 }
 
 function getById(postId) {
-    return storageService.get(STORAGE_KEY, postId)
+    return httpService.get('post/' + postId)
 }
 
 async function remove(postId) {
-    await storageService.remove(STORAGE_KEY, postId)
+    await httpService.remove('post/' + postId)
 }
 
 async function save(post) {
@@ -100,7 +100,7 @@ async function addPostComment(postId, txt) {
     // Later, this is all done by the backend
 
     const post = await getById(postId)
-    debugger
+
     const { _id, fullname, username, imgUrl } = userService.getLoggedinUser()
     if (!post.comments) post.comments = []
     const comment = {
