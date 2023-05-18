@@ -53,6 +53,7 @@ async function setTags(posts) {
 }
 
 async function userFilter(posts, type, userId) {
+    // criteria: tagged-posts, post, saved-posts
     const user = await userService.getById(userId)
     // debugger
     switch (type) {
@@ -97,22 +98,13 @@ async function save(post) {
 
 
 async function addPostComment(postId, txt) {
-    // Later, this is all done by the backend
-
-    const post = await getById(postId)
-
-    const { _id, fullname, username, imgUrl } = userService.getLoggedinUser()
-    if (!post.comments) post.comments = []
-    const comment = {
-        id: utilService.makeId(),
-        by: { _id, fullname, username, imgUrl },
-        txt
-    }
-    post.comments.push(comment)
-    await storageService.put(STORAGE_KEY, post)
-
-    return post
+    // should be passed like this
+    // {
+    //     "txt": "some comment text to get updated post"
+    // }
+    return await storageService.put(`post/${postId}/comment`, txt)
 }
+
 async function addPostLike(postId, userId) {
     // Later, this is all done by the backend
     const post = await getById(postId)
