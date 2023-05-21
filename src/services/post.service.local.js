@@ -25,20 +25,14 @@ window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: '', userId: '' }) {
     // debugger
-    let posts = await storageService.query(STORAGE_KEY)
-    if (filterBy.txt) {
-        const regex = new RegExp(filterBy.txt, 'i')
-        posts = posts.filter(post => regex.test(post.vendor) || regex.test(post.description))
-    }
-    if (filterBy.userId) {
-        posts = await userFilter(posts, filterBy.userFilter, filterBy.userId)
-    }
+    const posts = await httpService.query('post', filterBy)
     setTags(posts)
     return posts
 }
 
 async function setTags(posts) {
     // debugger
+    //pass this to BE and get the tags from there
     if (!posts || !posts.length) return
     posts = posts.map(post => {
         if (post.tags) {
@@ -52,30 +46,7 @@ async function setTags(posts) {
     userService.update(user)
 }
 
-async function userFilter(posts, type, userId) {
-    // criteria: tagged-posts, post, saved-posts
-    const user = await userService.getById(userId)
-    // debugger
-    switch (type) {
-        // posts user tagged in
-        case 'tagged-posts':
-            return []
-            break;
-        // posts created by the user
-        case 'post':
-            return posts.filter(post => post.by._id === user._id)
 
-            break;
-        // posts saved by the user
-        case 'saved-posts':
-            const { savedPostIds } = user
-            return posts.filter(post => savedPostIds.includes(post._id))
-            break;
-
-        default:
-            break;
-    }
-}
 
 function getById(postId) {
     return httpService.get('post/' + postId)
@@ -95,13 +66,7 @@ async function save(post) {
     return savedPost
 }
 
-
-
 async function addPostComment(postId, txt) {
-    // should be passed like this
-    // {
-    //     "txt": "some comment text to get updated post"
-    // }
     return await storageService.put(`post/${postId}/comment`, txt)
 }
 
