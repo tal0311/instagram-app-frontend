@@ -9,7 +9,7 @@ import gTags from './../data/tags.json' assert {type: 'json'}
 import { httpService } from './http.service.js'
 
 
-const STORAGE_KEY = 'post_db'
+// const STORAGE_KEY = 'post_db'
 
 export const postService = {
     query,
@@ -24,32 +24,11 @@ export const postService = {
 window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: '', userId: '' }) {
-    // debugger
-    const posts = await httpService.query('post', filterBy)
-    setTags(posts)
-    return posts
+    return await httpService.get('post', filterBy)
 }
 
-async function setTags(posts) {
-    // debugger
-    //pass this to BE and get the tags from there
-    if (!posts || !posts.length) return
-    posts = posts.map(post => {
-        if (post.tags) {
-            return post.tags
-        }
-    })
-    const userTags = [...new Set(posts.flatMap(tag => tag))]
-    const loggedInUser = userService.getLoggedinUser()
-    const user = await userService.getById(loggedInUser._id)
-    user.tags = userTags
-    userService.update(user)
-}
-
-
-
-function getById(postId) {
-    return httpService.get('post/' + postId)
+async function getById(postId) {
+    return await httpService.get('post/' + postId)
 }
 
 async function remove(postId) {
@@ -70,28 +49,8 @@ async function addPostComment(postId, txt) {
     return await storageService.put(`post/${postId}/comment`, txt)
 }
 
-async function addPostLike(postId, userId) {
-    // Later, this is all done by the backend
-    const post = await getById(postId)
-    if (!post.likedBy) post.likedBy = []
-    const { username: by, _id, imgUrl } = await userService.getById(userId)
-    const user = await userService.getById(userId)
-
-    const idx = post.likedBy.findIndex(by => by._id === _id)
-    if (idx === -1) {
-        const like = {
-            _id: user._id,
-            by: user.username,
-            imgUrl: user.imagUrl
-        }
-        if (post.tags.length) {
-            updateTags(post.tags, user)
-        }
-        post.likedBy.push(like)
-        return await storageService.put(STORAGE_KEY, post)
-    }
-    post.likedBy.splice(idx, 1)
-    return await storageService.put(STORAGE_KEY, post)
+async function addPostLike(postId) {
+    return await httpService.put(`post/${postId}/like`)
 }
 
 function getEmptyPost() {
@@ -110,18 +69,6 @@ function getEmptyPost() {
         tags: []
 
     }
-}
-
-async function updateTags(postTags, user) {
-    if (postTags.length) {
-        postTags.forEach(tag => {
-            if (!user.tags.includes(tag)) {
-                user.tags.push(tag)
-            }
-        });
-    }
-    userService.update(user)
-
 }
 
 
