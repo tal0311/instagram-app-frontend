@@ -19,26 +19,26 @@ function get(entityType, entityId) {
     })
 }
 
-// function post(entityType, newEntity) {
-//     newEntity = JSON.parse(JSON.stringify(newEntity))
-//     newEntity._id = _makeId()
-//     return query(entityType).then(entities => {
-//         entities.unshift(newEntity)
-//         _save(entityType, entities)
-//         return newEntity
-//     })
-// }
+function post(entityType, newEntity) {
+    newEntity = JSON.parse(JSON.stringify(newEntity))
+    newEntity._id = _makeId()
+    return query(entityType).then(entities => {
+        entities.unshift(newEntity)
+        _save(entityType, entities)
+        return newEntity
+    })
+}
 
-// function put(entityType, updatedEntity) {
-//     updatedEntity = JSON.parse(JSON.stringify(updatedEntity))
-//     return query(entityType).then(entities => {
-//         const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
-//         if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity._id} in: ${entityType}`)
-//         entities.splice(idx, 1, updatedEntity)
-//         _save(entityType, entities)
-//         return updatedEntity
-//     })
-// }
+function put(entityType, updatedEntity) {
+    updatedEntity = JSON.parse(JSON.stringify(updatedEntity))
+    return query(entityType).then(entities => {
+        const idx = entities.findIndex(entity => entity._id === updatedEntity._id)
+        if (idx < 0) throw new Error(`Update failed, cannot find entity with id: ${updatedEntity._id} in: ${entityType}`)
+        entities.splice(idx, 1, updatedEntity)
+        _save(entityType, entities)
+        return updatedEntity
+    })
+}
 
 function remove(entityType, entityId) {
     return query(entityType).then(entities => {
