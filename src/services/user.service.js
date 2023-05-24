@@ -113,9 +113,7 @@ async function getStory(userId, storyId) {
 
 // auth
 async function login(credentials) {
-    const users = await storageService.query('user')
-    const user = users.find(user => user.username === credentials.username)
-    // const user = await httpService.post('auth/login', userCred)
+    const user = await httpService.get('auth/login', credentials)
     if (user) {
         // socketService.login(user._id)
         return saveLocalUser(user)
