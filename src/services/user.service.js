@@ -25,7 +25,10 @@ export const userService = {
 
 window.userService = userService
 
-async function getUsersBySearch(filterBy = { searchTerm: '' }) {
+// TODO: add socket integration
+//TODO: divide user service to user and auth services
+// TODO: divide user store and auth store
+async function getUsersBySearch(filterBy = { txt: '' }) {
     const userCollection = await storageService.query('user')
     if (filterBy.searchTerm) {
         const regex = new RegExp(filterBy.searchTerm, 'i')
@@ -113,18 +116,26 @@ async function getStory(userId, storyId) {
 
 // auth
 async function login(credentials) {
-    const user = await httpService.get('auth/login', credentials)
-    if (user) {
-        // socketService.login(user._id)
-        return saveLocalUser(user)
+    try {
+
+        const user = await httpService.get('auth/login', credentials)
+        if (user) {
+            // socketService.login(user._id)
+            return saveLocalUser(user)
+        }
+    } catch (error) {
+        console.info('Error trying to login', error);
     }
 }
 async function signup(userCard) {
-    const user = createUser(userCard)
-    const addUser = await storageService.post('user', user)
-    // const user = await httpService.post('auth/signup', userCred)
-    // socketService.login(user._id)
-    // return saveLocalUser(user)
+    try {
+        const user = await httpService.post('auth/signup', userCard)
+        // socketService.login(user._id)
+        return saveLocalUser(user)
+
+    } catch (error) {
+
+    }
 }
 
 async function logout() {
