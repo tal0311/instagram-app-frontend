@@ -115,6 +115,10 @@ export const userStore = {
       } catch (error) {
         throw 'Error while updating user:', error
       }
+    },
+    async updateUser({ commit, state }, { user }) {
+      const updatedUser = await userService.update(user)
+      commit({ type: 'setUser', loggedInUser: updatedUser })
     }
   }
 }
