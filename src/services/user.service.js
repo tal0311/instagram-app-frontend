@@ -69,19 +69,11 @@ async function update(user) {
     return updatedUser
 }
 
-async function toggleSavedPost(postId, userId) {
-    const user = await getById(userId)
-    if (!user) throw new Error('Not loggedin')
-    if (user.savedPostIds.includes(postId)) {
-        const idx = user.savedPostIds.findIndex(p => p === postId)
-        user.savedPostIds.splice(idx, 1)
-        await update(user)
-        return saveLocalUser(user)
-    }
-    user.savedPostIds.push(postId)
-    await update(user)
-    return saveLocalUser(user)
-
+async function toggleSavedPost(postId) {
+    const updatedKeys = await httpService.put(`user/${postId}/follow`)
+    const loggedUser = getLoggedinUser()
+    const updatedUser = { loggedUser, ...updatedKeys }
+    return saveLocalUser(updatedUser)
 }
 
 
