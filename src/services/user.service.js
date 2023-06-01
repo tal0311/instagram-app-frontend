@@ -39,15 +39,15 @@ async function getUsersBySearch(filterBy = { txt: '' }) {
 }
 
 
-async function getUsers() {
-    const user = getLoggedinUser()
-    const following = user.following.map(f => f._id)
-    const userCollection = await storageService.query('user')
+async function getUsers(txt) {
+    // const user = getLoggedinUser()
+    // const following = user.following.map(f => f._id)
+    // const userCollection = await storageService.query('user')
 
-    // for removing loggedIn user from user list
-    return userCollection.filter(u => u._id !== user._id)
-    return userCollection
-    // return httpService.get(`user`)
+    // // for removing loggedIn user from user list
+    // return userCollection.filter(u => u._id !== user._id)
+    // return userCollection
+    return await httpService.get('user', txt)
 }
 
 
