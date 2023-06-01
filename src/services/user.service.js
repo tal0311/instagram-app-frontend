@@ -70,7 +70,7 @@ async function update(user) {
 }
 
 async function toggleSavedPost(postId) {
-    const updatedKeys = await httpService.put(`user/${postId}/follow`)
+    const updatedKeys = await httpService.put(`user/${postId}/save`)
     const loggedUser = getLoggedinUser()
     const updatedUser = { loggedUser, ...updatedKeys }
     return saveLocalUser(updatedUser)
