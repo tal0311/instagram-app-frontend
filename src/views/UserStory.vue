@@ -47,7 +47,7 @@ export default {
  methods: {
   async getStory(userId, storyId) {
    try {
-    this.user = await userService.getById(userId)
+    this.user = await userService.getStory(userId)
     this.story = this.user.stories.find(story => story.id === storyId)
    } catch (error) {
     console.error('[Could not Get Story]:', error)

@@ -98,9 +98,8 @@ async function toggleFollow(userToToggle) {
 
 }
 
-async function getStory(userId, storyId) {
-    const user = await getById(userId)
-    return user.stories.find(s => s.id === storyId)
+async function getStory(userId) {
+    return await httpService.put(`user/${userId}/story`)
 }
 
 
