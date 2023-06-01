@@ -28,31 +28,21 @@ window.userService = userService
 // TODO: add socket integration
 //TODO: divide user service to user and auth services
 // TODO: divide user store and auth store
-async function getUsersBySearch(filterBy = { txt: '' }) {
-    const userCollection = await storageService.query('user')
-    if (filterBy.searchTerm) {
-        const regex = new RegExp(filterBy.searchTerm, 'i')
-        return userCollection.filter(user => regex.test(user.username))
-    }
-    return userCollection
+
+// maybe remove combine with get Users 
+async function getUsersBySearch(txt) {
+    return await httpService.get('user', txt)
 
 }
 
 
 async function getUsers(txt) {
-    // const user = getLoggedinUser()
-    // const following = user.following.map(f => f._id)
-    // const userCollection = await storageService.query('user')
-
-    // // for removing loggedIn user from user list
-    // return userCollection.filter(u => u._id !== user._id)
-    // return userCollection
     return await httpService.get('user', txt)
 }
 
 
 async function getById(userId) {
-    const user = await storageService.get('user', userId)
+    const user = await httpService.get('user', userId)
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
@@ -157,26 +147,6 @@ function getLoggedinUser() {
 }
 
 // later will be handle by BE
-function createUser({ fullname, password, username, imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }) {
-
-    return {
-        _id: '',
-        username,
-        imgUrl,
-        fullname,
-        password,
-        createdAt: Date.now(),
-        following: [],
-        followers: [],
-        savedPostIds: [],
-        stories: [],
-        highlights: []
-    }
-}
-
-
-
-
 
 // ; (() => {
 //     saveLocalUser(gUsers[2])
