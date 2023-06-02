@@ -22,8 +22,8 @@ export default {
 
   async created() {
 
-    await this.$store.dispatch('postStore/loadPosts');
     await this.$store.dispatch('userStore/loadUsers');
+    await this.$store.dispatch('postStore/loadPosts');
   },
 
   data() {
@@ -47,9 +47,7 @@ export default {
       return 'https://cdn.usbrandcolors.com/images/logos/instagram-logo.png'
     },
   },
-  // errorCaptured(err) {
-  //   console.log('errorCaptured', err)
-  // },
+
   components: {
     PostPreview,
     StoryList,

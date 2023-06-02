@@ -25,31 +25,24 @@ export const userService = {
 
 window.userService = userService
 
-async function getUsersBySearch(filterBy = { searchTerm: '' }) {
-    const userCollection = await storageService.query('user')
-    if (filterBy.searchTerm) {
-        const regex = new RegExp(filterBy.searchTerm, 'i')
-        return userCollection.filter(user => regex.test(user.username))
-    }
-    return userCollection
+// TODO: add socket integration
+//TODO: divide user service to user and auth services
+// TODO: divide user store and auth store
+
+// maybe remove combine with get Users 
+async function getUsersBySearch(txt) {
+    return await httpService.get('user', txt)
 
 }
 
 
-async function getUsers() {
-    const user = getLoggedinUser()
-    const following = user.following.map(f => f._id)
-    const userCollection = await storageService.query('user')
-
-    // for removing loggedIn user from user list
-    return userCollection.filter(u => u._id !== user._id)
-    return userCollection
-    // return httpService.get(`user`)
+async function getUsers(txt = '') {
+    return await httpService.get('user', txt)
 }
 
 
 async function getById(userId) {
-    const user = await storageService.get('user', userId)
+    const user = await httpService.get('user', userId)
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
@@ -58,73 +51,82 @@ function onUserUpdate(user) {
 }
 
 async function update(user) {
-    // const user = await storageService.get('user', _id)
-
-    // let user = getById(_id)
-    // user.score = score
-    await storageService.put('user', user)
-    // user = await httpService.put(`user/${user._id}`, user)
-    // Handle case in which admin updates other user's details
-    return user
+    // the update function in BE will only update keys that she knows for security reason
+    const updatedKeys = await httpService.put(`user/${user._id}`, user)
+    const loggedUser = getLoggedinUser()
+    const updatedUser = { loggedUser, ...updatedKeys }
+    saveLocalUser(updatedUser)
+    return updatedUser
 }
 
-async function toggleSavedPost(postId, userId) {
-    const user = await getById(userId)
-    if (!user) throw new Error('Not loggedin')
-    if (user.savedPostIds.includes(postId)) {
-        const idx = user.savedPostIds.findIndex(p => p === postId)
-        user.savedPostIds.splice(idx, 1)
-        await update(user)
-        return saveLocalUser(user)
-    }
-    user.savedPostIds.push(postId)
-    await update(user)
-    return saveLocalUser(user)
+async function toggleSavedPost(postId) {
+    const updatedKeys = await httpService.put(`user/${postId}/save`)
+    const loggedUser = getLoggedinUser()
+    const updatedUser = { loggedUser, ...updatedKeys }
+    return saveLocalUser(updatedUser)
+}
+
+
+async function toggleFollow(userToToggle) {
+    // TODO: refactor to get only id 
+    const updatedKeys = await httpService.put(`user/${userToToggle._id}/follow`)
+    const loggedUser = getLoggedinUser()
+
+    const updatedUser = { ...loggedUser, ...updatedKeys }
+    return saveLocalUser(updatedUser)
+
+    //    this will return only updated keys from user update make sure to update the logged in user
+    // {
+    //     "_id": "643d2a0f99553dc5ce88b861",
+    //         "fullname": "Tal Amit",
+    //             "tags": [
+    //                 "tag1",
+    //                 "tag2",
+    //                 "tag3",
+    //                 "likeTag"
+    //             ],
+    //                 "followers": [],
+    //                     "following": [
+    //                         {
+    //                             "fullname": "men75",
+    //                             "username": "men.75",
+    //                             "_id": "6472e57d55a4ce858ce54929",
+    //                             "imgUrl": "https://randomuser.me/api/portraits/men/75.jpg"
+    //                         }
+    //                     ]
+    // }
 
 }
 
-// TODO: COMBINE TOGGLE FOLLOW AND TOGGLE SAVED POST
-async function toggleFollow(userToUpdate, userToToggle) {
-    userToToggle = {
-        fullname: userToToggle.fullname,
-        username: userToToggle.username,
-        _id: userToToggle._id,
-        imgUrl: userToToggle.imgUrl
-    }
-
-    const idx = userToUpdate.following.findIndex(f => f._id === userToToggle._id)
-    if (idx !== -1) {
-        userToUpdate.following.splice(idx, 1)
-        await update(userToUpdate)
-        return saveLocalUser(userToUpdate)
-    }
-    userToUpdate.following.push(userToToggle)
-    await update(userToUpdate)
-    return saveLocalUser(userToUpdate)
-
-}
-
-async function getStory(userId, storyId) {
-    const user = await getById(userId)
-    return user.stories.find(s => s.id === storyId)
+async function getStory(userId) {
+    return await httpService.put(`user/${userId}/story`)
 }
 
 
 
 // auth
-async function login(credentials) {
-    const user = await httpService.get('auth/login', credentials)
-    if (user) {
-        // socketService.login(user._id)
-        return saveLocalUser(user)
+async function login({ username, password }) {
+
+    try {
+        const user = await httpService.post('auth/login', { username, password })
+        if (user) {
+            // socketService.login(user._id)
+            return saveLocalUser(user)
+        }
+    } catch (error) {
+        console.info('Error trying to login', error);
     }
 }
+
 async function signup(userCard) {
-    const user = createUser(userCard)
-    const addUser = await storageService.post('user', user)
-    // const user = await httpService.post('auth/signup', userCred)
-    // socketService.login(user._id)
-    // return saveLocalUser(user)
+    try {
+        const user = await httpService.post('auth/signup', userCard)
+        // socketService.login(user._id)
+        return saveLocalUser(user)
+
+    } catch (error) {
+
+    }
 }
 
 async function logout() {
@@ -140,30 +142,12 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    if (!user) throw 'No logged in User'
+    return user
 }
 
 // later will be handle by BE
-function createUser({ fullname, password, username, imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }) {
-
-    return {
-        _id: '',
-        username,
-        imgUrl,
-        fullname,
-        password,
-        createdAt: Date.now(),
-        following: [],
-        followers: [],
-        savedPostIds: [],
-        stories: [],
-        highlights: []
-    }
-}
-
-
-
-
 
 // ; (() => {
 //     saveLocalUser(gUsers[2])

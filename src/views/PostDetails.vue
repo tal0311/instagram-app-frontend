@@ -22,8 +22,8 @@ export default {
   }
  },
  methods: {
-  async onPostAction({ action, postId }) {
-   await this.$store.dispatch('postStore/postActions', { action, postId })
+  async onPostAction({ action, postId, comment = null }) {
+   await this.$store.dispatch('postStore/postActions', { action, postId, comment })
    this.getSelectedPost()
   },
   async getSelectedPost() {

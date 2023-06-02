@@ -4,7 +4,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 
-import gPosts from './../data/postsData.json' assert {type: 'json'}
+// import gPosts from './../data/postsData.json' assert {type: 'json'}
 import gTags from './../data/tags.json' assert {type: 'json'}
 import { httpService } from './http.service.js'
 
@@ -46,7 +46,7 @@ async function save(post) {
 }
 
 async function addPostComment(postId, txt) {
-    return await storageService.put(`post/${postId}/comment`, txt)
+    return await httpService.put(`post/${postId}/comment`, txt)
 }
 
 async function addPostLike(postId) {

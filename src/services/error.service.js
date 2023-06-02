@@ -10,7 +10,7 @@ function logError(user, err, instance, info, routeHistory) {
   httpService.get('err')
   return
  }
- console.log('%cError', _getStyles(), errorToLog)
+ console.info('%cError', _getStyles(), errorToLog)
 }
 
 /**

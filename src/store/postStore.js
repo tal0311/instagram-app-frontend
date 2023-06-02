@@ -94,7 +94,7 @@ export const postStore = {
 
             break;
           case 'comment':
-            post = await postService.addPostComment(postId, comment.txt)
+            post = await postService.addPostComment(postId, comment)
             commit({ type: 'updatePost', post })
             break;
 
@@ -103,7 +103,7 @@ export const postStore = {
 
         }
       } catch (error) {
-        throw `Error ${action}ing on post ${postId}`
+        throw `Error ${action}ing on post ${postId} error: ${error} `
 
       }
     },
