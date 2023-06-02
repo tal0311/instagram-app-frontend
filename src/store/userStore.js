@@ -55,7 +55,7 @@ export const userStore = {
         commit({ type: 'setUser', loggedInUser })
 
       } catch (error) {
-        throw `must login first: ${error}`
+        throw `Must login first: ${error}`
       }
     },
     async loadUsers({ state, commit }) {

@@ -21,9 +21,13 @@ export default {
   name: 'AppFeed',
 
   async created() {
+    try {
+      this.$store.dispatch('userStore/loadUsers');
+      this.$store.dispatch('postStore/loadPosts');
+    } catch (error) {
+      // console.log('error:', error)
+    }
 
-    await this.$store.dispatch('userStore/loadUsers');
-    await this.$store.dispatch('postStore/loadPosts');
   },
 
   data() {

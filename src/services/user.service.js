@@ -143,7 +143,7 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-    if (!user) throw 'No logged in User'
+    // if (!user) throw 'No logged in User'
     return user
 }
 
