@@ -11,7 +11,7 @@ export const notificationService = {
 }
 
 async function query(userId) {
- // debugger
+ debugger
  const notifications = await storageService.query('note_db')
  return notifications[userId] || []
  // return notifications
