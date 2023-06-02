@@ -99,7 +99,7 @@ async function toggleFollow(userToToggle) {
 }
 
 async function getStory(userId) {
-    return await httpService.put(`user/${userId}/story`)
+    return await httpService.get(`user/${userId}/story`)
 }
 
 
