@@ -46,10 +46,6 @@ function _getStyles() {
 //  db.getCollection("user").find({ _id: ObjectId(userId) })
 // }
 
-// function getNotesByUserId(userId) {
-//  db.getCollection("notificatioens").aggregate([
-//   { $project: { userId: 1 } }
-//  ])
-// }
+
 
 

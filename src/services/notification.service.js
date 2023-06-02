@@ -53,6 +53,13 @@ async function add(data) {
  return notification
 }
 
+// to get notifications by userId 643d2a0f99553dc5ce88b861
+// function getNotesByUserId(userId) {
+// user ID  for default user 643d2a0f99553dc5ce88b861
+//  db.getCollection("notificatioens").aggregate([
+//   { $project: { userId: 1 } }
+//  ])
+// }
 ; (() => {
 
  utilService.saveToStorage('note_db', notifications)
