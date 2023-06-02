@@ -67,7 +67,6 @@ export default {
   sendMsg() {
    this.msg.createdAt = Date.now()
    this.msg.from = this.loggedInUser._id
-   console.log('sendMsg')
    // send msg and add to store
    this.msg = {}
   },

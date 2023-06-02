@@ -36,7 +36,7 @@ async function getUsersBySearch(txt) {
 }
 
 
-async function getUsers(txt) {
+async function getUsers(txt = '') {
     return await httpService.get('user', txt)
 }
 
@@ -105,10 +105,10 @@ async function getStory(userId) {
 
 
 // auth
-async function login(credentials) {
-    try {
+async function login({ username, password }) {
 
-        const user = await httpService.get('auth/login', credentials)
+    try {
+        const user = await httpService.post('auth/login', { username, password })
         if (user) {
             // socketService.login(user._id)
             return saveLocalUser(user)
@@ -142,7 +142,9 @@ function saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    if (!user) throw 'No logged in User'
+    return user
 }
 
 // later will be handle by BE

@@ -35,7 +35,10 @@ export default {
   return {
    isSignUp: false,
    userImgPreview: null,
-   formData: {}
+   formData: {
+    username: 'tal.amit',
+    password: '111'
+   }
   }
  },
  methods: {

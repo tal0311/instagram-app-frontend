@@ -46,7 +46,7 @@ async function save(post) {
 }
 
 async function addPostComment(postId, txt) {
-    return await storageService.put(`post/${postId}/comment`, txt)
+    return await httpService.put(`post/${postId}/comment`, txt)
 }
 
 async function addPostLike(postId) {

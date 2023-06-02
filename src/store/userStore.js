@@ -25,7 +25,6 @@ export const userStore = {
       return state.searchResultsUsers
     },
     getNotifications(state) {
-      console.log(state.notifications);
       return state.notifications
     }
   },
@@ -51,8 +50,13 @@ export const userStore = {
   },
   actions: {
     loadUser({ commit }) {
-      const loggedInUser = userService.getLoggedinUser()
-      commit({ type: 'setUser', loggedInUser })
+      try {
+        const loggedInUser = userService.getLoggedinUser()
+        commit({ type: 'setUser', loggedInUser })
+
+      } catch (error) {
+        throw `must login first: ${error}`
+      }
     },
     async loadUsers({ state, commit }) {
       const users = await userService.getUsers()
@@ -89,7 +93,8 @@ export const userStore = {
     },
     async userLogin({ dispatch, commit }, { user }) {
       try {
-        await userService.login(user)
+
+        const loggedInUser = await userService.login(user)
         dispatch('loadUser')
         return
       } catch (error) {
