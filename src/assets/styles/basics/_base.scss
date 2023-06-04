@@ -3,7 +3,7 @@
 }
 
 html {
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins-Regular", sans-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
     overflow: hidden;
 }
 #app.break-normal {
-    @media screen and (min-width: 800px) {
+    @media (width > 800px) {
         display: grid;
         grid-template-columns: 4rem 2fr;
         // grid-template-rows: 0.6fr 0.7fr 1.7fr;
@@ -133,7 +133,7 @@ textarea {
 }
 i {
     &:active {
-    svg {
+        svg {
             fill: $clr4;
         }
     }

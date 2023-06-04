@@ -23,6 +23,7 @@
    input[name="search"] {
     @include app-input;
     // margin-inline-end: 1em;
+    margin-inline-start: 1em;
     width: 100%;
    }
 
