@@ -6,9 +6,9 @@
   <h1 class="text-center">Create new post</h1>
 
 
-  <template v-if="post.imgUrl">
+  <template v-if="tempFile.file">
    <section class="img-edit grid">
-    <img :src="post.imgUrl" alt="post-img">
+    <img :src="tempFile.src" alt="post-img">
     <form class="editor-form" @submit.prevent>
      <textarea name="txt" v-model="post.txt" id="" cols="30" rows="10" placeholder="Write a caption"></textarea>
      <div class="post-info grid">
@@ -24,16 +24,14 @@
   <form v-else class="grid">
    <i v-html="$getSvg('add-media')"></i>
    <p>Drag photos and videos here</p>
-   <input @change="uploadPostImg" type="file" id="postImg" name="postImg" accept="image/*,video/*">
+   <input @change="previewImg" type="file" id="postImg" name="postImg" accept="image/*,video/*">
    <label for="postImg">Select from computer</label>
   </form>
-
-
 
  </dialog>
 </template>
 
-// TODO: fix font weight
+
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 import { postService } from '../services/post.service.local';
@@ -43,17 +41,21 @@ export default {
  name: 'PostAdd',
  created() {
   this.post = postService.getEmptyPost();
-
  },
  data() {
   return {
    post: null,
    isEditor: false,
-
+   isImgConfirm: false,
+   tempFile: {
+    file: null,
+    src: null
+   }
   };
  },
  mounted() {
   this.$refs.modal.showModal();
+
  },
  methods: {
   ...mapActions({
@@ -63,15 +65,25 @@ export default {
    toggleModal: 'postStore/toggleModal',
 
   }),
-  async uploadPostImg(ev) {
+  async uploadPostImg(file) {
+   const { url } = await uploadImg(file)
+   this.post.imgUrl = url
+
+  },
+  previewImg(ev) {
    const file = ev.type === 'change' ?
     ev.target.files[0] :
     ev.dataTransfer.files[0]
-   // TODO: add loader AND error handling 
-   // TODO: able to cancel upload
-   const { url } = await uploadImg(file)
-   this.post.imgUrl = url
+   const img = new Image()
+   const reader = new FileReader();
+   reader.onload = (ev) => {
+    img.src = ev.target.result;
+    this.tempFile.src = img.src
+    this.tempFile.file = file
+   };
+   reader.readAsDataURL(file);
    this.isEditor = true
+
   },
   closeModal() {
    this.$refs.modal.close();
@@ -81,7 +93,8 @@ export default {
    const loc = await locationService.getPosition()
    this.post.loc = { ...this.post.loc, ...loc }
   },
-  onAddPost() {
+  async onAddPost() {
+   await this.uploadPostImg(this.tempFile.file)
    this.addPost({ post: JSON.parse(JSON.stringify(this.post)) })
    this.closeModal();
 
