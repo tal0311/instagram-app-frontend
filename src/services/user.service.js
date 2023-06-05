@@ -68,7 +68,6 @@ async function toggleSavedPost(postId) {
 
 
 async function toggleFollow(userToToggle) {
-    // TODO: refactor to get only id 
     const updatedKeys = await httpService.put(`user/${userToToggle._id}/follow`)
     const loggedUser = getLoggedinUser()
 
