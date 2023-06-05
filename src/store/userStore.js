@@ -93,10 +93,7 @@ export const userStore = {
     },
     async userLogin({ dispatch, commit }, { user }) {
       try {
-
-        const loggedInUser = await userService.login(user)
-        dispatch('loadUser')
-        return
+        return await userService.login(user)
       } catch (error) {
         console.error('[Error while user login]:', error)
       }
@@ -110,12 +107,10 @@ export const userStore = {
         console.error('[Error while getting user notifications]:', error)
       }
     },
-    async toggleFollow({ commit, state }, { userToToggle }) {
+    async toggleFollow({ commit }, { userToToggle }) {
 
-      let userToUpdate = state.loggedInUser
-      userToUpdate = JSON.parse(JSON.stringify(userToUpdate))
       try {
-        const updatedUser = await userService.toggleFollow(userToUpdate, userToToggle)
+        const updatedUser = await userService.toggleFollow(userToToggle)
         commit({ type: 'setUser', loggedInUser: updatedUser })
       } catch (error) {
         throw 'Error while updating user:', error

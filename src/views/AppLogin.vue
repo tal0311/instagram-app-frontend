@@ -68,7 +68,7 @@ export default {
     this.formData = {}
     this.$router.push('/')
    } catch (error) {
-    console.error('[Error while sign or log in]', error);
+    throw '[Error while sign or log in]' + error
    }
 
   }

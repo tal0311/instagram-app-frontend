@@ -24,38 +24,61 @@ export const postService = {
 window.ps = postService
 
 async function query(filterBy = { txt: '', userFilter: '', userId: '' }) {
-    return await httpService.get('post', filterBy)
+    try {
+        return await httpService.get('post', filterBy)
+    } catch (error) {
+        throw error
+    }
 }
 
 async function getById(postId) {
-    return await httpService.get('post/' + postId)
+    try {
+        return await httpService.get('post/' + postId)
+    } catch (error) {
+        throw error
+    }
 }
 
 async function remove(postId) {
-    await httpService.remove('post/' + postId)
+    try {
+        return await httpService.remove('post/' + postId)
+    } catch (error) {
+        throw error
+    }
 }
 
 async function save(post) {
-    var savedPost
-    if (post._id) {
-        savedPost = await httpService.put(`post/${post._id}`, post)
-    } else {
-        savedPost = await httpService.post('post', post)
+    try {
+        var savedPost
+        if (post._id) {
+            savedPost = await httpService.put(`post/${post._id}`, post)
+        } else {
+            savedPost = await httpService.post('post', post)
+        }
+        return savedPost
+    } catch (error) {
+        throw error
     }
-    return savedPost
 }
 
 async function addPostComment(postId, txt) {
-    return await httpService.put(`post/${postId}/comment`, txt)
+    try {
+        return await httpService.put(`post/${postId}/comment`, txt)
+    } catch (error) {
+        throw error
+    }
 }
 
 async function addPostLike(postId) {
-    return await httpService.put(`post/${postId}/like`)
+    try {
+        return await httpService.put(`post/${postId}/like`)
+    } catch (error) {
+        throw error
+    }
 }
 
 function getEmptyPost() {
     return {
-        _id: '',
         txt: '',
         imgUrl: '',
         createdAt: Date.now(),

@@ -25,7 +25,7 @@ export default {
       await this.$store.dispatch('userStore/loadUsers');
       await this.$store.dispatch('postStore/loadPosts');
     } catch (error) {
-      // console.log('error:', error)
+      throw error
     }
 
   },
