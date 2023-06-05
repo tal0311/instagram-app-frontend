@@ -8,7 +8,10 @@
 
   <template v-if="tempFile.file">
    <section class="img-edit grid">
-    <img :src="tempFile.src" alt="post-img">
+    <div class="img-container">
+     <img :src="tempFile.src" alt="post-img">
+     <i @click="cancelUpload" v-html="$getSvg('change-img')"></i>
+    </div>
     <form class="editor-form" @submit.prevent>
      <textarea name="txt" v-model="post.txt" id="" cols="30" rows="10" placeholder="Write a caption"></textarea>
      <div class="post-info grid">
@@ -97,8 +100,9 @@ export default {
    await this.uploadPostImg(this.tempFile.file)
    this.addPost({ post: JSON.parse(JSON.stringify(this.post)) })
    this.closeModal();
-
-
+  },
+  cancelUpload() {
+   this.tempFile = null
   }
  }
 

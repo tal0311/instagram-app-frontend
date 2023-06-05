@@ -41,11 +41,22 @@
    place-items: center;
    padding: 0 1em;
    width: 100%;
-   img {
-    width: 100%;
-    // height: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+   .img-container {
+    position: relative;
+    i {
+     position: absolute;
+     bottom: 9px;
+     left: 1em;
+     padding: 0.3em 0.3em 0 0.3em;
+     background: #333;
+     border-radius: 50%;
+    }
+    img {
+     width: 100%;
+     // height: 100%;
+     aspect-ratio: 1/1;
+     object-fit: cover;
+    }
    }
    form.editor-form {
     text-align: center;

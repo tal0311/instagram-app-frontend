@@ -37,3 +37,6 @@ I'm a full stack developer...
 ## instagram sprite
 
 https://static.cdninstagram.com/rsrc.php/v3/y5/r/TJztmXpWTmS.png
+
+## Add post gif
+// https://static.cdninstagram.com/rsrc.php/v3/yQ/r/alF2W5MavPX.gif
