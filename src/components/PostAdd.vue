@@ -49,7 +49,6 @@ export default {
   return {
    post: null,
    isEditor: false,
-   isImgConfirm: false,
    tempFile: {
     file: null,
     src: null
