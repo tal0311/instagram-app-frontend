@@ -58,6 +58,7 @@ export default {
  methods: {
   async loadUser() {
    const { userId } = this.$route.params
+   console.log('userId', typeof userId);
    this.user = await userService.getById(userId)
   },
   userAction() {

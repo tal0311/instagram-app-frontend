@@ -42,7 +42,7 @@ async function getUsers(txt = '') {
 
 
 async function getById(userId) {
-    const user = await httpService.get('user', userId)
+    const user = await httpService.get('user/' + userId)
     // const user = await httpService.get(`user/${userId}`)
     return user
 }
@@ -136,12 +136,14 @@ async function logout() {
 
 
 function saveLocalUser(user) {
-    localStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    debugger
+    console.log('user:', user)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
 function getLoggedinUser() {
-    const user = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
     // if (!user) throw 'No logged in User'
     return user
 }
