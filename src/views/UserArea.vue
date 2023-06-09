@@ -59,7 +59,6 @@ export default {
   async loadUser() {
    const { userId } = this.$route.params
    console.log('userId', typeof userId);
-   debugger
    this.user = await userService.getById(userId)
   },
   userAction() {
