@@ -1,6 +1,6 @@
 <template>
  <section class="login grid">
-  <form class="login-form grid" @submit.prevent>
+  <form class="login-form grid" @submit.prevent="">
    <i class="logo icon text-center" v-html="$getSvg('logo')"></i>
    <input type="text" v-model="formData.username" name="username" placeholder="Phone number, username, or Email">
    <input type="text" v-model="formData.password" name="password" placeholder="Password">
