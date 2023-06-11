@@ -7,7 +7,7 @@
    </header>
    <section class="msg-preview" v-for="msg, idx in msgs" :key="msg">
     <UserPreview :user="{ _id: idx, ...msg }" is="msg-preview">
-     <small class="last-msg-preview">{{ msg.msgs[0].content }}</small>
+     <small class="last-msg-preview">{{ msg.msgs.at(-1).content }}</small>
     </UserPreview>
    </section>
   </section>

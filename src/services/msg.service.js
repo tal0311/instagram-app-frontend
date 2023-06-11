@@ -4,6 +4,8 @@ import { store } from './../store'
 // import { socketService, SOCKET_EVENT_REVIEW_ADDED, SOCKET_EVENT_REVIEW_ABOUT_YOU } from './socket.service'
 import { utilService } from "./util.service";
 import { userService } from "./user.service";
+import { httpService } from "./http.service";
+
 
 
 export const msgService = {
@@ -27,25 +29,21 @@ export const msgService = {
 // })()
 
 
-async function query(userId) {
- // debugger
- const msgs = await storageService.query('msg_db')
- // debugger
-
- return msgs.find(item => item.ownerId === userId).history
- //project msgs by ownerId
- // only return te msgs Preview without the history
+async function query() {
+ try {
+  const msgs = await httpService.get('msg')
+  return msgs
+ } catch (error) {
+  throw error
+ }
 
 }
 
 async function getByContactId(contactId) {
- const user = userService.getLoggedinUser()
- const msgCollection = await storageService.query('msg_db')
- const userMsgs = msgCollection.find(item => item.ownerId === user._id)
-
+ const msgCollection = await httpService.get('msg/' + contactId)
  return {
   _id: contactId,
-  ...userMsgs.history[contactId]
+  ...msgCollection[0].history[contactId]
  }
 }
 
@@ -72,7 +70,7 @@ async function add(ownerId, data, to) {
  return userMsgs
 }
 
-// ; (() => {
+; (() => {
 
-//  utilService.saveToStorage('msg_db', msgs)
-// })()
+ utilService.saveToStorage('msg_db', msgs)
+})()
