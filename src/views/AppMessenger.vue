@@ -66,8 +66,9 @@ export default {
  methods: {
   sendMsg() {
    this.msg.createdAt = Date.now()
-   this.msg.from = this.loggedInUser._id
+   this.msg.to = this.to._id
    // send msg and add to store
+   console.log('msg:', this.msg)
    this.msg = {}
   },
   setTextLength({ target }) {
@@ -78,7 +79,8 @@ export default {
  computed: {
   ...mapGetters({
    msgs: 'msgStore/getMsgs',
-   loggedInUser: 'userStore/getUser'
+   loggedInUser: 'userStore/getUser',
+   to: 'msgStore/getCurrentContact'
   })
  },
  watch: {
