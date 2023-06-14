@@ -1,7 +1,7 @@
 import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
 // import { store } from '../store/store'
-// import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
+import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from './socket.service'
 
 import gUsers from './../data/user.json' assert {type: 'json'}
 import { utilService } from './util.service'
@@ -110,6 +110,7 @@ async function login({ username, password }) {
         const user = await httpService.post('auth/login', { username, password })
         if (user) {
             // socketService.login(user._id)
+            socketService.login(user._id)
             return saveLocalUser(user)
         }
     } catch (error) {
