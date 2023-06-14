@@ -55,8 +55,19 @@
   .logo {
    margin-inline-end: auto;
   }
+  .note-container{
+    position: relative;
+  }
   .icon {
    transform: translateY(4px);
+  }
+  .user-note{
+    height: 7px;
+    width: 7px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    left: 17px;
   }
  }
 }
