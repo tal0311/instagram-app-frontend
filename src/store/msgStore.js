@@ -56,6 +56,7 @@ export const msgStore = {
     async loadCurrentContact({ commit }, { contactId }) {
       try {
         const contact = await msgService.getByContactId(contactId)
+        console.log('contact:', contact)
         commit({ type: 'setCurrentContact', contact })
       } catch (error) {
         throw '[Error trying to load current contact]:' + error

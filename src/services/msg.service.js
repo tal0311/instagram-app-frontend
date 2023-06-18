@@ -8,6 +8,7 @@ import { httpService } from "./http.service";
 
 
 
+
 export const msgService = {
  query,
  add,
@@ -32,6 +33,7 @@ export const msgService = {
 async function query() {
  try {
   const msgs = await httpService.get('msg')
+  console.log('msgs:', msgs)
   return msgs
  } catch (error) {
   throw error
@@ -40,17 +42,11 @@ async function query() {
 }
 
 async function getByContactId(contactId) {
- const msgCollection = await httpService.get('msg/' + contactId)
- return {
-  _id: contactId,
-  ...msgCollection[0].history[contactId]
- }
+ // debugger
+ return await httpService.get('msg/' + contactId)
 }
 
 async function remove(ownerId, toId) {
- const UserMsgs = await getByOwnerId(ownerId)
- delete UserMsgs.history[toId]
- storageService.put('msg_db', UserMsgs)
 
 }
 
@@ -66,7 +62,7 @@ async function add(ownerId, data, to) {
  userMsgs.history[to].push(msg)
 
  // socket to user
- storageService.saveToStorage('msg_db', notifications)
+
  return userMsgs
 }
 

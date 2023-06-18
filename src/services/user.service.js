@@ -74,27 +74,6 @@ async function toggleFollow(userToToggle) {
     const updatedUser = { ...loggedUser, ...updatedKeys }
     return saveLocalUser(updatedUser)
 
-    //    this will return only updated keys from user update make sure to update the logged in user
-    // {
-    //     "_id": "643d2a0f99553dc5ce88b861",
-    //         "fullname": "Tal Amit",
-    //             "tags": [
-    //                 "tag1",
-    //                 "tag2",
-    //                 "tag3",
-    //                 "likeTag"
-    //             ],
-    //                 "followers": [],
-    //                     "following": [
-    //                         {
-    //                             "fullname": "men75",
-    //                             "username": "men.75",
-    //                             "_id": "6472e57d55a4ce858ce54929",
-    //                             "imgUrl": "https://randomuser.me/api/portraits/men/75.jpg"
-    //                         }
-    //                     ]
-    // }
-
 }
 
 async function getStory(userId) {
@@ -137,7 +116,7 @@ async function logout() {
 
 
 function saveLocalUser(user) {
-    debugger
+
     console.log('user:', user)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
