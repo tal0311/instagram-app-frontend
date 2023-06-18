@@ -132,13 +132,17 @@
    box-sizing: content-box;
    border: none;
    padding: 2px;
-   height: 24px;
-   width: 24px;
+   height: 32px;
+   width: 32px;
   }
   &.is-from-me {
    justify-content: end;
    display: flex;
    flex-direction: row-reverse;
+   p.msg {
+    background: $clr7;
+    color: $clr1;
+   }
   }
   .gradient-wrapper {
    background: none;
