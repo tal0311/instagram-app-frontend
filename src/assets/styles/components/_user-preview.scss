@@ -139,9 +139,12 @@
    justify-content: end;
    display: flex;
    flex-direction: row-reverse;
-   p.msg {
-    background: $clr7;
-    color: $clr1;
+   p {
+    &.msg {
+     padding: 7px 12px;
+     background: $clr7;
+     color: $clr1;
+    }
    }
   }
   .gradient-wrapper {
