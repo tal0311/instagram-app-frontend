@@ -48,7 +48,7 @@ export default {
  },
  computed: {
   fullPreview() {
-   const fullPreviewOpt = ['results', 'msg-preview', 'msg-details']
+   const fullPreviewOpt = ['msg-details is-from-me', 'results', 'msg-preview', 'msg-details']
    return (fullPreviewOpt.includes(this.is))
   }
  }

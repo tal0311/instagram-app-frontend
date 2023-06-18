@@ -5,6 +5,7 @@ import { store } from './../store'
 import { utilService } from "./util.service";
 import { userService } from "./user.service";
 import { httpService } from "./http.service";
+import { th } from "element-plus/es/locale";
 
 
 
@@ -32,9 +33,7 @@ export const msgService = {
 
 async function query() {
  try {
-  const msgs = await httpService.get('msg')
-  console.log('msgs:', msgs)
-  return msgs
+  return await httpService.get('msg')
  } catch (error) {
   throw error
  }
@@ -42,31 +41,26 @@ async function query() {
 }
 
 async function getByContactId(contactId) {
- // debugger
- return await httpService.get('msg/' + contactId)
+ try {
+  return await httpService.get('msg/' + contactId)
+ } catch (error) {
+  throw error
+ }
 }
 
 async function remove(ownerId, toId) {
 
 }
 
-async function add(ownerId, data, to) {
- // later by backend
- const userMsgs = await getByOwnerId(ownerId)
- if (!userMsgs.history[to]) userMsgs.history[to] = []
-
- const msg = {
-  id: utilService.makeId(),
-  ...data
+async function add(msg) {
+ try {
+  return await httpService.post('msg/add', msg)
+ } catch (error) {
+  throw error
  }
- userMsgs.history[to].push(msg)
-
- // socket to user
-
- return userMsgs
 }
 
-; (() => {
+// ; (() => {
 
- utilService.saveToStorage('msg_db', msgs)
-})()
+//  utilService.saveToStorage('msg_db', msgs)
+// })()
