@@ -45,8 +45,8 @@ export const msgStore = {
     },
     async addMsg({ commit }, { msg }) {
       try {
-        const msgToAdd = await msgService.save({ ...msg })
-        commit({ type: 'publishMsg', msgToAdd })
+        const msgToAdd = await msgService.add(msg)
+        commit({ type: 'updateDirectMsgs', msg: msgToAdd })
       } catch (error) {
         throw '[Error trying to Add Msg]:' + error
       }

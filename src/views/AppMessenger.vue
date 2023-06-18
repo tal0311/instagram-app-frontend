@@ -23,8 +23,6 @@
     </section>
    </template>
 
-
-
    <template v-else>
     <section class="msg-container grid">
      <header>
@@ -50,7 +48,7 @@
 </template>
 
 <script>
-// TODO: add msg cmp( add comment add msg are the same) and hook
+// TODO: add msg cmp (add comment add msg are the same) and hook
 // TODO: CONVERT TO DYNAMIC COMPONENT
 import UserPreview from '../components/UserPreview.vue'
 import { mapGetters } from 'vuex'
@@ -65,10 +63,12 @@ export default {
  },
  methods: {
   sendMsg() {
+   // BUG: if removing the msg.content from the if statement, the msg is sent twice
+   if (!this.msg.content) return
    this.msg.createdAt = Date.now()
    this.msg.to = this.to._id
    // send msg and add to store
-   console.log('msg:', this.msg)
+   this.$store.dispatch({ type: 'msgStore/addMsg', msg: { ...this.msg } })
    this.msg = {}
   },
   setTextLength({ target }) {
