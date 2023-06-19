@@ -120,7 +120,7 @@ export default {
     },
 
     getClass() {
-      const isLiked = this.post?.likedBy?.some(by => by._id === this.loggedUser._id)
+      const isLiked = this.post?.likedBy?.some(by => by.userId === this.loggedUser._id)
       const isSaved = this.loggedUser.savedPostIds?.includes(this.post._id)
       this.actions[0].icon = isLiked ? 'like-full' : 'like'
       this.actions[3].icon = isSaved ? 'save-full' : 'save'
