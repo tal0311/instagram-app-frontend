@@ -50,7 +50,7 @@ async function remove(ownerId, toId) {
 
 async function add(msg) {
     try {
-        socketService.emit('chat-send-msg',msg)
+        // socketService.emit('chat-send-msg',msg)
         return await httpService.post('msg/add', msg)
     } catch (error) {
         throw error
