@@ -1,20 +1,16 @@
 import { storageService } from "./async-storage.service";
 import msgs from '../data/msg.json' assert {type: 'json'}
 import { store } from './../store'
-// import { socketService, SOCKET_EVENT_REVIEW_ADDED, SOCKET_EVENT_REVIEW_ABOUT_YOU } from './socket.service'
+import { socketService } from './socket.service'
 import { utilService } from "./util.service";
 import { userService } from "./user.service";
 import { httpService } from "./http.service";
 
-
-
-
-
 export const msgService = {
- query,
- add,
- remove,
- getByContactId
+    query,
+    add,
+    remove,
+    getByContactId
 }
 
 // ; (() => {
@@ -32,20 +28,20 @@ export const msgService = {
 
 
 async function query() {
- try {
-  return await httpService.get('msg')
- } catch (error) {
-  throw error
- }
+    try {
+        return await httpService.get('msg')
+    } catch (error) {
+        throw error
+    }
 
 }
 
 async function getByContactId(contactId) {
- try {
-  return await httpService.get('msg/' + contactId)
- } catch (error) {
-  throw error
- }
+    try {
+        return await httpService.get('msg/' + contactId)
+    } catch (error) {
+        throw error
+    }
 }
 
 async function remove(ownerId, toId) {
@@ -53,11 +49,12 @@ async function remove(ownerId, toId) {
 }
 
 async function add(msg) {
- try {
-  return await httpService.post('msg/add', msg)
- } catch (error) {
-  throw error
- }
+    try {
+        socketService.emit('chat-send-msg',msg)
+        return await httpService.post('msg/add', msg)
+    } catch (error) {
+        throw error
+    }
 }
 
 // ; (() => {
